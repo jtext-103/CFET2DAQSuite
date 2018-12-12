@@ -58,7 +58,7 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
                         }
                         catch (Exception e)
                         {
-                            //todo:写入Log永久保存
+                            logger.Error("不覆盖拷贝错误! Error Message : {0}" + e.ToString());
                             Console.WriteLine("不覆盖拷贝错误! Error Message : {0}", e);
                         }
                         break;
@@ -73,7 +73,7 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
                         }
                         catch (Exception e)
                         {
-                            //todo:写入Log永久保存
+                            logger.Error("重命名原文件拷贝错误! Error Message : {0}" + e.ToString());
                             Console.WriteLine("重命名原文件拷贝错误! Error Message : {0}", e);
                         }
                         break;
@@ -84,7 +84,7 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
                             {
                                 if (File.Exists(realServerDirectory + GetServerFilename()))
                                 {
-                                    //todo:写入Log永久保存
+                                    logger.Info("正覆盖原有数据文件:" + GetServerFilename());
                                     Console.WriteLine("警告！正覆盖原有数据文件！");
                                 }
                                 File.Copy(p, realServerDirectory + GetServerFilename(), true);
@@ -92,7 +92,7 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
                         }
                         catch (Exception e)
                         {
-                            //todo:写入Log永久保存
+                            logger.Error("覆盖拷贝错误! Error Message : {0}" + e.ToString());
                             Console.WriteLine("覆盖拷贝错误! Error Message : {0}", e);
                         }
                         break;

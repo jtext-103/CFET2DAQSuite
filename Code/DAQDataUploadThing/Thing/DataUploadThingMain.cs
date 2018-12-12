@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Jtext103.CFET2.Core;
 using Jtext103.CFET2.Core.Attributes;
 using Jtext103.CFET2.Core.Event;
+using Jtext103.CFET2.Core.Log;
 
 namespace Jtext103.CFET2.Things.DAQDataUploadThing
 {
@@ -15,6 +16,8 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
     public partial class DataUpLoadThing : Thing
     {
         private UploadConfig myConfig;
+
+        private ICfet2Logger logger;
 
         //事件成员
         private Token token;
@@ -34,6 +37,8 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
                 throw new Exception("上传配置文件错误!");
             }
             LocalDataFileName = "data.hdf5";
+
+            logger = Cfet2LogManager.GetLogger("UploadLog");
         }
 
         public override void Start()
