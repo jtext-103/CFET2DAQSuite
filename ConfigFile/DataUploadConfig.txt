@@ -1,0 +1,20 @@
+{
+	"LocalDataDirectories":[
+		"D:\\Data\\ni\\Card0\\"
+	],
+	"ServerDataDirectories":[
+		"D:\\Data\\ECEIServer\\ni\\Card0\\"
+	],
+	"AIThings":[
+		"/card0"
+	],
+	"PathCount": 1,
+	"EventPaths":[
+		"/aimanagement"
+	],
+	"EventKinds":[
+		"AllAITaskFinished"
+	],
+	"UploadBehavior": "RenameOriginal"
+}
+	
