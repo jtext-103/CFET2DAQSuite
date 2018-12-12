@@ -54,7 +54,7 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
                             {
                                 File.Copy(p, realServerDirectory + GetServerFilename());
                             }
-                            
+                            logger.Info("KeepOriginal上传成功");
                         }
                         catch (Exception e)
                         {
@@ -69,7 +69,8 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
                             {
                                 FileOperator.RenameExistedFile(GetServerFilename(), realServerDirectory);
                                 File.Copy(p, realServerDirectory + GetServerFilename());
-                            } 
+                            }
+                            logger.Info("RenameOriginal上传成功");
                         }
                         catch (Exception e)
                         {
@@ -88,7 +89,8 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
                                     Console.WriteLine("警告！正覆盖原有数据文件！");
                                 }
                                 File.Copy(p, realServerDirectory + GetServerFilename(), true);
-                            }                     
+                            }
+                            logger.Info("Overwrite上传成功");
                         }
                         catch (Exception e)
                         {
