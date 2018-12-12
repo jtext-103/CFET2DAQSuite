@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="~/Content/ChannelsJS/function.js"></script>
+<link rel="stylesheet" href="~/Content/ChannelsCSS/custom.css" />
+
+<script>
+    var thingPath = '@Model.Path';
+    var apiLoadHead = '@Model.Path' + '/datacomplex';
+
+    $.ajax({
+        url: thingPath + '/samplerate',
+        type: "get",
+        async: true,
+        success: function (data) {
+            var obj = JSON.parse(data);
+            for (var i = 0; i < 16; i++) {
+                document.getElementById(i.toString() + " sampleId").innerHTML = "  Sample Rate : " + obj.ObjectVal;
+            }
+        }
+    });   
+</script>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ChannelsView</title>
+    <style type="text/css" class="container"></style>
+</head>
+<body>
+    <div id="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <font style="font-size: 35px">
+                    All Channels Loaded in
+                    <font color="#0066cc">
+                        @Model.Path.Substring(1, Model.Path.Length - 1)
+                    </font>
+                </font>
+                <div style="display:inline;float:right">
+                    <font style="font-size: 18px">ShotNo : &nbsp;</font>
+                    <b style="font-size: 30px" id="shotId"></b>
+                    <a href="/daqsmanager">
+                        <span class="glyphicon glyphicon-arrow-left btn btn-link btn-lg"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        @{
+            for (int i = 0; i < 16; i++)
+            {
+                @Html.Partial("_PartialChannel", i);
+            }
+        }
+    </div>
+</body>
+
+<script>
+    $.ajax({
+        url: '@Model.Path' + '/currentshotno',
+        type: "get",
+        contentType: 'application/json',
+        async: false,
+        success: function (data) {
+            var obj = JSON.parse(data);
+            document.getElementById("shotId").innerHTML = obj.ObjectVal;
+        }
+    });
+
+    @for(int i = 0; i < 16; i++)
+    {
+        <text>
+            load(@i, false);
+        </text>
+    }
+</script>

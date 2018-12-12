@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="~/Content/DAQsManagerJS/function.js"></script>
+<link rel="stylesheet" href="~/Content/DAQsManagerCSS/custom.css" />
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DAQsManagerView</title>
+    <style type="text/css" class="container"></style>
+</head>
+
+<body>
+    <div id="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div style="display:inline">
+                    <font style="font-size: 35px">
+                        All DAQs Loaded&nbsp;
+                    </font>
+                    <font style="font-size: 18px">
+                        (&nbsp;Auto Refresh
+                        <input type="checkbox" name="Auto" checked="checked" onchange="refreshStatesAuto(this);" />
+                        )
+                    </font>
+                </div>              
+                <div style="display:inline;float:right">
+                    <font style="font-size: 18px">Last ShotNo : &nbsp;</font>
+                    <b style="font-size: 30px" id="shotId"></b>
+                    <span class="glyphicon glyphicon-refresh btn btn-link btn-lg" onclick="refreshStates(true);"></span>
+                </div>
+            </div>
+        </div>
+        @{
+            //这个比较傻逼，因为没有Thing有所有的Cards，所以要显示几个采集卡就加几个吧，直接改代码
+            string[] daqs = Model.Context["ParamArray"];
+            foreach (var d in daqs)
+            {
+                @Html.Partial("_PartialDAQManager", d);
+            }
+        }
+    </div>
+</body>
+</html>
+
+<script>
+    apiShot = '/card0' + '/currentshotno';
+</script>

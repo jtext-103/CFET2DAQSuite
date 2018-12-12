@@ -1,0 +1,75 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            <font color="RoyalBlue">
+                <a id="@Model nameId" href="@Model"></a>
+            </font>
+            &nbsp;&nbsp;&#9;
+            <font id="@Model triggerId"></font>
+            <font id="@Model msId" style="float:right"></font>
+        </h2>
+    </div>
+    <div class="panel-body">
+        <button type="button" class="btn btn-success btn-lg" onclick="arm('@Model');">
+            <span class="glyphicon glyphicon-play"></span>
+            <b>&nbsp;Arm&nbsp;</b>
+        </button>
+        <button type="button" class="btn btn-warning btn-lg" onclick="stop('@Model');">
+            <span class="glyphicon glyphicon-stop"></span>
+            <b>&nbsp;Stop&nbsp;</b>
+        </button>
+        <b style="font-size: 20px">&nbsp;State:&nbsp;</b>
+        <b id="@Model stateId" style="font-size: 30px"></b>
+        <b id="@Model timeId" style="font-size: 30px;float:right"></b>
+    </div>
+</div>
+
+<script>
+    $.ajax({
+        url: '@Model' + '/name',
+        type: "get",
+        async: true,
+        success: function (data) {
+            var obj = JSON.parse(data);
+            document.getElementById('@Model' + " nameId").innerHTML = obj.ObjectVal;
+        }
+    });
+
+    $.ajax({
+        url: '@Model' + '/triggertype',
+        type: "get",
+        async: true,
+        success: function (data) {
+            var obj = JSON.parse(data);
+            var val;
+            if (obj.ObjectVal == 0) val = "Immediate";
+            else if (obj.ObjectVal == 1) val = "Digital";
+            else if (obj.ObjectVal == 2) val = "Analog";
+            else val = "Unknow";
+            document.getElementById('@Model' + " triggerId").innerHTML = "Trigger Type : " + val;
+        }
+    })
+
+    $.ajax({
+        url: '@Model' + '/ismaster',
+        type: "get",
+        async: true,
+        success: function (data) {
+            var obj = JSON.parse(data);
+            if (obj.ObjectVal == true) {
+                document.getElementById('@Model' + " msId").innerHTML = "Master";
+                document.getElementById('@Model' + " msId").style.color = "#32CD32";
+            }
+            else {
+                document.getElementById('@Model' + " msId").innerHTML = "Slave";
+                document.getElementById('@Model' + " msId").style.color = "#FFA500";
+            }
+        }
+    });
+
+    //给 function.js 里面用
+    apiStates["@Model"] = '@Model' + '/aistate';
+    apiArms["@Model"] = '@Model' + '/tryarm';
+    apiStops["@Model"] = '@Model' + '/trystop';
+    apiTimes["@Model"] = '@Model' + '/time';
+</script>

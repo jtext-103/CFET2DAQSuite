@@ -54,11 +54,35 @@
     <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
       <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
     </Reference>
+    <Reference Include="HDF.PInvoke, Version=1.10.200.0, Culture=neutral, PublicKeyToken=18793c1fcffe58a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\HDF.PInvoke.NETStandard.1.10.200\lib\netstandard2.0\HDF.PInvoke.dll</HintPath>
+    </Reference>
+    <Reference Include="HDF5JTextBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\HDF5JTextBase.1.0.0\lib\netstandard2.0\HDF5JTextBase.dll</HintPath>
+    </Reference>
     <Reference Include="Jtext103.CFET2Core, Version=2.0.6919.28896, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\Jtext103.CFET2Core.2.0.6919.28896\lib\net451\Jtext103.CFET2Core.dll</HintPath>
     </Reference>
+    <Reference Include="JTextDAQDataFileOperator.HDF5, Version=1.2.6.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\JTextDAQDataFileOperator.HDF5.1.2.6\lib\netstandard2.0\JTextDAQDataFileOperator.HDF5.dll</HintPath>
+    </Reference>
+    <Reference Include="JTextDAQDataFileOperator.Interface, Version=1.2.6.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\JTextDAQDataFileOperator.Interface.1.2.6\lib\netstandard2.0\JTextDAQDataFileOperator.Interface.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Nancy, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.1.4.3\lib\net40\Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Hosting.Self, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.Hosting.Self.1.4.1\lib\net40\Nancy.Hosting.Self.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.ViewEngines.Razor, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.Viewengines.Razor.1.4.3\lib\net40\Nancy.ViewEngines.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="NancyModule, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NancyModule.1.2.0\lib\net461\NancyModule.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -79,6 +103,11 @@
     <Reference Include="System.Numerics" />
     <Reference Include="System.ValueTuple, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.3.1\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -86,6 +115,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="ViewCopy, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ViewCopy.1.0.0\lib\net461\ViewCopy.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cfet2Program.cs" />
@@ -108,9 +140,23 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\400.html" />
+    <Content Include="Views\404.html" />
+    <Content Include="Views\index.html" />
     <None Include="App.config" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="DynamicLoad\ConfigFileExample.json" />
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
+    <None Include="Views\config.cshtml" />
+    <None Include="Views\method.cshtml" />
+    <None Include="Views\status.cshtml" />
+    <None Include="Views\thing.cshtml" />
+    <None Include="Views\ViewSelector.json" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -119,5 +165,33 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BasicAIModel\BasicAIModel.csproj">
+      <Project>{37072345-0577-4e3f-ba8e-8fd50bf92a7a}</Project>
+      <Name>BasicAIModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAQAIThing\DAQAIThing.csproj">
+      <Project>{a1b20f7e-7c4a-49f7-a488-5a19c7380841}</Project>
+      <Name>DAQAIThing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAQDataUploadThing\DAQDataUploadThing.csproj">
+      <Project>{c6c48777-2842-46cb-bba6-2978df9744a5}</Project>
+      <Name>DAQDataUploadThing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NIDAQAI\NIDAQAI.csproj">
+      <Project>{9b688d20-3308-44bd-9f14-770d7abf624b}</Project>
+      <Name>NIDAQAI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Nancy.Viewengines.Razor.1.4.3\build\Nancy.ViewEngines.Razor.targets" Condition="Exists('..\packages\Nancy.Viewengines.Razor.1.4.3\build\Nancy.ViewEngines.Razor.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Nancy.Viewengines.Razor.1.4.3\build\Nancy.ViewEngines.Razor.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Nancy.Viewengines.Razor.1.4.3\build\Nancy.ViewEngines.Razor.targets'))" />
+  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(SolutionDir)\packages\HDF.PInvoke.NETStandard.1.10.200\runtimes\win-x64\native\*" "$(TargetDir)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
