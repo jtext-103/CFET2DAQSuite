@@ -4,7 +4,7 @@ using Jtext103.CFET2.Core.Extension;
 using System;
 using System.Collections.Generic;
 using Jtext103.CFET2.Things.BasicAIModel;
-using Jtext103.CFET2.Things.DataOperator;
+using Jtext103.CFET2.Things.ShotDirOperate;
 using Jtext103.CFET2.Core.Log;
 using System.Threading;
 using JTextDAQDataFileOperator.Interface;

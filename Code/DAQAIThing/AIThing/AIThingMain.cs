@@ -4,7 +4,7 @@ using Jtext103.CFET2.Core.Extension;
 using System;
 using System.Collections.Generic;
 using Jtext103.CFET2.Things.BasicAIModel;
-using Jtext103.CFET2.Things.DataOperator;
+using Jtext103.CFET2.Things.ShotDirOperate;
 using Jtext103.CFET2.Core.Log;
 using System.Threading;
 using JTextDAQDataFileOperator.Interface;
@@ -178,7 +178,7 @@ namespace Jtext103.CFET2.Things.DAQAIThing
                     //自动删除多余数据
                     try
                     {
-                        DataFileOperator.DeleteRedundantDataDirectories(
+                        ShotDirOperator.DeleteRedundantDataDirectories(
                             DataFileParentDirectory, basicAI.StaticConfig.RemainShotsMax - basicAI.StaticConfig.RemainShotsMin, basicAI.StaticConfig.RemainShotsMin);
                     }
                     catch (Exception)
@@ -192,7 +192,7 @@ namespace Jtext103.CFET2.Things.DAQAIThing
                     if (thisAI.StaticConfig.AutoWriteDataToFile)
                     {
                         //创建下一个文件夹
-                        CurrentFileDirectiory = DataFileOperator.CreateNextDirectory(DataFileParentDirectory);
+                        CurrentFileDirectiory = ShotDirOperator.CreateNextDirectory(DataFileParentDirectory);
                         //new DataWriter，缓存当前炮数据及将数据写入文件
                         string dataDirectory = CurrentFileDirectiory + @"\";
                         dataWriter = DataFileFactory.GetWriter(dataDirectory, dataFileName, ChannelCount(-1), SampleRate(-1), basicAI.DataNeedTransposeWhenSaving, basicAI.StaticConfig.StartTime);

@@ -4,7 +4,7 @@ using Jtext103.CFET2.Core.Extension;
 using System;
 using System.Collections.Generic;
 using Jtext103.CFET2.Things.BasicAIModel;
-using Jtext103.CFET2.Things.DataOperator;
+using Jtext103.CFET2.Things.ShotDirOperate;
 using Jtext103.CFET2.Core.Log;
 using System.Threading;
 using JTextDAQDataFileOperator.Interface;
@@ -120,7 +120,7 @@ namespace Jtext103.CFET2.Things.DAQAIThing
         {
             get
             {
-                int currentShotNo = DataFileOperator.FindMaxCompletedShotNo(DataFileParentDirectory);
+                int currentShotNo = ShotDirOperator.FindMaxCompletedShotNo(DataFileParentDirectory);
                 if (currentShotNo == 0)
                 {
                     //throw new Exception("没有保存任何数据，无法获得（已经放电完成的）上一炮炮号！");

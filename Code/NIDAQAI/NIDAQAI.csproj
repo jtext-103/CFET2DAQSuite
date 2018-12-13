@@ -70,10 +70,6 @@
       <Project>{37072345-0577-4e3f-ba8e-8fd50bf92a7a}</Project>
       <Name>BasicAIModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataOperator\DataOperator.csproj">
-      <Project>{6aca9fc9-6e91-4b79-ad4d-2011a30c2cf9}</Project>
-      <Name>DataOperator</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
