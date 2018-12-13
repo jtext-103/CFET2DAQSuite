@@ -25,14 +25,9 @@
             在bin目录下的Views文件夹下的视图路径
             </summary>
         </member>
-        <member name="P:Jtext103.CFET2.NancyHttpCommunicationModule.ViewPathAndModel.ParamArray">
-            <summary>
-            页面很可能会请求多个子页面，这里给出路径
-            </summary>
-        </member>
         <member name="P:Jtext103.CFET2.NancyHttpCommunicationModule.ViewPathAndModel.Params">
             <summary>
-            其它信息，自定义
+            信息自定义
             </summary>
         </member>
         <member name="T:Jtext103.CFET2.NancyHttpCommunicationModule.ViewSelector">

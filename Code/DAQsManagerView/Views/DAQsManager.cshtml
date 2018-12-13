@@ -34,11 +34,9 @@
             </div>
         </div>
         @{
-            //这个比较傻逼，因为没有Thing有所有的Cards，所以要显示几个采集卡就加几个吧，直接改代码
-            string[] daqs = Model.Context["ParamArray"];
-            foreach (var d in daqs)
+            foreach (var d in Model.Context["childpaths"])
             {
-                @Html.Partial("_PartialDAQManager", d);
+                @Html.Partial("_PartialDAQManager", (string)d);
             }
         }
     </div>
