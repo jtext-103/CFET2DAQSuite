@@ -1,12 +1,10 @@
 {
-	"LocalDataDirectories":[
-		"D:\\Data\\ni\\Card0\\"
-	],
-	"ServerDataDirectories":[
-		"D:\\Data\\ECEIServer\\ni\\Card0\\"
-	],
 	"AIThings":[
 		"/card0"
+	],
+	"StatusOfAIThing":"/FullDataFilePaths",
+	"ServerDataDirectories":[
+		"D:\\Data\\ECEIServer\\ni\\Card0\\"
 	],
 	"PathCount": 1,
 	"EventPaths":[
