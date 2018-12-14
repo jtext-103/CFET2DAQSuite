@@ -32,6 +32,15 @@
             <param name="length">读取长度</param>
             <returns></returns>
         </member>
+        <member name="M:JTextDAQDataFileOperator.Interface.IDataReader.LoadDataFromFile_TimeAxis(System.Int32,System.UInt64,System.UInt64)">
+            <summary>
+            对应方法的时间轴
+            </summary>
+            <param name="channelNo"></param>
+            <param name="start"></param>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
         <member name="M:JTextDAQDataFileOperator.Interface.IDataReader.LoadDataFromFileComplex(System.Int32,System.UInt64,System.UInt64,System.UInt64,System.UInt64)">
             <summary>
             依据采集点获取数据，支持复杂查找，大数据可能比较慢
@@ -43,9 +52,31 @@
             <param name="block">每次读取多少点</param>
             <returns></returns>
         </member>
+        <member name="M:JTextDAQDataFileOperator.Interface.IDataReader.LoadDataFromFileComplex_TimeAxis(System.Int32,System.UInt64,System.UInt64,System.UInt64,System.UInt64)">
+            <summary>
+            对应方法的时间轴
+            </summary>
+            <param name="channelNo"></param>
+            <param name="start"></param>
+            <param name="stride"></param>
+            <param name="count"></param>
+            <param name="block"></param>
+            <returns></returns>
+        </member>
         <member name="M:JTextDAQDataFileOperator.Interface.IDataReader.LoadDataFromFileComplexRam(System.Int32,System.UInt64,System.UInt64,System.UInt64,System.UInt64)">
             <summary>
             从 start 到最后一个点整个从硬盘中读出来，再从内存中计算 stride 等参数，和 5 参数 LoadDataFromFile 一样的功能但速度更快，不过更耗内存 
+            </summary>
+            <param name="channelNo"></param>
+            <param name="start"></param>
+            <param name="stride"></param>
+            <param name="count"></param>
+            <param name="block"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JTextDAQDataFileOperator.Interface.IDataReader.LoadDataFromFileComplexRam_TimeAxis(System.Int32,System.UInt64,System.UInt64,System.UInt64,System.UInt64)">
+            <summary>
+            对应方法的时间轴
             </summary>
             <param name="channelNo"></param>
             <param name="start"></param>
@@ -64,14 +95,34 @@
             <param name="stride">读取点之间的跨越，和另外几个方法的 stride 参数含义相同</param>
             <returns></returns>
         </member>
+        <member name="M:JTextDAQDataFileOperator.Interface.IDataReader.LoadDataFromFileByTime_TimeAxis(System.Int32,System.Double,System.Double,System.UInt64)">
+            <summary>
+            对应方法的时间轴
+            </summary>
+            <param name="channelNo"></param>
+            <param name="startTime"></param>
+            <param name="endTime"></param>
+            <param name="stride"></param>
+            <returns></returns>
+        </member>
         <member name="M:JTextDAQDataFileOperator.Interface.IDataReader.LoadDataFromFileByTimeFuzzy(System.Int32,System.Double,System.Double,System.UInt64)">
             <summary>
-            依据采集时间获取数据，获取的点数 >= count
+            依据采集时间获取数据，数据是时间轴均匀的，所以数据大概比 count 多一些
             </summary>
             <param name="channelNo">通道号</param>
             <param name="startTime">开始时间，依据 IDataWriter 中的开始时间</param>
             <param name="endTime">结束时间，如果和开始时间相同则根据点数</param>
             <param name="count">两个时间点中间要多少个点，由于需要保持时间轴均匀所以返回结果会 >= count 但最接近</param>
+            <returns></returns>
+        </member>
+        <member name="M:JTextDAQDataFileOperator.Interface.IDataReader.LoadDataFromFileByTimeFuzzy_TimeAxis(System.Int32,System.Double,System.Double,System.UInt64)">
+            <summary>
+            对应方法的时间轴
+            </summary>
+            <param name="channelNo"></param>
+            <param name="startTime"></param>
+            <param name="endTime"></param>
+            <param name="count"></param>
             <returns></returns>
         </member>
         <member name="M:JTextDAQDataFileOperator.Interface.IDataReader.ChannelCount">
@@ -104,6 +155,18 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:JTextDAQDataFileOperator.Interface.IDataReader.Metadata">
+            <summary>
+            获取Metadata类
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JTextDAQDataFileOperator.Interface.IDataReader.AllDataFiles">
+            <summary>
+            获取所有文件名，带后缀不带路径
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:JTextDAQDataFileOperator.Interface.IDataWriter">
             <summary>
             写新的数据文件
@@ -125,6 +188,36 @@
             获取所有采集文件完整路径
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:JTextDAQDataFileOperator.Interface.Metadata">
+            <summary>
+            所有元数据
+            </summary>
+        </member>
+        <member name="P:JTextDAQDataFileOperator.Interface.Metadata.ChannelCount">
+            <summary>
+            通道总数
+            </summary>
+        </member>
+        <member name="P:JTextDAQDataFileOperator.Interface.Metadata.SampleCount">
+            <summary>
+            每通道采样数
+            </summary>
+        </member>
+        <member name="P:JTextDAQDataFileOperator.Interface.Metadata.SampleRate">
+            <summary>
+            采样率
+            </summary>
+        </member>
+        <member name="P:JTextDAQDataFileOperator.Interface.Metadata.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:JTextDAQDataFileOperator.Interface.Metadata.CreateTime">
+            <summary>
+            文件创建时间
+            </summary>
         </member>
     </members>
 </doc>

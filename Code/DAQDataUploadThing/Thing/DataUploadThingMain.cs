@@ -36,8 +36,6 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
             {
                 throw new Exception("上传配置文件错误!");
             }
-            LocalDataFileName = "data.hdf5";
-
             logger = Cfet2LogManager.GetLogger("UploadLog");
         }
 
@@ -57,6 +55,13 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
             {
                 if (UploadState == Status.Idle)
                 {
+                    LocalDataFileNames = new List<string[]>();
+                    //设置要上传的文件名
+                    for (int i = 0; i < myConfig.AIThings.Length; i++)
+                    {
+                        LocalDataFileNames.Add((string[])MyHub.TryGetResourceSampleWithUri(myConfig.AIThings[i] + myConfig.StatusOfAIThing).ObjectVal);
+                    }
+
                     //开始上传   
                     UploadAll();
                 }

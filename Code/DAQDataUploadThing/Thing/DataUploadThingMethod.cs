@@ -28,18 +28,16 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
                 }
                 UploadState = Status.Running;
 
-                Task.Run(() => Upload(myConfig.LocalDataDirectories, myConfig.ServerDataDirectories, myConfig.AIThings));
+                Task.Run(() => Upload(myConfig.ServerDataDirectories, myConfig.AIThings));
                 return 0;
             }
         }
 
         // 最基础的上传的方法，将本地路径中的所有文件复制到服务器路径下
-        private void Upload(string[] localDirectories, string[] serverDirectories, string[] aIThings)
+        private void Upload(string[] serverDirectories, string[] aIThings)
         {
-            for (int i = 0; i < localDirectories.Length; i++)
+            for (int i = 0; i < LocalDataFileNames.Count; i++)
             {
-                //设置本地上传文件完整路径
-                string[] realLocalPaths = SetLocalFilePath(localDirectories[i], aIThings[i]);
                 string realServerDirectory = SetServerFileDirectory(serverDirectories[i]);
 
                 switch (myConfig.UploadBehavior)
@@ -50,9 +48,9 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
                         }
                         try
                         {
-                            foreach(var p in realLocalPaths)
+                            foreach(var p in LocalDataFileNames[i])
                             {
-                                File.Copy(p, realServerDirectory + GetServerFilename());
+                                File.Copy(p, realServerDirectory + GetServerFilename(p));
                             }
                             logger.Info("KeepOriginal上传成功");
                         }
@@ -65,10 +63,10 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
                     case Behavior.RenameOriginal:
                         try
                         {
-                            foreach (var p in realLocalPaths)
+                            foreach (var p in LocalDataFileNames[i])
                             {
-                                FileOperator.RenameExistedFile(GetServerFilename(), realServerDirectory);
-                                File.Copy(p, realServerDirectory + GetServerFilename());
+                                FileOperator.RenameExistedFile(GetServerFilename(p), realServerDirectory);
+                                File.Copy(p, realServerDirectory + GetServerFilename(p));
                             }
                             logger.Info("RenameOriginal上传成功");
                         }
@@ -81,14 +79,14 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
                     case Behavior.Overwrite:
                         try
                         {
-                            foreach (var p in realLocalPaths)
+                            foreach (var p in LocalDataFileNames[i])
                             {
-                                if (File.Exists(realServerDirectory + GetServerFilename()))
+                                if (File.Exists(realServerDirectory + GetServerFilename(p)))
                                 {
-                                    logger.Info("正覆盖原有数据文件:" + GetServerFilename());
+                                    logger.Info("正覆盖原有数据文件:" + GetServerFilename(p));
                                     Console.WriteLine("警告！正覆盖原有数据文件！");
                                 }
-                                File.Copy(p, realServerDirectory + GetServerFilename(), true);
+                                File.Copy(p, realServerDirectory + GetServerFilename(p), true);
                             }
                             logger.Info("Overwrite上传成功");
                         }
@@ -107,13 +105,6 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
             {
                 UploadState = Status.Idle;
             }
-        }
-
-        //用配置文件中的Local路径得到真正的，也就是最大炮号文件夹的路径
-        private string[] SetLocalFilePath(string originDirectory, string aIThings)
-        {
-            object[] param = null;  
-            return (string[])MyHub.TryGetResourceSampleWithUri(aIThings + "/fulldatafilepaths", param).ObjectVal;
         }
 
         //通过本地采集电脑上配置的ServerDirectories和ShotServer获取最后要上传到Server上的文件夹路径，不带文件名
@@ -155,12 +146,12 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
             return nowDirectory;
         }
 
-        //通过ShotServerThing获得最后要存到Server上的文件名，不带路径
-        private string GetServerFilename()
+        //通过ShotServerThing获得最后要存到Server上的文件名，不带路径，带后缀
+        private string GetServerFilename(string localName)
         {
             //todo:从ECEIServer上的ShotServerThing获取当前炮号
             int shotNo = 233333333;
-            return shotNo.ToString() + ".hdf5";
+            return shotNo.ToString() + localName.Substring(localName.LastIndexOf('.'), localName.Length - localName.LastIndexOf('.'));
         }
     }
 }

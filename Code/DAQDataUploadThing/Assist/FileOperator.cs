@@ -22,7 +22,7 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
                 var index = fileName.LastIndexOf('.');
                 var newName = fileName.Substring(0, index) + "-" 
                                 + DateTime.Now.ToLocalTime().ToString("yyyyMMddHHmmss") 
-                                + fileName.Substring(index, fileName.Length - 1 - index);
+                                + fileName.Substring(index, fileName.Length - index);
                 File.Move(targetDirectory + fileName, targetDirectory + newName);
             }
         }

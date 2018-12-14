@@ -11,9 +11,14 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
     public class UploadConfig
     {
         /// <summary>
+        /// 监听的AIThings
+        /// </summary>
+        public string[] AIThings { get; set; }
+
+        /// <summary>
         /// 本地要上传的所有数据文件夹路径
         /// </summary>
-        public string[] LocalDataDirectories { get; set; }
+        public string StatusOfAIThing { get; set; }
 
         /// <summary>
         /// 上传到的服务器的路径，需要跟 Local 的一一对应
@@ -21,15 +26,9 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
         public string[] ServerDataDirectories { get; set; }
 
         /// <summary>
-        /// 监听的AIThings
-        /// </summary>
-        public string[] AIThings { get; set; }
-
-        /// <summary>
         /// 以上3个数组的长度，要求是一样的
         /// </summary>
         public int PathCount { get; set; }
-
 
         /// <summary>
         /// 监听的事件路径
@@ -55,7 +54,7 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
             //全部 public 参数反序列化
             JsonConvert.PopulateObject(File.ReadAllText(path, Encoding.Default), this);
 
-            PathCount = LocalDataDirectories.Length;
+            PathCount = AIThings.Length;
             if (ServerDataDirectories.Length != PathCount)
             {
                 throw new Exception("本地文件目录数与上传目录数不同!");

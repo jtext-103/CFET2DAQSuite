@@ -35,6 +35,15 @@
             <param name="length">等于 0 则代表从 start 开始，读余下的所有点；大于零则代表读 length 个数的点，最多不超过 sampleCount</param>
             <returns></returns>
         </member>
+        <member name="M:JTextDAQDataFileOperator.HDF5.DataReader.LoadDataFromFile_TimeAxis(System.Int32,System.UInt64,System.UInt64)">
+            <summary>
+            对应方法的时间轴
+            </summary>
+            <param name="channelNo"></param>
+            <param name="start"></param>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
         <member name="M:JTextDAQDataFileOperator.HDF5.DataReader.LoadDataFromFileComplex(System.Int32,System.UInt64,System.UInt64,System.UInt64,System.UInt64)">
             <summary>
             从文件中读出指定通道的数据片段，支持复杂读取
@@ -44,6 +53,12 @@
             <param name="stride">每次向后多少点</param>
             <param name="count">读多少次</param>
             <param name="block">每次读多少个连续点</param>
+            <returns></returns>
+        </member>
+        <member name="M:JTextDAQDataFileOperator.HDF5.DataReader.LoadDataFromFileComplex_TimeAxis(System.Int32,System.UInt64,System.UInt64,System.UInt64,System.UInt64)">
+            <summary>
+            对应方法的时间轴
+            </summary>
             <returns></returns>
         </member>
         <member name="M:JTextDAQDataFileOperator.HDF5.DataReader.LoadDataFromFileComplexRam(System.Int32,System.UInt64,System.UInt64,System.UInt64,System.UInt64)">
@@ -57,14 +72,43 @@
             <param name="block"></param>
             <returns></returns>
         </member>
+        <member name="M:JTextDAQDataFileOperator.HDF5.DataReader.LoadDataFromFileComplexRam_TimeAxis(System.Int32,System.UInt64,System.UInt64,System.UInt64,System.UInt64)">
+            <summary>
+            对应方法的时间轴
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:JTextDAQDataFileOperator.HDF5.DataReader.LoadDataFromFileByTime(System.Int32,System.Double,System.Double,System.UInt64)">
             <summary>
             根据时间读取数据
             注意！！！如果 startTime 和 endTime 过近，或者 strdie 过大，可能导致结果没有按照理想时间分布或直接报错
             </summary>
+            <param name="channelNo">通道号</param>
             <param name="startTime">想要的开始时间</param>
             <param name="endTime">想要的结束时间</param>
             <param name="stride">两点之间差多少点（最小是1）</param>
+            <returns></returns>
+        </member>
+        <member name="M:JTextDAQDataFileOperator.HDF5.DataReader.LoadDataFromFileByTime_TimeAxis(System.Int32,System.Double,System.Double,System.UInt64)">
+            <summary>
+            对应方法的时间轴
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JTextDAQDataFileOperator.HDF5.DataReader.LoadDataFromFileByTimeFuzzy(System.Int32,System.Double,System.Double,System.UInt64)">
+            <summary>
+            根据时间读取大约 count 个点，数据是时间轴均匀的，所以数据大概比 count 多一些
+            </summary>
+            <param name="channelNo">通道号</param>
+            <param name="startTime">开始时间</param>
+            <param name="endTime">结束时间</param>
+            <param name="count">希望读取的点数</param>
+            <returns></returns>
+        </member>
+        <member name="M:JTextDAQDataFileOperator.HDF5.DataReader.LoadDataFromFileByTimeFuzzy_TimeAxis(System.Int32,System.Double,System.Double,System.UInt64)">
+            <summary>
+            对应方法的时间轴
+            </summary>
             <returns></returns>
         </member>
         <member name="M:JTextDAQDataFileOperator.HDF5.DataReader.ChannelCount">
@@ -97,9 +141,9 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JTextDAQDataFileOperator.HDF5.DataReader.FullPathOfAllDataFiles">
+        <member name="M:JTextDAQDataFileOperator.HDF5.DataReader.Metadata">
             <summary>
-            获取所有采集文件完整路径
+            获取包含所有 metadata 的类
             </summary>
             <returns></returns>
         </member>

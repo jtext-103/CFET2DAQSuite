@@ -273,7 +273,7 @@ namespace Jtext103.CFET2.Things.DAQAIThing
             return basicAI.StaticConfig.RemainShotsMin;
         }
 
-        #region status not used fequently
+        #region 不经常使用的Status
 
         /// <summary>
         /// 终端输入方式（差分、单端）

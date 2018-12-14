@@ -21,20 +21,30 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
         /// 要上传的本地数据文件名
         /// </summary>
         [Cfet2Status]
-        public string LocalDataFileName { get; internal set; }
+        public List<string[]> LocalDataFileNames { get; internal set; }
 
         /// <summary>
-        /// 本地路径配置
+        /// 已有文件存在时行为
         /// </summary>
         /// <returns></returns>
         [Cfet2Status]
-        public string LocalDataDirectories
+        public Behavior UploadBehavior()
+        {
+            return myConfig.UploadBehavior;
+        }
+
+        /// <summary>
+        /// 在Console中显示要上传的本地文件完整路径
+        /// </summary>
+        [Cfet2Status]
+        public string ShowLocalFiles
         {
             get
             {
                 string result = null;
-                foreach (var s in myConfig.LocalDataDirectories)
+                foreach (var d in LocalDataFileNames)
                 {
+                    foreach(var s in d)
                     result += s + "\n";
                 }
                 return result.Substring(0, result.Length - 1);
@@ -42,11 +52,11 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
         }
 
         /// <summary>
-        /// 上传路径配置
+        /// 在Console中显示上传路径配置
         /// </summary>
         /// <returns></returns>
         [Cfet2Status]
-        public string ServerDataDirectories
+        public string ShowServerDataDirectories
         {
             get
             {
@@ -60,20 +70,10 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
         }
 
         /// <summary>
-        /// 已有文件存在时行为
-        /// </summary>
-        /// <returns></returns>
-        [Cfet2Status]
-        public Behavior UploadBehavior()
-        {
-            return myConfig.UploadBehavior;
-        }
-
-        /// <summary>
-        /// 监听的所有事件
+        /// 在Console中显示监听的所有事件
         /// </summary>
         [Cfet2Status]
-        public string Events
+        public string ShowEvents
         {
             get
             {
