@@ -54,6 +54,9 @@
     <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
       <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
     </Reference>
+    <Reference Include="DicServer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DicServer.1.0.0\lib\net461\DicServer.dll</HintPath>
+    </Reference>
     <Reference Include="HDF.PInvoke, Version=1.10.200.0, Culture=neutral, PublicKeyToken=18793c1fcffe58a3, processorArchitecture=MSIL">
       <HintPath>..\packages\HDF.PInvoke.NETStandard.1.10.200\lib\netstandard2.0\HDF.PInvoke.dll</HintPath>
     </Reference>

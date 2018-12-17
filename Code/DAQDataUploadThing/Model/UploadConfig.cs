@@ -31,6 +31,11 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
         public int PathCount { get; set; }
 
         /// <summary>
+        /// 上传炮号从 CFET 的获取路径
+        /// </summary>
+        public string ShotNoSource { get; set; }
+
+        /// <summary>
         /// 监听的事件路径
         /// </summary>
         public string[] EventPaths { get; set; }

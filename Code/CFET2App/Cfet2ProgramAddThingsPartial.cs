@@ -10,6 +10,7 @@ using Jtext103.CFET2.Things.NiAiLib;
 using Jtext103.CFET2.Things.DAQDataUploadThing;
 using JTextDAQDataFileOperator.HDF5;
 using Jtext103.CFET2.NancyHttpCommunicationModule;
+using Jtext103.CFET2.Things.DicServer;
 using ViewCopy;
 
 namespace Jtext103.CFET2.CFET2App
@@ -27,6 +28,10 @@ namespace Jtext103.CFET2.CFET2App
             myViewsCopyer.StartCopy();
             var myContentCopyer = new ViewCopyer(null, "Content");
             myContentCopyer.StartCopy();
+
+            //Dic
+            var dic = new DicServerThing();
+            MyHub.TryAddThing(dic, "/", "Dic", @"D:\Run\ConfigFile\DAQFamilyBucket\Dic.txt");
 
             //采集卡
             var niMaster = new AIThing();

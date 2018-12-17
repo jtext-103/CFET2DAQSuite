@@ -111,8 +111,9 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
         //如果Server上的文件夹路径不存在，则在这里自动创建
         private string SetServerFileDirectory(string serverParentDirectory)
         {
-            //todo:从ECEIServer上的ShotServerThing获取当前炮号
-            int shotNo = 233333333;
+            //int shotNo = 233333333;
+            string shotNoS = (string)MyHub.TryGetResourceSampleWithUri(myConfig.ShotNoSource).ObjectVal;
+            int shotNo = int.Parse(shotNoS);
 
             string nowDirectory = serverParentDirectory;
             string newDir;
@@ -149,8 +150,9 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
         //通过ShotServerThing获得最后要存到Server上的文件名，不带路径，带后缀
         private string GetServerFilename(string localName)
         {
-            //todo:从ECEIServer上的ShotServerThing获取当前炮号
-            int shotNo = 233333333;
+            //int shotNo = 233333333;
+            string shotNoS = (string)MyHub.TryGetResourceSampleWithUri(myConfig.ShotNoSource).ObjectVal;
+            int shotNo = int.Parse(shotNoS);
             return shotNo.ToString() + localName.Substring(localName.LastIndexOf('.'), localName.Length - localName.LastIndexOf('.'));
         }
     }
