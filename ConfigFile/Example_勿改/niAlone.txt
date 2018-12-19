@@ -1,9 +1,9 @@
 {
     "TriggerConfig": {
       "TriggerType": 0,
-      "TriggerSource": "/PXI1Slot2/APFI0",
+      "TriggerSource": "",
       "TriggerEdge": 0,
-      "MasterOrSlave": 1
+      "MasterOrSlave": 0
     },
     "ClockConfig": {
       "ClkSource": "",

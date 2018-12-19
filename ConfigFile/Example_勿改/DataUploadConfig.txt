@@ -1,0 +1,19 @@
+{
+	"AIThings":[
+		"/card0"
+	],
+	"StatusOfAIThing":"/FullDataFilePaths",
+	"ServerDataDirectories":[
+		"D:\\Data\\ECEIServer\\ni\\Card0\\"
+	],
+	"PathCount": 1,
+	"ShotNoSource":"/Dic/Element/ShotNo",
+	"EventPaths":[
+		"/aimanagement"
+	],
+	"EventKinds":[
+		"AllAITaskFinished"
+	],
+	"UploadBehavior": "RenameOriginal"
+}
+	

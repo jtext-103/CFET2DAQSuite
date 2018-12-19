@@ -1,5 +1,0 @@
-{
-	"PvNames":[
-		"ST:SHOTSERVER:SHOTNO"
-	]
-}
