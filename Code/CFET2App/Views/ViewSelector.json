@@ -7,7 +7,9 @@
 			"ViewPath": "DAQsManager",
 			"Params": {
         "childpaths": [
-          "card0"
+          "card0",
+          "card1",
+          "card2"
         ]
 			}
 		},

@@ -1,7 +1,7 @@
 {
     "TriggerConfig": {
       "TriggerType": 0,
-      "TriggerSource": "/PXI1Slot2/APFI0",
+      "TriggerSource": "",
       "TriggerEdge": 0,
       "MasterOrSlave": 1
     },
@@ -14,7 +14,7 @@
       "ReadSamplePerTime": 1000
     },
     "ChannelConfig": {
-      "ChannelName": "PXI1Slot2/ai0:3",
+      "ChannelName": "PXI1Slot3/ai0:7",
       "TerminalConfigType": 0,
       "MinimumValue": 0.0,
       "MaximumValue": 10.0
