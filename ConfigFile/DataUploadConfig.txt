@@ -1,10 +1,12 @@
 {
 	"AIThings":[
-		"/card0"
+		"/card1",
+		"/card2"
 	],
 	"StatusOfAIThing":"/FullDataFilePaths",
 	"ServerDataDirectories":[
-		"D:\\Data\\ECEIServer\\ni\\Card0\\"
+		"D:\\Data\\ECEIServer\\ni\\Card1\\",
+		"D:\\Data\\ECEIServer\\ni\\Card2\\"
 	],
 	"PathCount": 1,
 	"ShotNoSource":"/Dic/Element/ShotNo",

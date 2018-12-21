@@ -1,12 +1,13 @@
 {
+    "BoardNum":1,
     "TriggerConfig": {
       "TriggerType": 0,
-      "TriggerSource": "/PXI1Slot2/ai/StartTrigger",
+      "TriggerSource": 3,
       "TriggerEdge": 0,
-      "MasterOrSlave": 2
+      "MasterOrSlave": 1
     },
     "ClockConfig": {
-      "ClkSource": "",
+      "ClkSource": 0,
       "SampleQuantityMode": 0,
       "SampleRate": 1000.0,
       "ClkActiveEdge": 0,
@@ -14,7 +15,9 @@
       "ReadSamplePerTime": 1000
     },
     "ChannelConfig": {
-      "ChannelName": "PXI1Slot3/ai0:3",
+      "ChannelName": [
+          0,1,2,3
+      ],
       "TerminalConfigType": 0,
       "MinimumValue": 0.0,
       "MaximumValue": 10.0

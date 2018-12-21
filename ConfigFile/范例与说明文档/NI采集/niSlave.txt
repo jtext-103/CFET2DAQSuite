@@ -1,0 +1,27 @@
+{
+    "TriggerConfig": {
+      "TriggerType": 1,
+      "TriggerSource": "/PXI1Slot2/ai/StartTrigger",
+      "TriggerEdge": 0,
+      "MasterOrSlave": 2
+    },
+    "ClockConfig": {
+      "ClkSource": "",
+      "SampleQuantityMode": 0,
+      "SampleRate": 1000.0,
+      "ClkActiveEdge": 0,
+      "TotalSampleLengthPerChannel": 4000,
+      "ReadSamplePerTime": 1000
+    },
+    "ChannelConfig": {
+      "ChannelName": "PXI1Slot3/ai0:3",
+      "TerminalConfigType": 0,
+      "MinimumValue": 0.0,
+      "MaximumValue": 10.0
+    },
+    "StartTime":0.5,
+    "AutoWriteDataToFile": true,
+    "ChannelCount": 4,
+    "RemainShotsMax": 30,
+    "RemainShotsMin": 20
+}

@@ -25,35 +25,35 @@ namespace Jtext103.CFET2.Things.JyAiLib
         /// </summary>
         public JYAIStaticConfig()
         {
-            TriggerConfig = new AITriggerConfiguration()
-            {
-                //一般就用Immediate和Digital
-                TriggerType = BasicAIModel.AITriggerType.Immediate,
-                //SSI的意思就是背板某条触发总线，驱动底层自动map
-                TriggerSource = AIDigitalTriggerSource.SSI,
-                TriggerEdge = Edge.Rising,
-                //对于主卡和非非同步卡，以上设置都有效
-                //对于从卡，TriggerType、TriggerSource和TriggerEdge设置都无效，会分别自动设置为Digital、Rising和SSI
-                MasterOrSlave = AITriggerMasterOrSlave.NonSync
-            };
-            ClockConfig = new AIClockConfiguration()
-            {
-                ClkSource = AIClockSource.Internal,
-                SampleQuantityMode = AISamplesMode.FiniteSamples,
-                ClkActiveEdge = Edge.Rising,
-                SampleRate = 1000,
-                TotalSampleLengthPerChannel = 1000,
-                ReadSamplePerTime = 500
-            };
-            ChannelConfig = new AIChannelConfiguration()
-            {
-                ChannelName = new int[] { 0, 1, 2, 3 },
-                TerminalConfigType = AITerminalType.Differential,
-                MinimumValue = 0,
-                MaximumValue = 10
-            };
-            AutoWriteDataToFile = true;
-            BoardNum = 0;
+            //TriggerConfig = new AITriggerConfiguration()
+            //{
+            //    //一般就用Immediate和Digital
+            //    TriggerType = BasicAIModel.AITriggerType.Immediate,
+            //    //SSI的意思就是背板某条触发总线，驱动底层自动map
+            //    TriggerSource = AIDigitalTriggerSource.SSI,
+            //    TriggerEdge = Edge.Rising,
+            //    //对于主卡和非非同步卡，以上设置都有效
+            //    //对于从卡，TriggerType、TriggerSource和TriggerEdge设置都无效，会分别自动设置为Digital、Rising和SSI
+            //    MasterOrSlave = AITriggerMasterOrSlave.NonSync
+            //};
+            //ClockConfig = new AIClockConfiguration()
+            //{
+            //    ClkSource = AIClockSource.Internal,
+            //    SampleQuantityMode = AISamplesMode.FiniteSamples,
+            //    ClkActiveEdge = Edge.Rising,
+            //    SampleRate = 1000,
+            //    TotalSampleLengthPerChannel = 1000,
+            //    ReadSamplePerTime = 500
+            //};
+            //ChannelConfig = new AIChannelConfiguration()
+            //{
+            //    ChannelName = new int[] { 0, 1, 2, 3 },
+            //    TerminalConfigType = AITerminalType.Differential,
+            //    MinimumValue = 0,
+            //    MaximumValue = 10
+            //};
+            //AutoWriteDataToFile = true;
+            //BoardNum = 0;
         }
 
         /// <summary>
@@ -63,12 +63,15 @@ namespace Jtext103.CFET2.Things.JyAiLib
         public JYAIStaticConfig(string filePath)
         {
             JYAIStaticConfig config = (JYAIStaticConfig)InitFromConfigFile(filePath);
-            ChannelConfig = config.ChannelConfig;
+            BoardNum = config.BoardNum;
             TriggerConfig = config.TriggerConfig;
             ClockConfig = config.ClockConfig;
+            ChannelConfig = config.ChannelConfig;
+            StartTime = config.StartTime;
             AutoWriteDataToFile = config.AutoWriteDataToFile;
             ChannelCount = config.ChannelCount;
-            BoardNum = config.BoardNum;
+            RemainShotsMax = config.RemainShotsMax;
+            RemainShotsMin = config.RemainShotsMin;
         }
     }
 }

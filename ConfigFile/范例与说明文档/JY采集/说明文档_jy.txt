@@ -1,0 +1,64 @@
+{
+    //JY板卡号，编号按照0，1，2……忽略空槽和NI板卡，一般从0开始连续，但是不知道机箱左边是0还是右边是0
+    //一般确定之后，不动机箱它就不会变了
+    "BoardNum":1,
+
+    "TriggerConfig": {
+      //触发类型，0：立即触发（Ready了马上就变Running，但作为从卡不会）；1：数字触发
+      "TriggerType": 0,
+      //触发源，3：背板触发；9：外部数字触发
+      "TriggerSource": 3,
+      //触发边沿，0：上升沿；1：下降沿
+      "TriggerEdge": 0,
+      //主从	，0：无主从；1：主卡；2：从卡
+      "MasterOrSlave": 0
+    },
+
+    "ClockConfig": {
+      //时钟源，内部时钟：0
+      "ClkSource": 0,
+      //采样模式，0：有限采样（基本用这个）；1：无限采样；2：硬件定时单点
+      "SampleQuantityMode": 0,
+      //采样率，即每秒采样点数
+      "SampleRate": 1000.0,
+      //时钟边沿，同触发边沿
+      "ClkActiveEdge": 0,
+      //总采样点数
+      "TotalSampleLengthPerChannel": 4000,
+      //每次从采集卡读取点个数，需要被TotalSampleLengthPerChannel整除
+      "ReadSamplePerTime": 1000
+    },
+
+    "ChannelConfig": {
+      //通道名，用通道号的数组表示
+      "ChannelName": [
+          0,1,2,3
+      ],
+      //采样方式，0：差分
+      "TerminalConfigType": 0,
+      //输入最小值
+      "MinimumValue": 0.0,
+      //输入最大值
+      "MaximumValue": 10.0
+    },
+
+    //以下配置对采集卡没有影响，但对采集程序的行为有影响
+
+    //采集开始时间，作为元数据存入采集文件，决定数据的时间轴
+    "StartTime":0.5,
+    //采集结束后自动存文件，true：存，用于有限采样；false：不存，用于无限采样实时监视
+    "AutoWriteDataToFile": true,
+    //采样通道数，需要与ChannelName通道数相同
+    "ChannelCount": 4,
+    //本地保存的最大炮数，超过这个数就删除到RemainShotsMin
+    "RemainShotsMax": 30,
+    //本地保存的最小炮数
+    "RemainShotsMin": 20
+}
+
+常见问题：
+1、绝对不能出现中文字符
+2、相关的/不要漏掉或多加
+3、文档仔细看，不行问王昱星
+4、通道号注意别搞错了，可以参考下NIMAX里面看到的内容
+5、这是个JSON格式文件，编辑之后最好去http://www.bejson.com/或类似网站检查一下是否正确

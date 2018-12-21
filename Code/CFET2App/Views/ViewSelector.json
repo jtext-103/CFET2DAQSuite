@@ -1,20 +1,24 @@
 {
-	"RegexURLtoViewPathAndModel": {
-		"/":{
-			"ViewPath": "index"
-		},
-		"/daqsmanager":{
-			"ViewPath": "DAQsManager",
-			"Params": {
+  "RegexURLtoViewPathAndModel": {
+    "/": {
+      "ViewPath": "index"
+    },
+    "/daqsmanager": {
+      "ViewPath": "DAQsManager",
+      "Params": {
         "childpaths": [
           "card0",
           "card1",
-          "card2"
+          "card2",
+          "card3",
+          "carda",
+          "cardb",
+          "cardc"
         ]
-			}
-		},
-		"/card\\d{1}$":{
-			"ViewPath": "Channels"
-		}
-	}
+      }
+    },
+    "/card(.*?)": {
+      "ViewPath": "Channels"
+    }
+  }
 }

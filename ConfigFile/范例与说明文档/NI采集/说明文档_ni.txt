@@ -1,6 +1,6 @@
 {
     "TriggerConfig": {
-      //触发类型，0：无触发（需要手动Arm）；1：数字触发（作为从卡）；2：模拟触发（外部，作为主卡）
+      //触发类型，0：立即触发（Ready了马上就变Running）；1：数字触发（作为从卡）；2：模拟触发（外部，作为主卡）
       "TriggerType": 0,
       //触发源，没有主从：""；主卡："/PXI1Slot2/APFI0"；从卡："/PXI1Slot2/ai/StartTrigger"（前面的Slot2是主卡）
       "TriggerSource": "/PXI1Slot2/APFI0",
@@ -55,3 +55,4 @@
 2、相关的/不要漏掉或多加
 3、文档仔细看，不行问王昱星
 4、TriggerSource以及ChannelName中的内容需要和NIMAX中看到的卡名一致
+5、这是个JSON格式文件，编辑之后最好去http://www.bejson.com/或类似网站检查一下是否正确
