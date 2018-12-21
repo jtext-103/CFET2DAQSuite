@@ -81,21 +81,21 @@ namespace Jtext103.CFET2.CFET2App
             //                    "CardA",           
             //                    new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\jyNonSync.txt", DataFileParentDirectory = @"D:\Data\jy\CardA" });
 
-            var jyMaster = new AIThing();
-            jyMaster.basicAI = new JYAI();
-            jyMaster.DataFileFactory = new HDF5DataFileFactory();
-            MyHub.TryAddThing(jyMaster,
-                                @"/",
-                                "CardB",
-                                new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\jyMaster.txt", DataFileParentDirectory = @"D:\Data\jy\CardB" });
+            //var jyMaster = new AIThing();
+            //jyMaster.basicAI = new JYAI();
+            //jyMaster.DataFileFactory = new HDF5DataFileFactory();
+            //MyHub.TryAddThing(jyMaster,
+            //                    @"/",
+            //                    "CardB",
+            //                    new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\jyMaster.txt", DataFileParentDirectory = @"D:\Data\jy\CardB" });
 
-            var jySlave = new AIThing();
-            jySlave.basicAI = new JYAI();
-            jySlave.DataFileFactory = new HDF5DataFileFactory();
-            MyHub.TryAddThing(jySlave,
-                                @"/",
-                                "CardC",
-                                new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\jySlave.txt", DataFileParentDirectory = @"D:\Data\jy\CardC" });
+            //var jySlave = new AIThing();
+            //jySlave.basicAI = new JYAI();
+            //jySlave.DataFileFactory = new HDF5DataFileFactory();
+            //MyHub.TryAddThing(jySlave,
+            //                    @"/",
+            //                    "CardC",
+            //                    new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\jySlave.txt", DataFileParentDirectory = @"D:\Data\jy\CardC" });
 
             //------------------------------自动 Arm 采集卡的，只有一个这个，它的逻辑是当所有 AllAIThingPaths 中的卡都 Idle 之后自动 Arm 所有 AutoArmAIThingPaths 中的卡
             var aiManagement = new AIManagementThing();
@@ -105,11 +105,11 @@ namespace Jtext103.CFET2.CFET2App
                                 new
                                 {
                                     //要判断多少个卡的状态就加几个（比如独立工作的卡就不用加），注意前面是 / 后面是卡名，比如{ "/Card0", "/Card1" },
-                                    //AllAIThingPaths = new string[] { "/Card1", "/Card2" },
-                                    AllAIThingPaths = new string[] { "/CardB", "/CardC" },
+                                    AllAIThingPaths = new string[] { "/Card1", "/Card2" },
+                                    //AllAIThingPaths = new string[] { "/CardB", "/CardC" },
                                     //自动Arm的，如果不想手动触发的就加上，跟上面一行格式一样
-                                    //AutoArmAIThingPaths = new string[] { "/Card2" }
-                                    AutoArmAIThingPaths = new string[] { "/CardC" }
+                                    AutoArmAIThingPaths = new string[] { "/Card2" }
+                                    //AutoArmAIThingPaths = new string[] { "/CardC" }
                                 });
 
             //------------------------------上传文件的，只有一个这个
