@@ -185,6 +185,10 @@
       <Project>{2ef7524f-fa13-4f96-b29b-f68ada1096cf}</Project>
       <Name>JYDAQAI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MDSUploadThing\MDSUploadThing.csproj">
+      <Project>{ea731e84-d470-4e20-8695-8f8546441d41}</Project>
+      <Name>MDSUploadThing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NIDAQAI\NIDAQAI.csproj">
       <Project>{9b688d20-3308-44bd-9f14-770d7abf624b}</Project>
       <Name>NIDAQAI</Name>

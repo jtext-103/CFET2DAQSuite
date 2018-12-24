@@ -57,13 +57,36 @@ namespace Jtext103.CFET2.Things.DAQAIThing
         /// <param name="length"></param>
         /// <returns></returns>
         [Cfet2Status]
-        public double[] Data(int shotNo, int channelNo, int start, int length)
+        public double[] Data(int channelNo, int shotNo, int start, int length)
         {
-            return DataComplex(shotNo, channelNo, start, length, 1);
+            try
+            {
+                string fileDirectory;
+                if (shotNo < 0)
+                {
+                    throw new Exception("读取数据炮号应大于或等于0！");
+                }
+                else if (shotNo == 0)
+                {
+                    fileDirectory = DataFileParentDirectory + "\\" + CurrentShotNo.ToString() + "\\";
+                }
+                else
+                {
+                    fileDirectory = DataFileParentDirectory + "\\" + shotNo.ToString() + "\\";
+
+                }
+                dataReader = DataFileFactory.GetReader(fileDirectory, dataFileName);
+                double[] data = dataReader.LoadDataFromFile(channelNo, (ulong)start, (ulong)length);
+                return data;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         [Cfet2Status]
-        public double[] DataComplex(int shotNo, int channelNo, int start, int end, double stepD)
+        public double[] DataComplex(int channelNo, int shotNo, int start, int end, double stepD)
         {
             try
             {

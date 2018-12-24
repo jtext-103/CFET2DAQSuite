@@ -38,7 +38,7 @@ function load(index, isHand) {
     }
 
     var apiLoad = apiLoadHead + '/'
-        + shotNo.toString() + '/' + index.toString() + '/' + start.toString() + '/' + end.toString() + '/' + step.toString();
+        + index.toString() + '/' + shotNo.toString() + '/' + start.toString() + '/' + end.toString() + '/' + step.toString();
 
     $.ajax({
         url: apiLoad,

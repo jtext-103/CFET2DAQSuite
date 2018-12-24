@@ -227,9 +227,13 @@ namespace Jtext103.CFET2.Things.JyAiLib
             }
         }
 
-        public BasicAIStaticConfig LoadStaticConfig(string filePath)
+        public BasicAIStaticConfig LoadStaticConfig(string configFilePath)
         {
-            return new JYAIStaticConfig(filePath);
+            if (configFilePath == "" || configFilePath == null)
+            {
+                return new JYAIStaticConfig();
+            }
+            return new JYAIStaticConfig(configFilePath);
         }
 
         #region IDisposable Support

@@ -98,7 +98,7 @@ namespace Jtext103.CFET2.Things.DAQAIThing
                 {
                     string fileDirectory = DataFileParentDirectory + "\\" + actualShotNo.ToString() + "\\";
                     dataReader = DataFileFactory.GetReader(fileDirectory, dataFileName);
-                    BasicAIStaticConfig temp = basicAI.LoadStaticConfig("");
+                    BasicAIStaticConfig temp = basicAI.LoadStaticConfig(null);
 
                     //添加 Status 中暴露的参数
                     temp.ChannelCount = dataReader.ChannelCount();

@@ -1,0 +1,80 @@
+{
+
+	//主从上传程序，主为1，从为2
+	"MasterOrSlave":1,
+
+	//从上传程序完整路径，为Master设定，Slave设定为""即可
+	"SlavePath":"C:\\Users\\wyx\\Desktop\\Debug\\Jtext103.CFET2.CFET2App.exe",
+	//MDS服务器配置
+	"ServerConfig":{
+
+		//MDS服务器IP，后面可以加":8333"表示端口号，不加默认8000
+		"Host":"127.0.0.1",
+		//树名
+		"Tree":"testTree"
+	},
+	//监听的上传事件产生者，Slave不需要设定为[]即可，一般勿动！！！
+	"EventPaths":[
+		"/aimanagement"
+	],
+	//监听的上传事件，Slave不需要设定为[]即可，一般勿动！！！
+	"EventKinds":[
+
+		"AllAITaskFinished"
+
+	],
+
+
+	//上传通道配置
+	"ChannelConfigs":[
+
+	{
+		//从 CFET 中获取数据的路径，第一个参数为卡名，中间 data 固定，后面的是通道
+		"SourceAIData":"/card0/data/{3,0,1,4}",
+
+		//从 CFET 中获取采样率的路径，第一个参数为卡名，后面的 samplerate 固定
+		"SourceAISampleRate":"/card0/samplerate",
+
+		//从 CFET 中获取每个通道数据长度的路径，第一个参数为卡名，后面的 length 固定
+		"SourceAILength":"/card0/length",
+
+		//从 CFET 中获取采集开始时间的路径，第一个参数为卡名，后面的 starttime 固定
+		"SourceAIStartTime":"/card0/starttime",
+
+		//上传到的 MDS Tree 的 Tag，需要和 SourceAIData 一一对应
+		"Tag":"ch{3,0,1,4}",
+		//是否启用，启用：true；不启用：false
+		//如果选择了 false 表示此项设置无用
+		"Enable":true
+
+	}]
+
+}
+
+
+
+//关于 {a,b,c,d} 形式参数的说明
+
+//示例：{3,0,1,4}
+
+//该参数用来自动生成有重复主体和变化数字的相同项，比如 pxi0001 - pxi0016
+// a、b、c、d 原则上应为 uint 数，否则可能有 BUG
+
+// a 为数字设定位数，0 表示不设特定位数，3 表示将 1 变为 001，如果 设为 3 但数超过 3 位则用原数表示
+
+// b 为起始数
+
+// c 为每次增加的步长，也就是数字每次加多少
+
+// d 表示总共有多少个重复项
+
+// ChannelConfigs 中 {a,b,c,d} 必须出现两次，否则报错，其中 d 参数以 SourceAiData 的为准
+
+// {a,b,c,d} 中间不能有空格和其他不相关字符，但能出现在任意位置，只能出现一次
+
+//需要注意的是，SourceAIData 中的通道可能会出现 000 的情况，手动上传时也需使用 000 形式，如果实际 AI 通道为 0 也不会有问题
+
+可能遇到的问题：
+1、{a,b,c,d} 中只能出现 { 或 , 或数字，不能有任何空格或其它字符
+2、注意该有的 "" 和不该有的，比如 true 就没有 ""
+3、注意斜杠的方向

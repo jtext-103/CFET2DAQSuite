@@ -25,15 +25,13 @@ namespace Jtext103.CFET2.Things.JyAiLib
         /// </summary>
         public JYAIStaticConfig()
         {
+            //没有配置文件路径时，初始化生成的模板
+            //BoardNum = 0;
             //TriggerConfig = new AITriggerConfiguration()
             //{
-            //    //一般就用Immediate和Digital
             //    TriggerType = BasicAIModel.AITriggerType.Immediate,
-            //    //SSI的意思就是背板某条触发总线，驱动底层自动map
             //    TriggerSource = AIDigitalTriggerSource.SSI,
             //    TriggerEdge = Edge.Rising,
-            //    //对于主卡和非非同步卡，以上设置都有效
-            //    //对于从卡，TriggerType、TriggerSource和TriggerEdge设置都无效，会分别自动设置为Digital、Rising和SSI
             //    MasterOrSlave = AITriggerMasterOrSlave.NonSync
             //};
             //ClockConfig = new AIClockConfiguration()
@@ -52,8 +50,11 @@ namespace Jtext103.CFET2.Things.JyAiLib
             //    MinimumValue = 0,
             //    MaximumValue = 10
             //};
+            //StartTime = 0.5;
             //AutoWriteDataToFile = true;
-            //BoardNum = 0;
+            //ChannelCount = 4;
+            //RemainShotsMax = 30;
+            //RemainShotsMin = 20;
         }
 
         /// <summary>

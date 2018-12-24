@@ -269,6 +269,10 @@ namespace Jtext103.CFET2.Things.NiAiLib
 
         public BasicAIStaticConfig LoadStaticConfig(string configFilePath)
         {
+            if(configFilePath == "" || configFilePath == null)
+            {
+                return new NIAIStaticConfig();
+            }
             return new NIAIStaticConfig(configFilePath);
         }
 
