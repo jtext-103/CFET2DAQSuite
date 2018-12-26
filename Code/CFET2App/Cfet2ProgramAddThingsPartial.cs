@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Jtext103.CFET2.Things.DAQAIThing;
 using Jtext103.CFET2.Things.NiAiLib;
+using Jtext103.CFET2.Things.NIScopeDAQAI;
 using Jtext103.CFET2.Things.JyAiLib;
 using Jtext103.CFET2.Things.DAQDataUploadThing;
 using Jtext103.CFET2.Things.MDSUpload;
@@ -37,26 +38,27 @@ namespace Jtext103.CFET2.CFET2App
             MyHub.TryAddThing(dic, "/", "Dic", @"D:\Run\ConfigFile\DAQFamilyBucket\Dic.txt");
             #endregion
 
-            //注意，下面加了多少个卡，在左边
+            //注意，下面加了多少个卡，在左边：
             //解决方案资源管理器 -> CFET2App -> Views -> ViewSelector.json 中的 childpath 字段中
             //就要加对应多少个卡，且名字和卡名要一样，否则网页上不能显示
             //另外，卡名需要以Card开头，否则页面看不到波形
+            //说明在 NI 采集卡中，不同卡是类似的
 
             #region NI采集卡，若使用NI请展开
             //------------------------------NI采集卡，每增加一个采集卡要增加以下4行代码------------------------------//
-            //这个niNonSync每张卡要不一样
-            var niNonSync = new AIThing();
+            ////这个niNonSync每张卡要不一样
+            //var niNonSync = new AIThing();
 
-            //这个除了niNonSync不一样其余都一样
-            niNonSync.basicAI = new NIAI();
-            niNonSync.DataFileFactory = new HDF5DataFileFactory();
+            ////这个除了niNonSync不一样其余都一样
+            //niNonSync.basicAI = new NIAI();
+            //niNonSync.DataFileFactory = new HDF5DataFileFactory();
 
-            //这个括号里面的不一样
-            MyHub.TryAddThing(niNonSync,      //上面的niNonSync
-                                @"/",       //Thing挂载路径，都一样，不要改！！！
-                                "Card0",    //卡名，也就是在网页上看到的卡名称
-                                            //下面引号中的要改，前面的是配置文件路径，后面的是采集数据保存到本地的路径
-                                new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\niNonSync.txt", DataFileParentDirectory = @"D:\Data\ni\Card0" });
+            ////这个括号里面的不一样
+            //MyHub.TryAddThing(niNonSync,      //上面的niNonSync
+            //                    @"/",       //Thing挂载路径，都一样，不要改！！！
+            //                    "Card0",    //卡名，也就是在网页上看到的卡名称
+            //                                //下面引号中的要改，前面的是配置文件路径，后面的是采集数据保存到本地的路径
+            //                    new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\niNonSync.txt", DataFileParentDirectory = @"D:\Data\ni\Card0" });
 
             //var niMaster = new AIThing();
             //niMaster.basicAI = new NIAI();
@@ -102,31 +104,42 @@ namespace Jtext103.CFET2.CFET2App
             //                    new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\jySlave.txt", DataFileParentDirectory = @"D:\Data\jy\CardC" });
             #endregion
 
-            //------------------------------自动 Arm 采集卡的，只有一个这个------------------------------//
-            //它的逻辑是当所有 AllAIThingPaths 中的卡都 Idle 之后自动 Arm 所有 AutoArmAIThingPaths 中的卡
-            var aiManagement = new AIManagementThing();
-            MyHub.TryAddThing(aiManagement,
+            #region NIScope采集卡，若使用NIScope请展开
+            //------------------------------NIScope采集卡，每增加一个采集卡要增加以下4行代码------------------------------//
+            var scopeNonSync = new AIThing();
+            scopeNonSync.basicAI = new NIScopeAI();
+            scopeNonSync.DataFileFactory = new HDF5DataFileFactory();
+            MyHub.TryAddThing(scopeNonSync,
                                 @"/",
-                                "aimanagement",
-                                new
-                                {
-                                    //要判断多少个卡的状态就加几个（比如独立工作的卡就不用加），注意前面是 / 后面是卡名，比如{ "/Card0", "/Card1" },
-                                    AllAIThingPaths = new string[] { "/Card0" },
-                                    //AllAIThingPaths = new string[] { "/CardB", "/CardC" },
-                                    //自动Arm的，如果不想手动触发的就加上，跟上面一行格式一样
-                                    AutoArmAIThingPaths = new string[] { }
-                                    //AutoArmAIThingPaths = new string[] { "/CardC" }
-                                });
+                                "Cards0",
+                                new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\scopeNonSync.txt", DataFileParentDirectory = @"D:\Data\ni\Cards0" });
+            #endregion
 
-            ////------------------------------上传文件的，只有一个这个------------------------------//
+            //------------------------------自动 Arm 采集卡的，只有一个这个------------------------------//
+            ////它的逻辑是当所有 AllAIThingPaths 中的卡都 Idle 之后自动 Arm 所有 AutoArmAIThingPaths 中的卡
+            //var aiManagement = new AIManagementThing();
+            //MyHub.TryAddThing(aiManagement,
+            //                    @"/",
+            //                    "aimanagement",
+            //                    new
+            //                    {
+            //                        //要判断多少个卡的状态就加几个（比如独立工作的卡就不用加），注意前面是 / 后面是卡名，比如{ "/Card0", "/Card1" },
+            //                        AllAIThingPaths = new string[] { "/Card0" },
+            //                        //AllAIThingPaths = new string[] { "/CardB", "/CardC" },
+            //                        //自动Arm的，如果不想手动触发的就加上，跟上面一行格式一样
+            //                        AutoArmAIThingPaths = new string[] { }
+            //                        //AutoArmAIThingPaths = new string[] { "/CardC" }
+            //                    });
+
+            //------------------------------上传文件的，只有一个这个------------------------------//
             //var uploader = new DataUpLoadThing();
             ////前面的别改，后面的.txt路径是配置文件的完整路径
             //MyHub.TryAddThing(uploader, @"/", "uploader", @"D:\Run\ConfigFile\DAQFamilyBucket\DataUploadConfig.txt");
 
             //------------------------------上传MDS的，只有一个这个------------------------------//
-            var mdsthing = new MdsThing();
+            //var mdsthing = new MdsThing();
             //如果是 Master 用这行，注释掉下面 Slave
-            MyHub.TryAddThing(mdsthing, @"/", "mds", @"D:\Run\ConfigFile\DAQFamilyBucket\MdsUploadMaster.txt");
+            //MyHub.TryAddThing(mdsthing, @"/", "mds", @"D:\Run\ConfigFile\DAQFamilyBucket\MdsUploadMaster.txt");
             //如果是 Slave 用这行，同时一定要将 AIManagementThing 注释掉！！！
             //MyHub.TryAddThing(mdsthing, @"/", "mds", @"D:\Run\ConfigFile\DAQFamilyBucket\MdsUploadSlave.txt");
 

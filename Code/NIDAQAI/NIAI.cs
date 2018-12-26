@@ -13,9 +13,11 @@ namespace Jtext103.CFET2.Things.NiAiLib
     {
         private NationalInstruments.DAQmx.Task aiTask;
 
-        #region public AI status
-
         private Status _aiState;
+
+        private NIAIStaticConfig _staticConfig;
+
+        #region public AI status
 
         public Status AIState
         {
@@ -34,8 +36,6 @@ namespace Jtext103.CFET2.Things.NiAiLib
             }
         }
         public DateTime LastShotTime { get; private set; }
-
-        private NIAIStaticConfig _staticConfig;
 
         public BasicAIStaticConfig StaticConfig
         {
@@ -115,9 +115,6 @@ namespace Jtext103.CFET2.Things.NiAiLib
         /// </summary>
         private AnalogMultiChannelReader reader;
 
-        /// <summary>
-        /// 使用默认参数构造AI
-        /// </summary>
         public NIAI()
         {
             LastShotTime = DateTime.UtcNow;
