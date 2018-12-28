@@ -43,25 +43,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NIScope\NationalInstruments.Common.dll</HintPath>
     </Reference>
-    <Reference Include="NationalInstruments.DAQmx, Version=17.1.45.99, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NIScope\NationalInstruments.DAQmx.dll</HintPath>
-    </Reference>
-    <Reference Include="NationalInstruments.DAQmx.ComponentModel, Version=17.1.45.99, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NIScope\NationalInstruments.DAQmx.ComponentModel.dll</HintPath>
-    </Reference>
     <Reference Include="NationalInstruments.ModularInstruments.Common, Version=16.0.45.49152, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NIScope\NationalInstruments.ModularInstruments.Common.dll</HintPath>
     </Reference>
-    <Reference Include="NationalInstruments.ModularInstruments.ModularInstrumentsSystem, Version=1.4.45.27, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=MSIL">
+    <Reference Include="NationalInstruments.ModularInstruments.NIScope.Fx45, Version=17.1.0.49152, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NIScope\NationalInstruments.ModularInstruments.ModularInstrumentsSystem.dll</HintPath>
+      <HintPath>..\packages\NIScope\NationalInstruments.ModularInstruments.NIScope.Fx45.dll</HintPath>
     </Reference>
-    <Reference Include="NationalInstruments.ModularInstruments.NIScope.Fx40, Version=17.1.0.49152, Culture=neutral, PublicKeyToken=dc6ad606294fc298, processorArchitecture=MSIL">
+    <Reference Include="NationalInstruments.ModularInstruments.TClock.Fx45, Version=3.2.0.49153, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NIScope\NationalInstruments.ModularInstruments.NIScope.Fx40.dll</HintPath>
+      <HintPath>..\packages\NIScope\NationalInstruments.ModularInstruments.TClock.Fx45.dll</HintPath>
     </Reference>
     <Reference Include="NationalInstruments.MStudioCLM, Version=17.5.40.49152, Culture=neutral, PublicKeyToken=dc6ad606294fc298, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -71,6 +63,9 @@
     <Reference Include="NationalInstruments.NiLmClientDLL, Version=17.5.40.49152, Culture=neutral, PublicKeyToken=dc6ad606294fc298, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NIScope\NationalInstruments.NiLmClientDLL.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -86,12 +81,17 @@
     <Compile Include="NIScopeAIConfigMapper.cs" />
     <Compile Include="NIScopeAIStaticConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TClockDevice.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BasicAIModel\BasicAIModel.csproj">
       <Project>{37072345-0577-4e3f-ba8e-8fd50bf92a7a}</Project>
       <Name>BasicAIModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -15,6 +15,11 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
         public string ResourceName { get; set; }
 
         /// <summary>
+        /// 是否允许采集多于板卡内存的点
+        /// </summary>
+        public bool MoreRecordsThanMemoryAllowed { get; set; }
+
+        /// <summary>
         /// 使用默认参数初始化配置文件属性
         /// </summary>
         public NIScopeAIStaticConfig()
@@ -57,7 +62,6 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
         public NIScopeAIStaticConfig(string filePath)
         {
             NIScopeAIStaticConfig config = (NIScopeAIStaticConfig)InitFromConfigFile(filePath);
-            ResourceName = config.ResourceName;
             TriggerConfig = config.TriggerConfig;
             ClockConfig = config.ClockConfig;
             ChannelConfig = config.ChannelConfig;
@@ -66,6 +70,9 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
             ChannelCount = config.ChannelCount;
             RemainShotsMax = config.RemainShotsMax;
             RemainShotsMin = config.RemainShotsMin;
+
+            ResourceName = config.ResourceName;
+            MoreRecordsThanMemoryAllowed = config.MoreRecordsThanMemoryAllowed;
         }
     }
 }
