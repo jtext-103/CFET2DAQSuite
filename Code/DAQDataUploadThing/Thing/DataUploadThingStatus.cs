@@ -15,7 +15,7 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
         /// Idle 为可以上传，Uploading 为正在上传，此时不能调用上传方法
         /// </summary>
         [Cfet2Status]
-        public Status UploadState { get; internal set; }
+        public Status State { get; internal set; }
 
         /// <summary>
         /// 要上传的本地数据文件名

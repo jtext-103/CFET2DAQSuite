@@ -5,7 +5,11 @@
                 <a id="@Model nameId" href="@Model"></a>
             </font>
             &nbsp;&nbsp;&#9;
-            <font id="@Model triggerId"></font>
+            Trigger Type :&nbsp;
+            <b><font id="@Model triggerId"></font></b>
+            &nbsp;&nbsp;&#9;
+            Channel Count :&nbsp;
+            <b><font id="@Model channelId"></font></b>
             <font id="@Model msId" style="float:right"></font>
         </h2>
     </div>
@@ -46,7 +50,17 @@
             else if (obj.ObjectVal == 1) val = "Digital";
             else if (obj.ObjectVal == 2) val = "Analog";
             else val = "Unknow";
-            document.getElementById('@Model' + " triggerId").innerHTML = "Trigger Type : " + val;
+            document.getElementById('@Model' + " triggerId").innerHTML = val;
+        }
+    })
+
+        $.ajax({
+        url: '@Model' + '/channelcount',
+        type: "get",
+        async: true,
+        success: function (data) {
+            var obj = JSON.parse(data);
+            document.getElementById('@Model' + " channelId").innerHTML = obj.ObjectVal;
         }
     })
 

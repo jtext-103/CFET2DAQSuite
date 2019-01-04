@@ -5,11 +5,10 @@
     /// </summary>
     public enum Status
     {
-        //空闲
         Idle = 0,
-        //正在上传
-        Running = 1,
-
+        Ready = 1,
+        Running = 2,
+        Uploading = 3,
         Error = 255
     }
 }

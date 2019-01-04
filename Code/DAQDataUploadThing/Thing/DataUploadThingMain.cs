@@ -30,7 +30,7 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
             myConfig = new UploadConfig((string)configFilePath);
             if (myConfig != null)
             {
-                UploadState = Status.Idle;
+                State = Status.Idle;
             }
             else
             {
@@ -53,7 +53,7 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
             //这里也要锁住，防止意外
             lock (myStateLock)
             {
-                if (UploadState == Status.Idle)
+                if (State == Status.Idle)
                 {
                     LocalDataFileNames = new List<string[]>();
                     //设置要上传的文件名

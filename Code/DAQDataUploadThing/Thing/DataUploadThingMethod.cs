@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Jtext103.CFET2.Core;
 using Jtext103.CFET2.Core.Attributes;
@@ -22,11 +23,11 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
         {
             lock (myStateLock)
             {
-                if (UploadState != Status.Idle)
+                if (State != Status.Idle)
                 {
                     return -1;
                 }
-                UploadState = Status.Running;
+                State = Status.Running;
 
                 Task.Run(() => Upload(myConfig.ServerDataDirectories, myConfig.AIThings));
                 return 0;
@@ -100,10 +101,12 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
                         throw new Exception("UploadBehavior设置错误！");
                 }
             }
+            //以免上传太快捕获不了 Uploading 状态
+            Thread.Sleep(2000);
             //上传完毕
             lock (myStateLock)
             {
-                UploadState = Status.Idle;
+                State = Status.Idle;
             }
         }
 

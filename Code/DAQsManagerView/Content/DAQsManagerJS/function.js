@@ -2,10 +2,10 @@
 var apiStates = new Array();
 var apiArms = new Array();
 var apiStops = new Array();
-//var apiResets = new Array();
 var apiTimes = new Array();
 
 var apiShot = new String();
+var apiUpload = new String();
 
 function arm(index) {
     var s = "" + index;
@@ -64,6 +64,34 @@ function refreshStates(manual) {
         error: function() {
             document.getElementById("shotId").innerHTML = "Offline";
             document.getElementById("shotId").style.color = '#999999';
+        }
+    });
+
+    //刷新上传状态
+    $.ajax({
+        url: apiUpload,
+        type: "get",
+        contentType: 'application/json',
+        async: false,
+        success: function (data) {
+            var obj = JSON.parse(data);
+            if (obj.ObjectVal == 0) {
+                document.getElementById("uploadId").innerHTML = "Idle";
+                document.getElementById("uploadId").style.color = '#FFA500';
+            }
+            else if (obj.ObjectVal == 2) {
+                document.getElementById("uploadId").innerHTML = "Uploading";
+                document.getElementById("uploadId").style.color = '#32CD32';
+            }
+            else {
+                document.getElementById("uploadId").innerHTML = "Unknow";
+                document.getElementById("uploadId").style.color = '#999999';
+            }
+            
+        },
+        error: function () {
+            document.getElementById("uploadId").innerHTML = "Offline";
+            document.getElementById("uploadId").style.color = '#999999';
         }
     });
 

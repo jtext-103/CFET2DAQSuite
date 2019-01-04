@@ -48,6 +48,7 @@
   <ItemGroup>
     <Content Include="Content\DAQsManagerCSS\custom.css" />
     <Content Include="Content\DAQsManagerJS\function.js" />
+    <None Include="Views\_PatrialUpload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -33,6 +33,9 @@
                 </div>
             </div>
         </div>
+        @{ 
+            @Html.Partial("_PatrialUpload", (string)Model.Context["uploadthing"]);
+        }
         @{
             foreach (var d in Model.Context["childpaths"])
             {
