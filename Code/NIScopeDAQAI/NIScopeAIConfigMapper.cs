@@ -47,9 +47,8 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
                     throw new Exception("触发沿 TriggerEdge 设置错误！");
             }
             scopeSession.Trigger.EdgeTrigger.Configure(triggerSource, 2.5, triggerSlope, ScopeTriggerCoupling.DC, PrecisionTimeSpan.Zero, PrecisionTimeSpan.Zero);
-            //配置触发方式
             //如果不是非同步，则加入到TClock中
-            if(triggerConfiguration.MasterOrSlave != AITriggerMasterOrSlave.NonSync)
+            if (triggerConfiguration.MasterOrSlave != AITriggerMasterOrSlave.NonSync)
             {
                 TClockDevice.SynchronizableDevices.Add(scopeSession);
             }
@@ -59,7 +58,7 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
             {
                 //填充为 16 个，最多支持 16 卡同步
                 //todo:测试
-                while(TClockDevice.SynchronizableDevices.Count < 16)
+                while (TClockDevice.SynchronizableDevices.Count < 16)
                 {
                     NIScope emptyScope = null;
                     TClockDevice.SynchronizableDevices.Add(emptyScope);
@@ -81,7 +80,7 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
         {
             //无时钟源设置
             //采样数量，仅支持有限
-            switch(clockConfiguration.SampleQuantityMode)
+            switch (clockConfiguration.SampleQuantityMode)
             {
                 case AISamplesMode.FiniteSamples:
                     break;
@@ -91,7 +90,7 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
             //无使能时钟沿
             //配置采样率，采样总数，采样次数
             int numberOfRecords = clockConfiguration.TotalSampleLengthPerChannel / clockConfiguration.ReadSamplePerTime;
-            scopeSession.Timing.ConfigureTiming(clockConfiguration.SampleRate, clockConfiguration.TotalSampleLengthPerChannel, clockConfiguration.ReadSamplePerTime, numberOfRecords, true);
+            scopeSession.Timing.ConfigureTiming(clockConfiguration.SampleRate, clockConfiguration.ReadSamplePerTime, 50.0, numberOfRecords, true);
         }
 
         private static void MapAndConfigChannel(NIScope scopeSession, AIChannelConfiguration channelConfiguration)
@@ -123,7 +122,7 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
         public static void MapAndConfigAll(NIScope scopeSession, NIScopeAIStaticConfig basicAIConifg, ref TClock tClock)
         {
             scopeSession.Timing.MoreRecordsThanMemoryAllowed = basicAIConifg.MoreRecordsThanMemoryAllowed;
-    
+
             MapAndConfigTrigger(scopeSession, basicAIConifg.TriggerConfig, ref tClock);
             MapAndConfigClock(scopeSession, basicAIConifg.ClockConfig);
             MapAndConfigChannel(scopeSession, basicAIConifg.ChannelConfig);

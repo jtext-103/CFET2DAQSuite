@@ -46,19 +46,19 @@ namespace Jtext103.CFET2.CFET2App
 
             #region NI采集卡，若使用NI请展开
             //------------------------------NI采集卡，每增加一个采集卡要增加以下4行代码------------------------------//
-            //这个niNonSync每张卡要不一样
-            var niNonSync = new AIThing();
+            ////这个niNonSync每张卡要不一样
+            //var niNonSync = new AIThing();
 
-            //这个除了niNonSync不一样其余都一样
-            niNonSync.basicAI = new NIAI();
-            niNonSync.DataFileFactory = new HDF5DataFileFactory();
+            ////这个除了niNonSync不一样其余都一样
+            //niNonSync.basicAI = new NIAI();
+            //niNonSync.DataFileFactory = new HDF5DataFileFactory();
 
-            //这个括号里面的不一样
-            MyHub.TryAddThing(niNonSync,      //上面的niNonSync
-                                @"/",       //Thing挂载路径，都一样，不要改！！！
-                                "Card0",    //卡名，也就是在网页上看到的卡名称
-                                            //下面引号中的要改，前面的是配置文件路径，后面的是采集数据保存到本地的路径
-                                new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\niNonSync.txt", DataFileParentDirectory = @"D:\Data\ni\Card0" });
+            ////这个括号里面的不一样
+            //MyHub.TryAddThing(niNonSync,      //上面的niNonSync
+            //                    @"/",       //Thing挂载路径，都一样，不要改！！！
+            //                    "Card0",    //卡名，也就是在网页上看到的卡名称
+            //                                //下面引号中的要改，前面的是配置文件路径，后面的是采集数据保存到本地的路径
+            //                    new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\niNonSync.txt", DataFileParentDirectory = @"D:\Data\ni\Card0" });
 
             //var niMaster = new AIThing();
             //niMaster.basicAI = new NIAI();
@@ -106,13 +106,13 @@ namespace Jtext103.CFET2.CFET2App
 
             #region NIScope采集卡，若使用NIScope请展开
             //------------------------------NIScope采集卡，每增加一个采集卡要增加以下4行代码------------------------------//
-            //var scopeNonSync = new AIThing();
-            //scopeNonSync.basicAI = new NIScopeAI();
-            //scopeNonSync.DataFileFactory = new HDF5DataFileFactory();
-            //MyHub.TryAddThing(scopeNonSync,
-            //                    @"/",
-            //                    "Cards0",
-            //                    new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\scopeNonSync.txt", DataFileParentDirectory = @"D:\Data\ni\Cards0" });
+            var scopeNonSync = new AIThing();
+            scopeNonSync.basicAI = new NIScopeAI();
+            scopeNonSync.DataFileFactory = new HDF5DataFileFactory();
+            MyHub.TryAddThing(scopeNonSync,
+                                @"/",
+                                "Cards0",
+                                new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\scopeNonSync.txt", DataFileParentDirectory = @"D:\Data\ni\Cards0" });
             #endregion
 
             //------------------------------自动 Arm 采集卡与发布上传事件的，只有一个这个------------------------------//
@@ -124,7 +124,7 @@ namespace Jtext103.CFET2.CFET2App
                                 new
                                 {
                                     //要判断多少个卡的状态就加几个（比如独立工作的卡就不用加），注意前面是 / 后面是卡名，比如{ "/Card0", "/Card1" },
-                                    AllAIThingPaths = new string[] { "/Card0" },
+                                    AllAIThingPaths = new string[] { "/Cards0" },
                                     //AllAIThingPaths = new string[] { "/CardB", "/CardC" },
                                     //自动Arm的，如果不想手动触发的就加上，跟上面一行格式一样
                                     AutoArmAIThingPaths = new string[] { }
@@ -132,9 +132,9 @@ namespace Jtext103.CFET2.CFET2App
                                 });
 
             //------------------------------上传文件的，只有一个这个------------------------------//
-            var uploader = new DataUpLoadThing();
-            //前面的别改，后面的.txt路径是配置文件的完整路径
-            MyHub.TryAddThing(uploader, @"/", "uploader", @"D:\Run\ConfigFile\DAQFamilyBucket\DataUploadConfig.txt");
+            //var uploader = new DataUpLoadThing();
+            ////前面的别改，后面的.txt路径是配置文件的完整路径
+            //MyHub.TryAddThing(uploader, @"/", "uploader", @"D:\Run\ConfigFile\DAQFamilyBucket\DataUploadConfig.txt");
 
             //------------------------------上传MDS的，只有一个这个------------------------------//
             //var mdsthing = new MdsThing();
