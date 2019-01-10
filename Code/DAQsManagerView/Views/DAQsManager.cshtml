@@ -25,7 +25,7 @@
                         <input type="checkbox" name="Auto" checked="checked" onchange="refreshStatesAuto(this);" />
                         )
                     </font>
-                </div>              
+                </div>
                 <div style="display:inline;float:right">
                     <font style="font-size: 18px">Last ShotNo : &nbsp;</font>
                     <b style="font-size: 30px" id="shotId"></b>
@@ -33,13 +33,20 @@
                 </div>
             </div>
         </div>
-        @{ 
+        @{
             @Html.Partial("_PatrialUpload", (string)Model.Context["uploadthing"]);
         }
         @{
+            <script>
+                apiShot = "_";
+            </script>
             foreach (var d in Model.Context["childpaths"])
             {
                 @Html.Partial("_PartialDAQManager", (string)d);
+                <script>
+                    if (apiShot == "_")
+                        apiShot ="/" + "@d";
+                </script>
             }
         }
     </div>
@@ -47,5 +54,5 @@
 </html>
 
 <script>
-    apiShot = '/card0' + '/currentshotno';
+    apiShot = apiShot + '/currentshotno';
 </script>

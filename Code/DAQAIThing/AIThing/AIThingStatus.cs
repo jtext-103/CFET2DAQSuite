@@ -186,17 +186,13 @@ namespace Jtext103.CFET2.Things.DAQAIThing
         }
 
         /// <summary>
-        /// 当前卡是否是主卡
+        /// 当前卡同步类型
         /// </summary>
         /// <returns></returns>
         [Cfet2Status]
-        public bool IsMaster()
+        public AITriggerMasterOrSlave SyncType()
         {
-            if(basicAI.StaticConfig.TriggerConfig.MasterOrSlave == AITriggerMasterOrSlave.Master)
-            {
-                return true;
-            }
-            return false;
+            return basicAI.StaticConfig.TriggerConfig.MasterOrSlave;
         }
 
         /// <summary>

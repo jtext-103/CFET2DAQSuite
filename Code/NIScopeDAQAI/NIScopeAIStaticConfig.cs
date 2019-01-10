@@ -7,7 +7,7 @@ using Jtext103.CFET2.Things.BasicAIModel;
 
 namespace Jtext103.CFET2.Things.NIScopeDAQAI
 {
-    public class NIScopeAIStaticConfig:BasicAIStaticConfig
+    public class NIScopeAIStaticConfig : BasicAIStaticConfig
     {
         /// <summary>
         /// 资源名称（卡名）
@@ -72,7 +72,13 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
             RemainShotsMin = config.RemainShotsMin;
 
             ResourceName = config.ResourceName;
-            MoreRecordsThanMemoryAllowed = config.MoreRecordsThanMemoryAllowed;
+            //MoreRecordsThanMemoryAllowed = config.MoreRecordsThanMemoryAllowed;
+
+            //暂时固定这样
+            MoreRecordsThanMemoryAllowed = false;
+
+            //这里保证相等，也就是说永远只有 1 个 records
+            ClockConfig.ReadSamplePerTime = config.ClockConfig.TotalSampleLengthPerChannel;
         }
     }
 }

@@ -65,18 +65,21 @@
     })
 
     $.ajax({
-        url: '@Model' + '/ismaster',
+        url: '@Model' + '/synctype',
         type: "get",
         async: true,
         success: function (data) {
             var obj = JSON.parse(data);
-            if (obj.ObjectVal == true) {
+            if (obj.ObjectVal == 1) {
                 document.getElementById('@Model' + " msId").innerHTML = "Master";
                 document.getElementById('@Model' + " msId").style.color = "#32CD32";
             }
-            else {
+            else if (obj.ObjectVal == 2) {
                 document.getElementById('@Model' + " msId").innerHTML = "Slave";
                 document.getElementById('@Model' + " msId").style.color = "#FFA500";
+            }
+            else {
+                document.getElementById('@Model' + " msId").innerHTML = "NonSync";
             }
         }
     });

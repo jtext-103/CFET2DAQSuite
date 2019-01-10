@@ -21,10 +21,10 @@ namespace Jtext103.CFET2.Things.DAQAIThing
         {
             System.Diagnostics.Debug.WriteLine("TryArm  Thread no: " + Thread.CurrentThread.ManagedThreadId.ToString() + " " + " " + Path);
 
-            basicAI.TryArmTask();
-
             //初始化latestData
-            latestData = new double[ChannelCount(-1)];
+            latestData = new double[basicAI.StaticConfig.ChannelCount];
+
+            basicAI.TryArmTask();  
         }
 
         /// <summary>

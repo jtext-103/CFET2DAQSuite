@@ -1,7 +1,7 @@
 ﻿
 
 function load(index, isHand) {
- 
+
     var start = $('#' + index.toString() + 'startId').val();
     var end = $('#' + index.toString() + 'endId').val();
     var shotNo = $('#' + index.toString() + 'partialShotId').val();
@@ -23,7 +23,7 @@ function load(index, isHand) {
 
     //判断输入格式并调整，或者提示输入错误
     //ForTest
-    if (start >= end) {
+    if (parseInt(start) >= parseInt(end)) {
         start = 0;
         end = length;
         step = (end - start) / 1200;

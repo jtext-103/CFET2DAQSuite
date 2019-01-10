@@ -19,7 +19,7 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
         private NIScope scopeSession;
 
         //同步时钟，所有需要同步的卡只有一个这个实例，所以除了 Master，别的都是 null
-        private TClock tClock;
+        private TClock tClockSession;
 
         private Status aiState;
 
@@ -39,7 +39,7 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
                     aiState = value;
 
                     //状态改变时，产生OnStatusChanged事件
-                    //todo: OnStatusChanged();
+                    OnStatusChanged();
                 }
             }
         }
@@ -139,7 +139,16 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
         /// <summary>
         /// 实例化并启动采集任务
         /// </summary>
-        public void TryArmTask()
+        public async void TryArmTask()
+        {
+            Task.Run(() =>
+            {
+                RealArm();
+            });
+
+        }
+
+        private void RealArm()
         {
             if (AIState != Status.Idle)
             {
@@ -155,91 +164,186 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
                         scopeSession = new NIScope(staticConfig.ResourceName, false, false);
 
                         //配置任务
-                        NIScopeAIConfigMapper.MapAndConfigAll(scopeSession, staticConfig, ref tClock);
+                        NIScopeAIConfigMapper.MapAndConfigAll(scopeSession, staticConfig, ref tClockSession);
 
                         //获取并设置通道数
                         staticConfig.ChannelCount = scopeSession.Channels.Count;
 
+                        AIState = Status.Ready;
+
+                        if (staticConfig.TriggerConfig.MasterOrSlave == AITriggerMasterOrSlave.NonSync)
+                        {
+                            scopeSession.Measurement.Initiate();
+                        }
+                        // Master 连同所有 Slaves 只需要一个 tClockSession.Initiate()
+                        else if (staticConfig.TriggerConfig.MasterOrSlave == AITriggerMasterOrSlave.Master)
+                        {
+                            tClockSession.Initiate();
+                            TClockDevice.IsMasterReady = true;
+                        }
+                        //注意，这里从 Slave 是不会 Initiate 的，Slave 必须被 Master 带，也就是 Slave 需要等待 Master 准备就绪才能采集
+                        else
+                        {
+                            while (!TClockDevice.IsSlaveCanAddIntoTDevice)
+                            {
+                                Thread.Sleep(300);
+                            }
+                            //等待主卡 Initiate
+                            while (!TClockDevice.IsMasterReady)
+                            {
+                                Thread.Sleep(200);
+                            }
+
+                            lock (TClockDevice.Lock)
+                            {
+                                //表示没有完成，主卡不能 Idle
+                                if (TClockDevice.SlaveOver.ContainsKey(staticConfig.ResourceName))
+                                {
+                                    TClockDevice.SlaveOver[staticConfig.ResourceName] = false;
+                                }
+                                else
+                                {
+                                    TClockDevice.SlaveOver.Add(staticConfig.ResourceName, false);
+                                }
+                            }
+                        }
+
                         //开始读取数据
                         readData(scopeSession);
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
-                        throw new Exception(e.ToString());
+                        TryStopTask();
+                        Console.WriteLine("炸了");
+                        throw new Exception("任务因错误终止！" + e.ToString());
                     }
                 }
             }
         }
 
         //读数据
-        private async void readData(NIScope scopeSession)
+        private void readData(NIScope scopeSession)
         {
             var channels = ((JArray)staticConfig.ChannelConfig.ChannelName).ToObject<List<int>>();
             //开新线程等待读数据
-            await Task.Run(() =>
+            //await Task.Run(() =>
+            //{
+            int totalReadDataLength = 0;
+            PrecisionTimeSpan timeout = new PrecisionTimeSpan(1000000);  //无timeOut          
+            AnalogWaveformCollection<double> scopeWaveform = null;
+
+            double[,] readData = new double[staticConfig.ChannelCount, staticConfig.ClockConfig.TotalSampleLengthPerChannel];
+
+            //生成 channels
+            string channelScope = null;
+            var sChannels = ((JArray)staticConfig.ChannelConfig.ChannelName).ToObject<List<int>>();
+            foreach (var s in sChannels)
             {
-                int totalReadDataLength = 0;
-                PrecisionTimeSpan timeout = new PrecisionTimeSpan(-1);  //无timeOut
+                channelScope += s + ",";
+            }
+            channelScope = channelScope.Substring(0, channelScope.Length - 1);
 
-                //只要任务没结束，则一直循环等待
-                do
+            //一次采完
+            //经过测试，发现在默认设置（不设置其它）情况下：
+            // 1、如果多次 FetchDouble，则每 2 次的数据不连续（中间断一截）
+            // 2、如果设置多个 records，则每 2 个 record 之间的数据不连续（中间断一截）
+            //因此暂时只允许一个 record
+            scopeWaveform = scopeSession.Channels[channelScope].Measurement.FetchDouble(timeout, staticConfig.ClockConfig.TotalSampleLengthPerChannel, scopeWaveform);
+
+            //一旦上面这里获取到数据，则表示采集开始
+            AIState = Status.Running;
+
+            // i 是读取次数
+            // j 是通道计数
+            // k 是每一波的每个点
+            double[] temp;
+            AnalogWaveform<double> waveform;
+
+            for (int i = 0; i < staticConfig.ClockConfig.TotalSampleLengthPerChannel / staticConfig.ClockConfig.ReadSamplePerTime; i++)
+            {
+                //将一个通道的数据拷贝到 data[,] 的一行
+                for (int j = 0; j < staticConfig.ChannelCount; j++)
                 {
-                    double[,] readData = new double[staticConfig.ChannelCount, staticConfig.ClockConfig.ReadSamplePerTime];
-                    //读取数据
-                    //todo:看看能不能直接所有通道读出来
-                    AnalogWaveformCollection<double> scopeWaveform = null;
-                    for(int i = 0; i < channels.Count; i++)
+                    waveform = scopeWaveform[i, j];
+                    temp = waveform.GetRawData();
+                    for (int k = 0; k < staticConfig.ClockConfig.ReadSamplePerTime; k++)
                     {
-                        scopeWaveform = scopeSession.Channels[channels[i].ToString()].Measurement.FetchDouble(timeout, staticConfig.ClockConfig.ReadSamplePerTime, scopeWaveform);
-                        //将一个通道的数据拷贝到 data[,] 的一行
-                        //todo:用不这么费事的办法
-                        for(int j = 0; j < staticConfig.ClockConfig.ReadSamplePerTime; j++)
-                        {
-                            //todo:Test
-                            readData[i, j] = scopeWaveform[0].Samples[i].Value;
-                        }
-
+                        readData[j, i * staticConfig.ClockConfig.ReadSamplePerTime + k] = temp[k];
                     }
-                    //发布数据到达事件
-                    OnDataArrival(readData);
-                    totalReadDataLength += staticConfig.ClockConfig.ReadSamplePerTime;
-                    //第一次读到数据时会改变任务状态
-                    if (AIState == Status.Ready)
-                    {
-                        //ready -> running
-                        AIState = Status.Running;
-                    }
-                    //当读够数据则停止
-                    if (totalReadDataLength >= staticConfig.ClockConfig.TotalSampleLengthPerChannel)
-                    {
-                        //发布停止任务事件
-                        OnAITaskStopped();
-                        break;
-                    }
-                    //等待1/3每次读取间隔时间
-                    Thread.Sleep(Convert.ToInt32(staticConfig.ClockConfig.ReadSamplePerTime * 1000 / staticConfig.ClockConfig.SampleRate / 3));
                 }
-                while (true);
-            });
+
+                totalReadDataLength += staticConfig.ClockConfig.ReadSamplePerTime;
+
+            }
+            GC.Collect();
+            Thread.Sleep(2000);
+
+            //发布数据到达事件
+            OnDataArrival(readData);
+
+            //发布停止任务事件
+            OnAITaskStopped();
+
+            //等待，让外部保证获取到 Running 状态
+            Thread.Sleep(2000);
+            //});
         }
 
         public bool TryStopTask()
         {
-            if (scopeSession != null)
+            //如果是主卡，判断是否有任何从卡没有完成，否则不能出来
+            if (staticConfig.TriggerConfig.MasterOrSlave == AITriggerMasterOrSlave.Master)
             {
-                try
+                bool canOut = false;
+                while (!canOut)
+                {
+                    canOut = true;
+                    lock (TClockDevice.Lock)
+                    {
+                        foreach (var s in TClockDevice.SlaveOver)
+                        {
+                            if (s.Value == false)
+                            {
+                                canOut = false;
+                            }
+                        }
+                    }
+                }
+            }
+            //如果是从卡，设置让主卡可以出来
+            else if (staticConfig.TriggerConfig.MasterOrSlave == AITriggerMasterOrSlave.Slave)
+            {
+                lock (TClockDevice.Lock)
+                {
+                    TClockDevice.SlaveOver[staticConfig.ResourceName] = true;
+                }
+            }
+            lock (TClockDevice.Lock)
+            {
+                if (TClockDevice.SyncDevices.Contains(scopeSession))
+                {
+                    TClockDevice.SyncDevices.Remove(scopeSession);
+                }
+            }
+            try
+            {
+                if (tClockSession != null)
+                {
+                    tClockSession = null;
+                }
+                if (scopeSession != null)
                 {
                     scopeSession.Close();
-                    scopeSession = null;
                     scopeSession.Dispose();
+                    scopeSession = null;
                 }
-                catch (Exception e)
-                {
-                    throw new Exception(e.ToString());
-                }
-                return true;
             }
-            return false;
+            catch (Exception e)
+            {
+                throw new Exception(e.ToString());
+            }
+            AIState = Status.Idle;
+            return true;
         }
 
         //todo:研究下面代码实际作用
