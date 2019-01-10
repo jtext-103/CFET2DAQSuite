@@ -1,8 +1,8 @@
 {
     "ResourceName":"PXI1Slot7",
     "TriggerConfig": {
-      "TriggerType": 1,
-      "TriggerSource": "VAL_PFI_1",
+      "TriggerType": 0,
+      "TriggerSource": "0",
       "TriggerEdge": 0,
       "MasterOrSlave": 0
     },
