@@ -9,7 +9,7 @@ function load(index, isHand) {
     var length;
 
     $.ajax({
-        url: thingPath + '/length',
+        url: thingPath + '/length' + '/' + shotNo,
         type: "get",
         async: false,
         success: function (data) {
