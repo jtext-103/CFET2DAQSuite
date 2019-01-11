@@ -25,7 +25,7 @@ namespace Jtext103.CFET2.Things.JyAiLib
         /// </summary>
         public JYAIStaticConfig()
         {
-            //没有配置文件路径时，初始化生成的模板
+            ////没有配置文件路径时，初始化生成的模板
             //BoardNum = 0;
             //TriggerConfig = new AITriggerConfiguration()
             //{
@@ -55,6 +55,10 @@ namespace Jtext103.CFET2.Things.JyAiLib
             //ChannelCount = 4;
             //RemainShotsMax = 30;
             //RemainShotsMin = 20;
+
+            TriggerConfig = new AITriggerConfiguration();
+            ClockConfig = new AIClockConfiguration();
+            ChannelConfig = new AIChannelConfiguration();
         }
 
         /// <summary>

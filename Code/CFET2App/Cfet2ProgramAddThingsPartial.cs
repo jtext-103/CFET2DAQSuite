@@ -106,13 +106,13 @@ namespace Jtext103.CFET2.CFET2App
 
             #region NIScope采集卡，若使用NIScope请展开
             //------------------------------NIScope采集卡，每增加一个采集卡要增加以下4行代码------------------------------//
-            //var scopeNonSync = new AIThing();
-            //scopeNonSync.basicAI = new NIScopeAI();
-            //scopeNonSync.DataFileFactory = new HDF5DataFileFactory();
-            //MyHub.TryAddThing(scopeNonSync,
-            //                    @"/",
-            //                    "Cards0",
-            //                    new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\scopeNonSync.txt", DataFileParentDirectory = @"D:\Data\ni\Cards0" });
+            var scopeNonSync = new AIThing();
+            scopeNonSync.basicAI = new NIScopeAI();
+            scopeNonSync.DataFileFactory = new HDF5DataFileFactory();
+            MyHub.TryAddThing(scopeNonSync,
+                                @"/",
+                                "Cards0",
+                                new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\scopeNonSync.txt", DataFileParentDirectory = @"D:\Data\ni\Cards0" });
 
             var scopeSlave = new AIThing();
             scopeSlave.basicAI = new NIScopeAI();

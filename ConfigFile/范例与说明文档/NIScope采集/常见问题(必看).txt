@@ -1,0 +1,27 @@
+【关于采集卡】
+NonSync卡是独立非同步采集，Master卡与Slave卡是同步采集
+NonSync卡与Master卡会自主启动采集任务，等待各自独立的触发；NonSync与其它卡没有逻辑联系，可以有多个，Master只能有一个
+Slave卡可以有多个，但必须靠Master才能启动同步采集任务
+
+【退出程序】
+一定要在程序界面输入exit回车，直接插右上角可能造成资源未释放而下次采集不能正确进行
+重启程序后，请手动刷新网页（如果要用）
+
+【关于Arm】
+所有卡只能在Idle的时候Arm，Arm之后进入Ready
+自主启动采集任务的卡（NonSync或者Master）Ready之后，进入等待触发状态，触发到来采集数据，进入Running，数据采集完毕后进入回到Idle
+Slave卡，Arm之后进入Ready，如果Master与Slave同时Arm（半秒内或设置自动Arm），则该Slave与Master同步采集；
+如果Slave在Master已经Running或Idle状态下Arm，则该Slave等待Master下一次Ready并同步采集
+
+【关于Stop】
+自主启动采集任务的卡（NonSync或者Master），一旦Ready，千万不要Stop或者关闭程序，就算不小心按了或关了，也一定要将触发给出来让它采集任务开始，
+否则电脑会卡死！！！
+Slave卡，当Master不在Ready的时候，可以随时Stop；
+
+【BUG与修复】
+如果同步采集无法开始，并提示no registered trigger……信息，直接重启电脑
+如果手动Stop之后，发现采集逻辑混乱，尝试exit重启程序，如果还不行，重启电脑
+
+【其它说明】
+如果要改采集配置，请仔细阅读Cfet2ProgramAddThingsPartial.cs中的注释与配置文件说明！！！
+
