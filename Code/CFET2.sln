@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDSUploadThing", "MDSUpload
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NIScopeDAQAI", "NIScopeDAQAI\NIScopeDAQAI.csproj", "{7F8C9D48-1521-43AA-813E-AED308F2CD98}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPCISClient", "EPCISClient\EPCISClient.csproj", "{F9CB28C4-4FD7-4532-86E4-916B13A9BB68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{7F8C9D48-1521-43AA-813E-AED308F2CD98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F8C9D48-1521-43AA-813E-AED308F2CD98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F8C9D48-1521-43AA-813E-AED308F2CD98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9CB28C4-4FD7-4532-86E4-916B13A9BB68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9CB28C4-4FD7-4532-86E4-916B13A9BB68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9CB28C4-4FD7-4532-86E4-916B13A9BB68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9CB28C4-4FD7-4532-86E4-916B13A9BB68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

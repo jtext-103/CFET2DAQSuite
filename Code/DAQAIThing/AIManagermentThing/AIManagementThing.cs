@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Jtext103.CFET2.Things.DAQAIThing
@@ -52,6 +53,25 @@ namespace Jtext103.CFET2.Things.DAQAIThing
                     System.Diagnostics.Debug.WriteLine("AllAIStateChanged = " + _allAIStateNow.ToString() + " time: " + DateTime.Now.ToLocalTime().ToString("HH:mm:ss.fff"));
                 }
             }
+        }
+
+        public AIManagementThing() { }
+
+        private string monitorSource = null;
+        private object monitorValue = null;
+        private bool isArmWhenEqual;
+
+        /// <summary>
+        /// 提供监控，当Source（一个Thing的Status）等于或不等于（取决于isArmWhenEqual）时，才能够自动Arm
+        /// </summary>
+        /// <param name="monitorSource">需要监控的Status路径</param>
+        /// <param name="monitorValue">监控的值</param>
+        /// <param name="isArmWhenEqual">为true时，等于monitorValue时可以触发；否则当不等于monitorValue时可以触发</param>
+        public AIManagementThing(string monitorSource, object monitorValue, bool isArmWhenEqual)
+        {
+            this.monitorSource = monitorSource;
+            this.monitorValue = monitorValue;
+            this.isArmWhenEqual = isArmWhenEqual;
         }
 
         /// <summary>
@@ -182,15 +202,46 @@ namespace Jtext103.CFET2.Things.DAQAIThing
             }
         }
 
-        //按倒序arm所有需要自动arm的AIThing
         private void ArmAllNeed()
         {
+            Task.Run(() => TrueArm());
+        }
+
+        //按倒序arm所有需要自动arm的AIThing
+        //如果使用了带参构造函数，则增加判断
+        private void TrueArm()
+        {
+            if(monitorSource != null)
+            {
+                while(true)
+                {
+                    object val = MyHub.TryGetResourceSampleWithUri(monitorSource).ObjectVal;
+                    if (isArmWhenEqual)
+                    {
+                        if(val.ToString() == monitorValue.ToString())
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (val.ToString() != monitorValue.ToString())
+                        {
+                            break;
+                        }
+                    }
+                    Thread.Sleep(800);
+                }
+            }
+
             for (int i = allAndAutoArmAIThings.AutoArmAIThingPaths.Count() - 1; i >= 0; i--)
             {
                 System.Diagnostics.Debug.WriteLine("Auto arm " + allAndAutoArmAIThings.AutoArmAIThingPaths[i]);
                 MyHub.TryInvokeSampleResourceWithUri(allAndAutoArmAIThings.AutoArmAIThingPaths[i] + @"/tryarm");
             }
         }
+
+        
 
         #region IDisposable Support
         private bool disposedValue = false; // 要检测冗余调用

@@ -181,6 +181,10 @@
       <Project>{c6c48777-2842-46cb-bba6-2978df9744a5}</Project>
       <Name>DAQDataUploadThing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EPCISClient\EPCISClient.csproj">
+      <Project>{f9cb28c4-4fd7-4532-86e4-916b13a9bb68}</Project>
+      <Name>EPCISClient</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JYDAQAI\JYDAQAI.csproj">
       <Project>{2ef7524f-fa13-4f96-b29b-f68ada1096cf}</Project>
       <Name>JYDAQAI</Name>

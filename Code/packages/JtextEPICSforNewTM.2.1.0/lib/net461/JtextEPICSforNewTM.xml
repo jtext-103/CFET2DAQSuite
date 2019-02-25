@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JtextEPICSforNewTM</name>
+    </assembly>
+    <members>
+        <member name="T:JtextEPICSforNewTM.JtextEpicsClient">
+            <summary>
+            提供对EPCIS PV的基本SET与GET操作，这些操作可能会失败，调用处需要判断
+            </summary>
+        </member>
+        <member name="M:JtextEPICSforNewTM.JtextEpicsClient.#ctor(System.String[],System.String,System.Int32,System.Int32)">
+            <summary>
+            init a client, add all pvs, 
+            </summary>
+            <param name="pvNames"></param>
+            <param name="ipAddress"></param>
+            <param name="connectionDelay"></param>
+            <param name="timeOutTimes"></param>
+        </member>
+        <member name="M:JtextEPICSforNewTM.JtextEpicsClient.GetPV(System.String)">
+            <summary>
+            获取单个PV，如果失败只将一个pvValue设成Nothing
+            </summary>
+            <param name="pvName"></param>
+            <returns></returns>
+        </member>
+        <member name="P:JtextEPICSforNewTM.JtextEpicsClient.Item(System.String)">
+            <summary>
+            读取和设置PV，读取空返回 "Nothing"
+            ！！！注意！！！如果没有先UpdatePV直接调用这个，必会得到上一次的值或"Nothing"
+            </summary>
+            <param name="pvName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JtextEPICSforNewTM.JtextEpicsClient.UpdatePV">
+            <summary>
+            更新PV中的值，如果
+            </summary>
+        </member>
+    </members>
+</doc>

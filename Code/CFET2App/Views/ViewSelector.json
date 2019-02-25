@@ -8,10 +8,7 @@
       "Params": {
         "uploadthing": "uploader",
         "childpaths": [
-          "card0",
-          "cards0",
-          "cards1",
-          "cards2"
+          "Card0"
         ]
       }
     },

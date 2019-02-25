@@ -15,6 +15,7 @@ using JTextDAQDataFileOperator.HDF5;
 using Jtext103.CFET2.NancyHttpCommunicationModule;
 using Jtext103.CFET2.Things.DicServer;
 using ViewCopy;
+using Jtext103.CFET2.Things.EPCISClient;
 
 namespace Jtext103.CFET2.CFET2App
 {
@@ -28,14 +29,18 @@ namespace Jtext103.CFET2.CFET2App
             MyHub.TryAddCommunicationModule(nancyCM);
 
             //拷贝视图文件夹
-            var myViewsCopyer = new ViewCopyer();
-            myViewsCopyer.StartCopy();
-            var myContentCopyer = new ViewCopyer(null, "Content");
-            myContentCopyer.StartCopy();
+            //var myViewsCopyer = new ViewCopyer();
+            //myViewsCopyer.StartCopy();
+            //var myContentCopyer = new ViewCopyer(null, "Content");
+            //myContentCopyer.StartCopy();
 
             //Dic
             var dic = new DicServerThing();
             MyHub.TryAddThing(dic, "/", "Dic", @"D:\Run\ConfigFile\DAQFamilyBucket\Dic.txt");
+
+            //Epcis
+            EPCISThing epcis = new EPCISThing();
+            MyHub.TryAddThing(epcis, "/", "epcis", @"D:\Run\ConfigFile\DAQFamilyBucket\PVs.txt");
             #endregion
 
             //注意，下面加了多少个卡，在左边：
@@ -106,51 +111,56 @@ namespace Jtext103.CFET2.CFET2App
 
             #region NIScope采集卡，若使用NIScope请展开
             //------------------------------NIScope采集卡，每增加一个采集卡要增加以下4行代码------------------------------//
-            var scopeNonSync = new AIThing();
-            scopeNonSync.basicAI = new NIScopeAI();
-            scopeNonSync.DataFileFactory = new HDF5DataFileFactory();
-            MyHub.TryAddThing(scopeNonSync,
-                                @"/",
-                                "Cards0",
-                                new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\scopeNonSync.txt", DataFileParentDirectory = @"D:\Data\ni\Cards0" });
+            //var scopeNonSync = new AIThing();
+            //scopeNonSync.basicAI = new NIScopeAI();
+            //scopeNonSync.DataFileFactory = new HDF5DataFileFactory();
+            //MyHub.TryAddThing(scopeNonSync,
+            //                    @"/",
+            //                    "Cards0",
+            //                    new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\scopeNonSync.txt", DataFileParentDirectory = @"D:\Data\ni\Cards0" });
 
-            var scopeSlave = new AIThing();
-            scopeSlave.basicAI = new NIScopeAI();
-            scopeSlave.DataFileFactory = new HDF5DataFileFactory();
-            MyHub.TryAddThing(scopeSlave,
-                                @"/",
-                                "Cards2",
-                                new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\scopeSlave.txt", DataFileParentDirectory = @"D:\Data\ni\Cards2" });
+            //var scopeSlave = new AIThing();
+            //scopeSlave.basicAI = new NIScopeAI();
+            //scopeSlave.DataFileFactory = new HDF5DataFileFactory();
+            //MyHub.TryAddThing(scopeSlave,
+            //                    @"/",
+            //                    "Cards2",
+            //                    new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\scopeSlave.txt", DataFileParentDirectory = @"D:\Data\ni\Cards2" });
 
-            var scopeMaster = new AIThing();
-            scopeMaster.basicAI = new NIScopeAI();
-            scopeMaster.DataFileFactory = new HDF5DataFileFactory();
-            MyHub.TryAddThing(scopeMaster,
-                                @"/",
-                                "Cards1",
-                                new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\scopeMaster.txt", DataFileParentDirectory = @"D:\Data\ni\Cards1" });
+            //var scopeMaster = new AIThing();
+            //scopeMaster.basicAI = new NIScopeAI();
+            //scopeMaster.DataFileFactory = new HDF5DataFileFactory();
+            //MyHub.TryAddThing(scopeMaster,
+            //                    @"/",
+            //                    "Cards1",
+            //                    new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\scopeMaster.txt", DataFileParentDirectory = @"D:\Data\ni\Cards1" });
             #endregion
 
             //------------------------------自动 Arm 采集卡与发布上传事件的，只有一个这个------------------------------//
             //它的逻辑是当所有 AllAIThingPaths 中的卡都 Idle 之后自动 Arm 所有 AutoArmAIThingPaths 中的卡，以及发布上传事件
-            var aiManagement = new AIManagementThing();
+
+            //如果第三个参数为true，则当第一个参数的值等于第二个参数的时候，可以自动arm
+            //如果第三个参数为false，则当第一个餐宿的值不等于第二个参数的时候，可以自动arm
+            var aiManagement = new AIManagementThing("/epcis/trygetpv/ST:SHOTSERVER:SHOTNO", "1000", true);
+            //不判断直接自动arm
+            //var aiManagement = new AIManagementThing();
             MyHub.TryAddThing(aiManagement,
                                 @"/",
                                 "aimanagement",
                                 new
                                 {
                                     //要判断多少个卡的状态就加几个（比如独立工作的卡就不用加），注意前面是 / 后面是卡名，比如{ "/Card0", "/Card1" },
-                                    AllAIThingPaths = new string[] { "/Cards0" },
+                                    AllAIThingPaths = new string[] { "/Card0" },
                                     //AllAIThingPaths = new string[] { "/CardB", "/CardC" },
                                     //自动Arm的，如果不想手动触发的就加上，跟上面一行格式一样
-                                    AutoArmAIThingPaths = new string[] { }
+                                    AutoArmAIThingPaths = new string[] { "/Card0" }
                                     //AutoArmAIThingPaths = new string[] { "/CardC" }
                                 });
 
             //------------------------------上传文件的，只有一个这个------------------------------//
-            //var uploader = new DataUpLoadThing();
-            ////前面的别改，后面的.txt路径是配置文件的完整路径
-            //MyHub.TryAddThing(uploader, @"/", "uploader", @"D:\Run\ConfigFile\DAQFamilyBucket\DataUploadConfig.txt");
+            var uploader = new DataUpLoadThing();
+            //前面的别改，后面的.txt路径是配置文件的完整路径
+            MyHub.TryAddThing(uploader, @"/", "uploader", @"D:\Run\ConfigFile\DAQFamilyBucket\DataUploadConfig.txt");
 
             //------------------------------上传MDS的，只有一个这个------------------------------//
             //var mdsthing = new MdsThing();

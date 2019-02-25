@@ -1,0 +1,1798 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>epicsLibrary</name>
+    </assembly>
+    <members>
+        <member name="T:PSIEpics.RulesChangedDelegate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:PSIEpics.IRuleSet">
+            <summary>
+            Interface for a set of rules to allow a EpicsServer or EpicsGateWay to 
+            determ if the Channel is read or writeable
+            </summary>
+        </member>
+        <member name="E:PSIEpics.IRuleSet.RulesChanged">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PSIEpics.IRuleSet.GetAccessRights(System.Net.EndPoint,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="RemoteEndPoint"></param>
+            <param name="Username"></param>
+            <param name="ChannelName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PSIEpics.ConfigList">
+            <summary>
+            String List for Epics Configuration
+            </summary>
+        </member>
+        <member name="P:PSIEpics.ConfigList.Count">
+            <summary>
+            Count of items contained by the list
+            </summary>
+        </member>
+        <member name="M:PSIEpics.ConfigList.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:PSIEpics.ConfigList.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="item">single Item</param>
+        </member>
+        <member name="M:PSIEpics.ConfigList.#ctor(System.Collections.Generic.List{System.String})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="items">string list of items</param>
+        </member>
+        <member name="M:PSIEpics.ConfigList.Add(System.String)">
+            <summary>
+            Adds an Item to the ConfigList
+            </summary>
+            <param name="item">new Item</param>
+        </member>
+        <member name="M:PSIEpics.ConfigList.Remove(System.String)">
+            <summary>
+            Removes an item from the ConfigList
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:PSIEpics.ConfigList.Clear">
+            <summary>
+            Drops the whole ConfigList
+            </summary>
+        </member>
+        <member name="M:PSIEpics.ConfigList.getStringList">
+            <summary>
+            returns all configured items in a string list
+            </summary>
+            <returns>string list of all values</returns>
+        </member>
+        <member name="T:PSIEpics.AccessRights">
+            <summary>
+            Channel access rights
+            </summary>
+        </member>
+        <member name="F:PSIEpics.AccessRights.NoAccess">
+            <summary>
+            no write nor reade access 
+            </summary>
+        </member>
+        <member name="F:PSIEpics.AccessRights.ReadOnly">
+            <summary>
+            it means you can only read.
+            </summary>
+        </member>
+        <member name="F:PSIEpics.AccessRights.WriteOnly">
+            <summary>
+            you can only write
+            </summary>
+        </member>
+        <member name="F:PSIEpics.AccessRights.ReadAndWrite">
+            <summary>
+            Read and Write Rights
+            </summary>
+        </member>
+        <member name="F:PSIEpics.AccessRights.NotSet">
+            <summary>
+            Read and Write Rights
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CAConstants.CA_MINOR_PROTOCOL_REVISION">
+            <summary>
+            Minor revision of channel access protocol implemented in this library
+            </summary>
+        </member>
+        <member name="T:PSIEpics.ChannelStatus">
+            <summary>
+            Current connection status of a channel
+            </summary>
+        </member>
+        <member name="F:PSIEpics.ChannelStatus.REQUESTED">
+            <summary>
+            Channel was just created and is trying to be established.
+            </summary>
+        </member>
+        <member name="F:PSIEpics.ChannelStatus.CONNECTED">
+            <summary>
+            Channel is connected to an IOC and able to work.
+            </summary>
+        </member>
+        <member name="F:PSIEpics.ChannelStatus.DISCONNECTED">
+            <summary>
+            Channel was connected, lost connection, and is not working now. But will try to reconnect automaticly
+            </summary>
+        </member>
+        <member name="T:PSIEpics.CommandID">
+            <remarks>
+            Channel access command IDs
+            </remarks>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_VERSION">
+            <summary>
+            CA protocol version
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_EVENT_ADD">
+            <summary>
+            Register monitor
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_EVENT_CANCEL">
+            <summary>
+            Unregister monitor
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_READ">
+            <summary>
+            Read channel value (without notification)
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_WRITE">
+            <summary>
+            Write channel value (without notification)
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_SEARCH">
+            <summary>
+            Search for a channel
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_EVENTS_OFF">
+            <summary>
+            Disable monitor events
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_EVENTS_ON">
+            <summary>
+            Enable monitor events
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_ERROR">
+            <summary>
+            Error during operation
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_CLEAR_CHANNEL">
+            <summary>
+            Release channel resources
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_RSRV_IS_UP">
+            <summary>
+            Server beacon
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_NOT_FOUND">
+            <summary>
+            Channel not found
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_READ_NOTIFY">
+            <summary>
+            Read channel value (with notification)
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_REPEATER_CONFIRM">
+            <summary>
+            Repeater registration confirmation
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_CREATE_CHAN">
+            <summary>
+            Create channel
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_WRITE_NOTIFY">
+            <summary>
+            Write channel value (with notification)
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_CLIENT_NAME">
+            <summary>
+            Client user name
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_HOST_NAME">
+            <summary>
+            Client host name
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_ACCESS_RIGHTS">
+            <summary>
+            Channel access rights
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_ECHO">
+            <summary>
+            Ping CA server
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_REPEATER_REGISTER">
+            <summary>
+            Register client on repeater
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_CREATE_CH_FAIL">
+            <summary>
+            Channel creation failed
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_SERVER_DISCONN">
+            <summary>
+            Server is going down
+            </summary>
+        </member>
+        <member name="F:PSIEpics.CommandID.CA_PROTO_BAD_RESPONSE">
+            <summary>
+            Invalid response
+            </summary>
+        </member>
+        <member name="T:PSIEpics.MonitorMask">
+            <summary>
+            Monitor Mask allows to define what a Monitor shall monitor
+            </summary>
+        </member>
+        <member name="F:PSIEpics.MonitorMask.VALUE">
+            <summary>
+            Value type
+            </summary>
+        </member>
+        <member name="F:PSIEpics.MonitorMask.LOG">
+            <summary>
+            Log type
+            </summary>
+        </member>
+        <member name="F:PSIEpics.MonitorMask.VALUE_LOG">
+            <summary>
+            Value and log together
+            </summary>
+        </member>
+        <member name="F:PSIEpics.MonitorMask.ALARM">
+            <summary>
+            Alarm status type
+            </summary>
+        </member>
+        <member name="F:PSIEpics.MonitorMask.VALUE_ALARM">
+            <summary>
+            Value and alarm together
+            </summary>
+        </member>
+        <member name="F:PSIEpics.MonitorMask.LOG_ALARM">
+            <summary>
+            Log and alarm together
+            </summary>
+        </member>
+        <member name="F:PSIEpics.MonitorMask.ALL">
+            <summary>
+            All three (value, log and alarm) together
+            </summary>
+        </member>
+        <member name="T:PSIEpics.Severity">
+            <summary>
+            Defines the severity of the current alarm
+            </summary>
+        </member>
+        <member name="F:PSIEpics.Severity.NO_ALARM">
+            <summary>
+            there is no alarm (value is betweend LowWarnLimit and HighWarnLimit)
+            </summary>
+        </member>
+        <member name="F:PSIEpics.Severity.MINOR">
+            <summary>
+            the alarm is minor (value is between LowWarnLimit and LowAlarmLimit or HighWarnLimit and HighAlarmLimit)
+            </summary>
+        </member>
+        <member name="F:PSIEpics.Severity.MAJOR">
+            <summary>
+            the alarm is major. its lower then the LowAlarmLimit or higher den the HighAlarmLimit
+            </summary>
+        </member>
+        <member name="F:PSIEpics.Severity.INVALID">
+            <summary>
+            Invalid Status
+            </summary>
+        </member>
+        <member name="T:PSIEpics.Status">
+            <summary>
+            Informs about the status of the device behind this Channel
+            </summary>
+        </member>
+        <member name="F:PSIEpics.Status.NO_ALARM">
+            <summary>
+            Device is working properly correctly
+            </summary>
+        </member>
+        <member name="F:PSIEpics.Status.HIHI">
+            <summary>
+            Device is malfunctioning, and hit the upper Alarm Limit
+            </summary>
+        </member>
+        <member name="F:PSIEpics.Status.HIGH">
+            <summary>
+            Device is missbehaving, and hit the upper Warn Limit
+            </summary>
+        </member>
+        <member name="F:PSIEpics.Status.LOLO">
+            <summary>
+            Device is malfunctioning, and hit the lower Alarm Limit
+            </summary>
+        </member>
+        <member name="F:PSIEpics.Status.LOW">
+            <summary>
+            Device is missbehaving, and hit theu lower Warn Limit
+            </summary>
+        </member>
+        <member name="F:PSIEpics.Status.UDF">
+            <summary>
+            Undefined Status
+            </summary>
+        </member>
+        <member name="T:PSIEpics.EpicsArray`1">
+            <summary>
+            EpicsArray allows to observe changes on single fields.
+            </summary>
+            <typeparam name="DataType">type of array to manipulate</typeparam>
+        </member>
+        <member name="P:PSIEpics.EpicsArray`1.Count">
+            <summary>
+            retrieve or manipulate the length of the array
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsArray`1.Item(System.Int32)">
+            <summary>
+            Direct Access to the Data
+            </summary>
+            <param name="key">numeric position starting by 0</param>
+            <returns>value at requested position</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsArray`1.#ctor(`0[])">
+            <summary>
+            Constructor
+            </summary>
+            <param name="init">init Array</param>
+        </member>
+        <member name="M:PSIEpics.EpicsArray`1.#ctor(System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="count">dimension of the Array</param>
+        </member>
+        <member name="M:PSIEpics.EpicsArray`1.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:PSIEpics.EpicsArray`1.Set(`0[])">
+            <summary>
+            Sets an array of new values, but will not change the size of the RecordArray-Size.
+            </summary>
+            <param name="newValues">array of new data</param>
+        </member>
+        <member name="M:PSIEpics.EpicsArray`1.Replace(`0[])">
+            <summary>
+            Replaces the array with a new one, will take the size of the new array.
+            </summary>
+            <param name="newValues">array of new values</param>
+        </member>
+        <member name="M:PSIEpics.EpicsArray`1.Get(System.Int32)">
+            <summary>
+            Returns an Array of Values of the given size
+            </summary>
+            <param name="size">size of the array</param>
+            <returns>array of values</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsArray`1.Get">
+            <summary>
+            returns the full value array
+            </summary>
+            <returns>array of values</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsCodec.versionMessage">
+            <summary>
+                Generates a 16 byte MessageHeader containing the standard VersionMessage with
+                Priority 1.
+                It's only used in combination with other messages for this reason it's private.
+                *cached*
+            </summary>
+            <returns>byte[16] VersionHeader</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsCodec.tcpGreetPackage">
+            <summary>
+                Generates a EPICS-TCP-Greet Package, which is needed by establishing a new TCP-ServerConnection.
+                It contains 3 Packages : CA_PROTO_VERSION,CA_PROTO_CLIENT_NAME and CA_PROTO_HOST_NAME
+                
+                *cached*
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSIEpics.EpicsUDPConnection.#ctor(System.Int32)">
+            <summary>
+            Server Constructor listens on the given Port
+            </summary>
+            <param name="port"></param>
+        </member>
+        <member name="M:PSIEpics.EpicsUDPConnection.#ctor">
+            <summary>
+            Client Constructor, will try to get his Port automaticly
+            </summary>
+        </member>
+        <member name="T:PSIEpics.EpicsDelegate">
+            <summary>
+            Monitor delegate
+            </summary>
+            <param name="sender">EpicsChannel on which the changed happened</param>
+            <param name="newValue">Object value of the type the monitor was registered for</param>
+        </member>
+        <member name="T:PSIEpics.EpicsStatusDelegate">
+            <summary>
+            Status delegate
+            </summary>
+            <param name="sender">Channel which had his status changed</param>
+            <param name="newStatus">new status</param>
+        </member>
+        <member name="T:PSIEpics.EpicsChannel">
+            <summary>
+            Epics Channel to communicate with a record-property. Must be created through the epicsClient-Factory
+            <example>
+            EpicsClient client = new EpicsClient();<br />
+            EpicsChannel channel = client.CreateChannel("TEST:CHANNEL");<br />
+            object val = channel.Get();<br />
+            channel.Dispose();
+            </example>
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsChannel.Status">
+            <summary>
+            Current connectivity status of the channel.
+            </summary>
+        </member>
+        <member name="E:PSIEpics.EpicsChannel.StatusChanged">
+            <summary>
+            Event-StatusMonitor which get called when the connectivity of this channel changes
+            </summary>
+        </member>
+        <member name="E:PSIEpics.EpicsChannel.MonitorChanged">
+            <summary>
+            Event-Monitor which calls as soon a change on the channel happened which fits into the defined
+            Monitormask (channel.MonitorMask).<br />The properties channel.MonitorMask and channel.MonitorDataCount
+            do touch the behavior of this event and can't be changed when a monitor is already connected.
+            <example>
+            EpicsClient client = new EpicsClient();<br/>
+            EpicsChannel channel=clien.tCreateChannel("SEILER_C:CPU");<br/>
+            channel.MonitorMask = MonitorMask.VALUE;<br/>
+            channel.MonitorDataCount = 1;<br/>
+            channel.MonitorChanged += new EpicsDelegate(channel_MonitorChanged);
+            </example>
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsChannel.ChannelName">
+            <summary>
+            Channelname of the created channel
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsChannel.sid">
+            <summary>
+            sid of the channel
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsChannel.SID">
+            <summary>
+            Property to set and get the SID of the Channel.
+            By Setting the SID, you tell the channel that it was successfully connected. and it tries 
+            if a monitor was requested to open a subscription.
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsChannel.MonitorMask">
+            <summary>
+            Monitor Mask, allows to define what shall be monitored. Has to be set before the first monitor is connected!
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsChannel.MonitorDataCount">
+            <summary>
+            Allows to define the count of values which shall be returned by a array.<br/>
+            will automaticly take the maximu if not defined differently.<br/>
+            Has to be set before the first monitor is connected.
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsChannel.AccessRight">
+            <summary>
+            Access Rights of the Channel
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsChannel.ChannelDefinedType">
+            <summary>
+            Epics defined type for this Channel
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsChannel.ChannelDataCount">
+            <summary>
+            Count of elements in the value-array
+            </summary>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Get(System.Int32)">
+            <summary>
+            returns the current value from the channel. <br/>
+            Therefore it has to connect to the server and request the data.<br/>
+            This function is really slow!
+            </summary>
+            <param name="dataCount">count of values required (for an array)</param>
+            <returns>Value as channelDefinedType</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Get">
+            <summary>
+            returns the current value from the channel.<br/>
+            Therefore it has to connect to the server and request the data.<br/>
+            This function is really slow!
+            </summary>
+            <returns>Value as channelDefinedType</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Get``1(System.Int32)">
+            <summary>
+            returns the current value from the channel.<br/>
+            Therefore it has to connect to the server and request the data.<br/>
+            This function is really slow!
+            </summary>
+            <typeparam name="DBRType">Type you want to receive back. if you request more then one value you have to request a type-array</typeparam>
+            <param name="datacount">Count of values</param>
+            <returns>Value as requested type</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.BlindGet``1">
+            <summary>
+            BlindGet is supposed for extended Epics Type for unknown DataTypes.
+            </summary>
+            <typeparam name="DBRType">requested ExtTyp with object as requested Type</typeparam>
+            <returns>exteded DataType Structure with casted Value</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.BlindGet``1(System.Int32)">
+            <summary>
+            BlindGet is supposed for extended Epics Type for unknown DataTypes.
+            </summary>
+            <typeparam name="DBRType">requested ExtTyp with object as requested Type</typeparam>
+            <param name="datacount">amount of requested Amount</param>
+            <returns>exteded DataType Structure with casted Value</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Get``1">
+            <summary>
+            returns the current value from the channel.<br/>Therefore it has to connect to the server and request the data.<br/>
+            This function is really slow!<br/>Important: it will automaticly take the epics defined amount, if this is bigger then
+            one you have to request an array.
+            </summary>
+            <typeparam name="DBRType">Type you want to receive back. if you request more then one value you have to request a type-array</typeparam>
+            <returns>Value as requested type</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.GetAsync(PSIEpics.EpicsDelegate)">
+            <summary>
+            Calls the callback with the new value of the epics defined type
+            </summary>
+            <param name="GetListener">callback function</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.GetAsync``1(PSIEpics.EpicsDelegate)">
+            <summary>
+            Calls the callback with the new value of the passed type.<br/>if the datacount of the channel is bigger then one
+            you have to ask a array.
+            </summary>
+            <typeparam name="DBRType">Type you want to receive back. if you request more then one value you have to request a type-array</typeparam>
+            <param name="GetListener">callback function</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Put(System.String)">
+            <summary>
+            Sets Values to the Channel.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Put(System.Int16)">
+            <summary>
+            Sets Values to the Channel.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Put(System.Single)">
+            <summary>
+            Sets Values to the Channel.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Put(System.SByte)">
+            <summary>
+            Sets Values to the Channel.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Put(System.Int32)">
+            <summary>
+            Sets Values to the Channel.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Put(System.Double)">
+            <summary>
+            Sets Values to the Channel.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Put(System.String[])">
+            <summary>
+            Sets Values to the Channel.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Put(System.Int16[])">
+            <summary>
+            Sets Values to the Channel.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Put(System.Single[])">
+            <summary>
+            Sets Values to the Channel.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Put(System.SByte[])">
+            <summary>
+            Sets Values to the Channel.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Put(System.Int32[])">
+            <summary>
+            Sets Values to the Channel.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Put(System.Double[])">
+            <summary>
+            Sets Values to the Channel.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutSync(System.String)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutSync(System.Int16)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutSync(System.Single)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutSync(System.SByte)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutSync(System.Int32)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutSync(System.Double)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutSync(System.String[])">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutSync(System.Int16[])">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutSync(System.Single[])">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutSync(System.SByte[])">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutSync(System.Int32[])">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutSync(System.Double[])">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutASync(System.String,PSIEpics.EpicsPutDelegate)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutASync(System.Int16,PSIEpics.EpicsPutDelegate)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutASync(System.Single,PSIEpics.EpicsPutDelegate)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutASync(System.SByte,PSIEpics.EpicsPutDelegate)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutASync(System.Int32,PSIEpics.EpicsPutDelegate)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutASync(System.Double,PSIEpics.EpicsPutDelegate)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutASync(System.String[],PSIEpics.EpicsPutDelegate)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutASync(System.Int16[],PSIEpics.EpicsPutDelegate)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutASync(System.Single[],PSIEpics.EpicsPutDelegate)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutASync(System.SByte[],PSIEpics.EpicsPutDelegate)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutASync(System.Int32[],PSIEpics.EpicsPutDelegate)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.PutASync(System.Double[],PSIEpics.EpicsPutDelegate)">
+            <summary>
+            Sets Values to the Channel and waits for the Affirmation.
+            </summary>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel.Dispose">
+            <summary>
+            Disposes the Channel, closing all Monitors and correctly informs the IOC
+            </summary>
+        </member>
+        <member name="T:PSIEpics.EpicsClient">
+            <summary>
+            Epics Factory to create Channels.
+            <example>
+            EpicsClient client = new EpicsClient();<br />
+            EpicsChannel channel = client.CreateChannel("TEST:CHANNEL");<br />
+            object value = channel.Get();<br />
+            channel.Put(100);<br />
+            client.Dispose();
+            </example>
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsClient.Config">
+            <summary>
+            EpicsClient Configuration, allows runtime modification.
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsClient.ExceptionContainer">
+            <summary>
+            Exception container for asynchron threads (if something strange happens and you don't get a exception, check here)
+            </summary>
+        </member>
+        <member name="M:PSIEpics.EpicsClient.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:PSIEpics.EpicsClient.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:PSIEpics.EpicsClient.CreateChannel(System.String)">
+            <summary>
+            Creates a new EpicsChannel, even if the channel already exists.<br />
+            The Channel is at the Moment it's given back still in creation. So if the Channel doesn't exist will not be checked.<br />
+            Further the Channel will be created as his by configuration defined type.
+            </summary>
+            <param name="ChannelName">Name of the Channel</param>
+            <returns>!new! EpicsChannel</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsClient.CreateChannel``1(System.String)">
+            <summary>
+            Creates a new generic EpicsChannel, even if the channel already exists.<br/>
+            The Channel is at the Moment it's given back still in creation. So if the Channel doesn't exist will not be checked.<br/>
+            Further the Channel will be created to serve the requested DataType.
+            </summary>
+            <param name="ChannelName">Name of the Channel.</param>
+            <returns>!new! generic EpicsChannel</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsClient.GetStatus">
+            <summary>
+            DEBUG: Returns the Current Status of the EpicsClient including some statistics
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PSIEpics.EpicsClient.Dispose">
+            <summary>
+            Cleans up all associated things and the client himself.<br/>
+            Drops all channels and disconnects all channel.
+            </summary>
+        </member>
+        <member name="T:PSIEpics.EpicsClientConfig">
+            <summary>
+            Configuration for EpicsClient.<br/>
+            Does define default values, load from app.config (e#%PropertyName%) and allows afterwards
+            configuration changes on runtime.
+            <example>
+            EpicsClient client = new EpicsClient();<br />
+            client.Config.UDPBufferSize = 56000;<br />
+            client.Config.ServerList.Add("127.0.0.1");<br />
+            client.Config.GetTimeout = 1000;
+            </example>
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsClientConfig.GetTimeout">
+            <summary>
+            Time which is allowed to pass between sending the request to get a value and the receiving.
+            Does not include the time to connect
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsClientConfig.PutTimeout">
+            <summary>
+            Time which is allowed to pass between sending the request to put a value and the receiving.
+            Does not include the time to connect
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsClientConfig.ConnectTimeout">
+            <summary>
+            Time which is allowed to pass for a connection to the ioc to be established.
+            includes finding the correct channel.
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsClientConfig.UDPBeaconPort">
+            <summary>
+            UDP Port on which the client has to listen for beacons
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsClientConfig.UDPIocPort">
+            <summary>
+            UDP Port on which the IOC should listen for udp-Requests
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsClientConfig.ServerList">
+            <summary>
+            List of server or broadcast-addresses which will be asked for a channel
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsClientConfig.UDPBufferSize">
+            <summary>
+            Socket Buffersize for UDP Connection
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsClientConfig.TCPBufferSize">
+            <summary>
+            Socket Buffersize for TCP Connection
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsClientConfig.ChannelSearchInterval">
+            <summary>
+            time in miliseconds which has to past before another UDP-Channel-Search-Packet is send. 
+            !Attention! if you are sending to fast, it can kill the gateway or the IOC. 100ms is strongly suggested!
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsClientConfig.ChannelSearchMaxPackageSize">
+            <summary>
+            amount of channel-requests which is send in a UDP-Channel-Search-Packet.
+            !Attention! if you are sending to high numbers, it can kill the gateway or the IOC. 300 is strongly suggested!
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsClientConfig.ChannelSearchResearchInterval">
+            <summary>
+            Time in miliseconds before it will search again for not found channels 
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsClientConfig.ConnectionEchoTimeout">
+            <summary>
+            timeinterval in milisecond between echo messages are send to established server connections to check
+            their availability.
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsClientConfig.TCPMaxSendSize">
+            <summary>
+            maximum of bytes send in one tcp packet
+            </summary>
+        </member>
+        <member name="M:PSIEpics.EpicsClientConfig.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="ipAddr">only listen on this ip</param>
+        </member>
+        <member name="M:PSIEpics.EpicsClientCodec.searchPackage(System.String,System.Int32)">
+            <summary>
+                Builds a EPICS-Package for Searching a Channel.
+                it contains 2 Messages: CA_PROTO_VERSION and CA_PROTO_SEARCH
+            </summary>
+            <param name="Channelname">String Name of a searched Channel</param>
+            <param name="CID">CID of the given Channel</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSIEpics.EpicsClientCodec.searchPackage(System.Collections.Generic.Queue{System.Collections.Generic.KeyValuePair{System.Int32,System.String}})">
+            <summary>
+                Builds a EPICS-Package for Searching multiple Channel.
+                it contains 2 types of messages:
+                    a leading CA_PROTO_VERSION and then for every channel a
+                    CA_PROTO_SEARCH
+            </summary>
+            <param name="channels">list of channels to search for, the key must be the CID</param>
+            <returns></returns>
+        </member>
+        <member name="T:PSIEpics.EpicsExceptionList">
+            <summary>
+            Class which does monitor and save exceptions which happened in asynchron threads.
+            </summary>
+        </member>
+        <member name="E:PSIEpics.EpicsExceptionList.ExceptionCaught">
+            <summary>
+            Monitor for new exception caught
+            </summary>
+        </member>
+        <member name="T:PSIEpics.EpicsExceptionList.ExceptionCaughtDelegate">
+            <summary>
+            Delegate for exception capturing
+            </summary>
+            <param name="caughtException">Exception created in another thread</param>
+        </member>
+        <member name="M:PSIEpics.EpicsExceptionList.getExceptionList">
+            <summary>
+            Get the full list of exceptions tracked by the class, including the datetime of the occurance
+            </summary>
+            <returns>Full list of exceptions</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsExceptionList.clearList">
+            <summary>
+            Clears the exceptions list
+            </summary>
+        </member>
+        <!-- 对于成员“T:PSIEpics.EpicsDelegate`1”忽略有格式错误的 XML 注释 -->
+        <member name="T:PSIEpics.EpicsChannel`1">
+            <summary>
+            Generic Epics Channel, will ask the epics IOC for this type of value, even if his base type is another one.
+            </summary>
+            <typeparam name="DataType">Type wished for this channel</typeparam>
+        </member>
+        <member name="E:PSIEpics.EpicsChannel`1.privMonitorChanged">
+            <summary>
+            Event-StatusMonitor which get called when the connection of this channel changes
+            </summary>
+        </member>
+        <member name="E:PSIEpics.EpicsChannel`1.MonitorChanged">
+            <summary>
+            Event-Monitor which calls as soon a change on the channel happened which fits into the defined
+            Monitormask (channel.MonitorMask).<br />The properties channel.MonitorMask and channel.MonitorDataCount
+            do touch the behavior of this event and can't be changed when a monitor is already connected.
+            <example>
+            EpicsClient client = new EpicsClient();<br/>
+            EpicsChannel channel=clien.tCreateChannel("SEILER_C:CPU");<br/>
+            channel.MonitorMask = MonitorMask.VALUE;<br/>
+            channel.MonitorDataCount = 1;<br/>
+            channel.MonitorChanged += new EpicsDelegate(channel_MonitorChanged);
+            </example>
+            </summary>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel`1.Get">
+            <summary>
+            returns the current value from the channel.<br/>Therefore it has to connect to the server and request the data.<br/>
+            This function is really slow!
+            </summary>
+            <returns>Value as type of the generic channel</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel`1.Get(System.Int32)">
+            <summary>
+            returns the current value from the channel.<br/>Therefore it has to connect to the server and request the data.<br/>
+            This function is really slow!
+            </summary>
+            <param name="dataCount">count of values required (for an array)</param>
+            <returns>Value as type of the generic channel</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsChannel`1.Dispose">
+            <summary>
+            Disposes the Channel, closing all Monitors and correctly informs the IOC
+            </summary>
+        </member>
+        <member name="T:PSIEpics.EpicsType">
+            <summary>
+            This enum represents the different CA value types and their corresponding intval
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.String">
+            <summary>
+            Plain string
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Short">
+            <summary>
+            Plain 16bit integer
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Float">
+            <summary>
+            Plain 32bit floating point
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Enum">
+            <summary>
+            Plain enumeration (using 16bit unsigned integer)
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.SByte">
+            <summary>
+            Plain signed byte
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Int">
+            <summary>
+            Plain 32bit integer
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Double">
+            <summary>
+            Plain 64bit floating point
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Status_String">
+            <summary>
+            Extends plain string by status and severity
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Status_Short">
+            <summary>
+            Extends plain 16bit integer by status and severity
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Status_Float">
+            <summary>
+            Extends plain 32bit floating point by status and severity
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Status_Enum">
+            <summary>
+            Extends plain enumeration by status and severity
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Status_SByte">
+            <summary>
+            Extends plain signed byte by status and severity
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Status_Int">
+            <summary>
+            Extends plain 32bit integer by status and severity
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Status_Double">
+            <summary>
+            Extends plain 64bit floating point by status and severity
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Time_String">
+            <summary>
+            Extends Status_String by timestamp
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Time_Short">
+            <summary>
+            Extends Status_Short by timestamp
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Time_Float">
+            <summary>
+            Extends Status_Float by timestamp
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Time_Enum">
+            <summary>
+            Extends Status_Enum by timestamp
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Time_SByte">
+            <summary>
+            Extends Status_SByte by timestamp
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Time_Int">
+            <summary>
+            Extends Status_Int by timestamp
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Time_Double">
+            <summary>
+            Extends Status_Double by timestamp
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Display_String">
+            <summary>
+            Extends Status_String by display bounds (not used since
+            a string cannot have display bounds)
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Display_Short">
+            <summary>
+            Extends Status_Short by display bounds
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Display_Float">
+            <summary>
+            Extends Status_Float by display bounds
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Labeled_Enum">
+            <summary>
+            Extends Status_Enum by a list of enumeration labels
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Display_SByte">
+            <summary>
+            Extends Status_SByte by display bounds
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Display_Int">
+            <summary>
+            Extends Status_Int by display bounds
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Display_Double">
+            <summary>
+            Extends Status_Double by display bounds
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Control_String">
+            <summary>
+            Extends Display_String by control bounds (not used since
+            a string cannot have control bounds)
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Control_Short">
+            <summary>
+            Extends Display_Short by control bounds
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Control_Float">
+            <summary>
+            Extends Display_Float by control bounds
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Control_Enum">
+            <summary>
+            Not used since parent type is Labeled_Enum
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Control_SByte">
+            <summary>
+            Extends Display_SByte by control bounds
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Control_Int">
+            <summary>
+            Extends Display_Int by control bounds
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Control_Double">
+            <summary>
+            Extends Display_Double by control bounds
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.UInt">
+            <summary>
+            UInt32 not used by client, needed for the header fields! This Type is not valid as recordtype
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.UShort">
+            <summary>
+            UInt16 not used by client, needed for the header fields! This Type is not valid as recordtype
+            </summary>
+        </member>
+        <member name="F:PSIEpics.EpicsType.Invalid">
+            <summary>
+            Defines an invalid data type
+            </summary>
+        </member>
+        <member name="M:PSIEpics.EpicsTCPConnection.#ctor(System.Net.Sockets.Socket)">
+            <summary>
+            TCPConnection Constructor for Server > Client Connection
+            </summary>
+            <param name="TCPSocket"></param>
+        </member>
+        <member name="M:PSIEpics.EpicsTCPConnection.#ctor(System.Net.IPEndPoint)">
+            <summary>
+            TCPConnection Constructor for Client > Server Connection 
+            </summary>
+            <param name="iep">IPEndPoint of the targeted Server</param>
+        </member>
+        <member name="T:PSIEpics.ExtAcknowledge`1">
+            <summary>
+            extended epics Acknowledge type <br/> serves severity, status, value, precision (for double and float), unittype 
+            and a bunch of limits. 
+            </summary>
+            <typeparam name="dType">generic datatype for value</typeparam>
+        </member>
+        <member name="P:PSIEpics.ExtAcknowledge`1.AcknowledgeTransient">
+            <summary>
+            transient of the acknowledge message
+            </summary>
+        </member>
+        <member name="P:PSIEpics.ExtAcknowledge`1.AcknowledgeSeverity">
+            <summary>
+            Severity of the acknowledge serverity
+            </summary>
+        </member>
+        <member name="T:PSIEpics.ExtControl`1">
+            <summary>
+            extended epics control type <br/> serves severity, status, value, precision (for double and float), unittype 
+            and a bunch of limits. 
+            </summary>
+            <typeparam name="dType">generic datatype for value</typeparam>
+        </member>
+        <member name="P:PSIEpics.ExtControl`1.LowControlLimit">
+            <summary>
+            Lowest Value which can be set
+            </summary>
+        </member>
+        <member name="P:PSIEpics.ExtControl`1.HighControlLimit">
+            <summary>
+            Highest Value which can be set
+            </summary>
+        </member>
+        <member name="M:PSIEpics.ExtControl`1.ToString">
+            <summary>
+            builds a string line of all properties
+            </summary>
+            <returns>comma seperated string of keys and values</returns>
+        </member>
+        <member name="T:PSIEpics.ExtGraphic`1">
+            <summary>
+            extended epics graphic type <br/> serves severity, status, value, precision (for double and float), unittype 
+            and a bunch of limits. 
+            </summary>
+            <typeparam name="dType">generic datatype for value</typeparam>
+        </member>
+        <member name="P:PSIEpics.ExtGraphic`1.Precision">
+            <summary>
+            Epics defined precision of the valuem, only set for double or float
+            </summary>
+        </member>
+        <member name="P:PSIEpics.ExtGraphic`1.EGU">
+            <summary>
+            EnGineer Unit of the value
+            </summary>
+        </member>
+        <member name="P:PSIEpics.ExtGraphic`1.LowWarnLimit">
+            <summary>
+            Low limit for correct operation.
+            </summary>
+        </member>
+        <member name="P:PSIEpics.ExtGraphic`1.LowAlertLimit">
+            <summary>
+            Low limit for incorrect operation
+            </summary>
+        </member>
+        <member name="P:PSIEpics.ExtGraphic`1.LowDisplayLimit">
+            <summary>
+            Lowest possible value which is visible
+            </summary>
+        </member>
+        <member name="P:PSIEpics.ExtGraphic`1.HighWarnLimit">
+            <summary>
+            High limit for correct operation  
+            </summary>
+        </member>
+        <member name="P:PSIEpics.ExtGraphic`1.HighAlertLimit">
+            <summary>
+            High limit for incorrect operation
+            </summary>
+        </member>
+        <member name="P:PSIEpics.ExtGraphic`1.HighDisplayLimit">
+            <summary>
+            Highest possible value which is visible
+            </summary>
+        </member>
+        <member name="M:PSIEpics.ExtGraphic`1.ToString">
+            <summary>
+            builds a string line of all properties
+            </summary>
+            <returns>comma seperated string of keys and values</returns>
+        </member>
+        <member name="T:PSIEpics.ExtTimeType`1">
+            <summary>
+            extended time epics type <br/> serves severity,status,value and time of last change.
+            </summary>
+            <typeparam name="dType">generic datatype for value</typeparam>
+        </member>
+        <member name="P:PSIEpics.ExtTimeType`1.Time">
+            <summary>
+            Time of the last change on channel as local datetime
+            </summary>
+        </member>
+        <member name="M:PSIEpics.ExtTimeType`1.ToString">
+            <summary>
+            builds a string line of all properties
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PSIEpics.ExtType`1">
+            <summary>
+            extended epics type <br/> serves severity, status and value
+            </summary>
+            <typeparam name="dType">generic datatype for value</typeparam>
+        </member>
+        <member name="P:PSIEpics.ExtType`1.Severity">
+            <summary>
+            Severity of the channel serving this value
+            </summary>
+        </member>
+        <member name="P:PSIEpics.ExtType`1.Status">
+            <summary>
+            Status of the channel serving this value
+            </summary>
+        </member>
+        <member name="P:PSIEpics.ExtType`1.Value">
+            <summary>
+            current value, type transformation made by epics not c#
+            </summary>
+        </member>
+        <member name="M:PSIEpics.ExtType`1.ToString">
+            <summary>
+            builds a string line of all properties
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PSIEpics.NetworkByteConverter">
+            <remarks>
+            Helper methods to convert network byte streams to C# data.
+            These methods are important because network byte streams are always big-endian,
+            whereas C# is little-endian on most systems.
+            </remarks>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToByteArray(System.String)">
+            <summary>
+            Converts a string to a byte array
+            </summary>
+            <param name="str">The string to convert to a byte array</param>
+            <returns>The converted string as byte array</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToByteArray(System.Byte)">
+            <summary>
+            Converts a Byte to network byte order
+            </summary>
+            <param name="var">The Byte to convert to a byte array</param>
+            <returns>The converted byte as byte array</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToByteArray(System.SByte)">
+            <summary>
+            Converts a SByte to network byte order
+            </summary>
+            <param name="var">The SByte to convert to a byte array</param>
+            <returns>The converted Sbyte as byte array</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToByteArray(System.Int16)">
+            <summary>
+            Converts a Int16 to network byte order
+            </summary>
+            <param name="var">The Int16 to convert to a byte array</param>
+            <returns>The converted Int16 as byte array</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToByteArray(System.Int32)">
+            <summary>
+            Converts a Int32 to network byte order
+            </summary>
+            <param name="var">The Int32 to convert to a byte array</param>
+            <returns>The converted Int32 as byte array</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToByteArray(System.UInt16)">
+            <summary>
+            Converts a UInt16 to network byte order
+            </summary>
+            <param name="var">The UInt16 to convert to a byte array</param>
+            <returns>The converted UInt16 as byte array</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToByteArray(System.UInt32)">
+            <summary>
+            Converts a UInt32 to network byte order
+            </summary>
+            <param name="var">The UInt32 to convert to a byte array</param>
+            <returns>The converted UInt32 as byte array</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToByteArray(System.Double)">
+            <summary>
+            Converts a Double to network byte order
+            </summary>
+            <param name="var">The double to convert to a byte array</param>
+            <returns>The converted Double as byte array</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToByteArray(System.Single)">
+            <summary>
+            Converts a float to network byte order
+            </summary>
+            <param name="var">The float to convert to a byte array</param>
+            <returns>The converted float as byte array</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToString(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Converts a byte array to a string
+            </summary>
+            <param name="bytes">An array of bytes.</param>
+            <param name="startPos">The starting position within value.</param>
+            <param name="len">The number of bytes to decode.</param>
+            <returns>The converted string</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToString(System.Byte[],System.Int32)">
+            <summary>
+            Converts a byte array (40 bytes) to a string (max. 39 chars, because of '/0')
+            </summary>
+            <param name="bytes">An array of bytes.</param>
+            <param name="startPos">The starting position within value.</param>
+            <returns>The converted string</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToString(System.Byte[])">
+            <summary>
+            Convert a byte array to a string
+            </summary>
+            <param name="data">byte array</param>
+            <returns>the converted string</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToUInt16(System.Byte[],System.Int32)">
+            <summary>
+            Converts a byte array to a UInt16
+            </summary>
+            <param name="bytes">An array of bytes.</param>
+            <param name="startPos">The starting position within value.</param>
+            <returns>The converted UInt16</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToInt16(System.Byte[],System.Int32)">
+            <summary>
+            Converts a byte array to an Int16
+            </summary>
+            <param name="bytes">An array of bytes.</param>
+            <param name="startPos">The starting position within value.</param>
+            <returns>The converted Int16</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToUInt32(System.Byte[],System.Int32)">
+            <summary>
+            Converts a byte array to a UInt32
+            </summary>
+            <param name="bytes">An array of bytes.</param>
+            <param name="startPos">The starting position within value.</param>
+            <returns>The converted UInt32</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToInt32(System.Byte[],System.Int32)">
+            <summary>
+            Converts a byte array to an Int32
+            </summary>
+            <param name="bytes">An array of bytes.</param>
+            <param name="startPos">The starting position within value.</param>
+            <returns>The converted Int32</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToByte(System.Byte[],System.Int32)">
+            <summary>
+            Converts a byte array to a Byte (1 Byte)
+            </summary>
+            <param name="bytes">An array of bytes.</param>
+            <param name="startPos">The starting position within value.</param>
+            <returns>The converted Byte</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToSByte(System.Byte[],System.Int32)">
+            <summary>
+            Converts a byte array to a signed byte (1 Byte)
+            </summary>
+            <param name="bytes">An array of bytes.</param>
+            <param name="startPos">The starting position within value.</param>
+            <returns>The converted sbyte</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToDouble(System.Byte[],System.Int32)">
+            <summary>
+            Converts a byte array to a Double (8 Bytes)
+            </summary>
+            <param name="bytes">An array of bytes.</param>
+            <param name="startPos">The starting position within value.</param>
+            <returns>The converted Double</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.ToFloat(System.Byte[],System.Int32)">
+            <summary>
+            Converts a byte array to a Float (4 Bytes)
+            </summary>
+            <param name="bytes">An array of bytes.</param>
+            <param name="startPos">The starting position within value.</param>
+            <returns>The converted Float</returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.objectToByte``1(System.Object,PSIEpics.EpicsType,PSIEpics.EpicsRecord,System.Int32)">
+            <summary>
+            Function for full change from an Object to Byte.
+            </summary>
+            <typeparam name="dataType">Datatype of the source</typeparam>
+            <param name="src">Src object which shall be transferred</param>
+            <param name="epicsType">Target epics type</param>
+            <param name="record">Record from where the value comes</param>
+            <param name="dataCount">Count of data requested</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSIEpics.NetworkByteConverter.objectToByteCaller(System.Object,PSIEpics.EpicsType,PSIEpics.EpicsRecord,System.Int32)">
+            <summary>
+            recalls the object to Byte function with the right datatype-struct for easy coding
+            </summary>
+        </member>
+        <member name="P:PSIEpics.GateWay.EpicsGateWayConfig.TCPMaxSendSize">
+            <summary>
+            maximum of bytes send in one tcp packet
+            </summary>
+        </member>
+        <member name="P:PSIEpics.GateWay.EpicsGateWayConfig.UDPBufferSize">
+            <summary>
+            Socket Buffersize for UDP Connection
+            </summary>
+        </member>
+        <member name="P:PSIEpics.GateWay.EpicsGateWayConfig.TCPBufferSize">
+            <summary>
+            Socket Buffersize for TCP Connection
+            </summary>
+        </member>
+        <member name="P:PSIEpics.GateWay.EpicsGateWayConfig.ChannelSearchMaxPackageSize">
+            <summary>
+            amount of channel-requests which is send in a UDP-Channel-Search-Packet.
+            !Attention! if you are sending to high numbers, it can kill the gateway or the IOC. 300 is strongly suggested!
+            </summary>
+        </member>
+        <member name="P:PSIEpics.GateWay.EpicsGateWayConfig.ChannelSearchInterval">
+            <summary>
+            Interval it sends new search packages
+            </summary>
+        </member>
+        <member name="P:PSIEpics.GateWay.EpicsGateWayConfig.TCPListenPort">
+            <summary>
+            TCP Port to Listen for new Connections
+            </summary>
+        </member>
+        <member name="P:PSIEpics.GateWay.EpicsGateWayConfig.BeaconPortTo">
+            <summary>
+            Ports on which it shall listen and forward Beacons
+            </summary>
+        </member>
+        <member name="P:PSIEpics.GateWay.EpicsGateWayConfig.BeaconPortFrom">
+            <summary>
+            Ports on which it shall listen and forward Beacons
+            </summary>
+        </member>
+        <member name="P:PSIEpics.GateWay.EpicsGateWayConfig.UDPSendPort">
+            <summary>
+            Socket Buffersize for TCP Connection
+            </summary>
+        </member>
+        <member name="P:PSIEpics.GateWay.EpicsGateWayConfig.UDPListenPort">
+            <summary>
+            Socket Buffersize for TCP Connection
+            </summary>
+        </member>
+        <member name="P:PSIEpics.GateWay.EpicsGateWayConfig.ServerList">
+            <summary>
+            List of Addresses to ask for Channels
+            </summary>
+        </member>
+        <member name="M:PSIEpics.GateWay.EpicsGateWayConnectorCodec.searchPackage(System.String,System.UInt32)">
+            <summary>
+                Builds a EPICS-Package for Searching a Channel.
+                it contains 2 Messages: CA_PROTO_VERSION and CA_PROTO_SEARCH
+            </summary>
+            <param name="Channelname">String Name of a searched Channel</param>
+            <param name="CID">CID of the given Channel</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSIEpics.GateWay.EpicsGateWayConnectorCodec.searchPackage(System.Collections.Generic.Queue{System.Collections.Generic.KeyValuePair{System.UInt32,System.String}})">
+            <summary>
+                Builds a EPICS-Package for Searching multiple Channel.
+                it contains 2 types of messages:
+                    a leading CA_PROTO_VERSION and then for every channel a
+                    CA_PROTO_SEARCH
+            </summary>
+            <param name="channels">list of channels to search for, the key must be the CID</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSIEpics.EpicsServerCodec.channelReadMessage(System.Int32,System.Int32,PSIEpics.EpicsType,System.Int32,System.Byte[])">
+            <summary>
+            
+            </summary>
+            <param name="clientId">IMPORTANT IT's not sure yet that this has to be the cliendId could also be the ioId</param>
+            <param name="ioId">IMPORTANT IT's not sure yet that this has to be the ioId could also be the cliendId</param>
+            <param name="dataType"></param>
+            <param name="dataCount"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PSIEpics.EpicsServerConfig">
+            <summary>
+            Configuration for EpicsServer. Does define default values, load from app.config (e#%PropertyName%) and allows afterwards
+            configuration changes on runtime.
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsServerConfig.UDPBufferSize">
+            <summary>
+            Socket Buffersize for UDP Connection
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsServerConfig.TCPBufferSize">
+            <summary>
+            Socket Buffersize for TCP Connection
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsServerConfig.TCPMaxSendSize">
+            <summary>
+            maximum of bytes send in one tcp packet
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsServerConfig.MonitorExecutionInterval">
+            <summary>
+            Miliseconds Interval for the MonitorInterval loop.<br/>
+            ScanIntervals on the Records which are not a multiple of this value, are ignored.
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsServerConfig.BeaconPort">
+            <summary>
+            Ports on which it shall listen and forward Beacons
+            </summary>
+        </member>
+        <member name="T:PSIEpics.EpicsRecord">
+            <summary>
+            C# Simulation of a EpicsRecord where properties and alerts will be behaving as normal
+            epicschannels. So it's easily possible to publish it to other EpicsServers or IOCs.
+            </summary>
+            <typeparam name="DataType"></typeparam>
+        </member>
+        <member name="E:PSIEpics.EpicsRecord.PropertyChanged">
+            <summary>
+            Event which announces changes on a Property. Will call back the function with a Property-identifier
+            and the new value. If SCAN is set, it will only be calling on those intervalls.
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsRecord.VAL">
+            <summary>
+            Value of the Record
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsRecord.EGU">
+            <summary>
+            EnGineer Unit of the Value (shouldn't be longer then 10 characters)
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsRecord.LOW">
+            <summary>
+            Low Alarm Limit
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsRecord.LOLO">
+            <summary>
+            Low Alert Limit
+            </summary>
+        </member>
+        <member name="P:PSIEpics.EpicsRecord.AUTOMATED">
+            <summary>
+            Changes the Behavior of the Internal EpicsMonitors. 
+            If not automated it will only actualize if somebody is listening, if it is automated
+            it will always refresh himself at the scaninterval rate. If no scaninterval or no valuecallback
+            is set, nothing will change.
+            </summary>
+        </member>
+        <!-- 对于成员“M:PSIEpics.EpicsRecord.reEvaluateSeverity”忽略有格式错误的 XML 注释 -->
+        <member name="P:PSIEpics.EpicsRecord`1.VAL">
+            <summary>
+            Value of the Record
+            </summary>
+        </member>
+        <member name="T:PSIEpics.EpicsServer">
+            <summary>
+            Allows to publish variables to epics as records/channel
+            </summary>
+        </member>
+        <member name="M:PSIEpics.EpicsServer.GetEpicsRecord``1(System.String)">
+            <summary>
+            Returns a EpicsRecord Simulation. Will reuse a already existing or if not existing create
+            a new Record.
+            </summary>
+            <typeparam name="dataType">Type of value the record serves (int,short,string,double,short)</typeparam>
+            <param name="recordName">Name of the Record</param>
+            <returns>EpicsRecord for manipulation ready</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsServer.GetEpicsArrayRecord``1(System.String,System.Int32)">
+            <summary>
+            Creates a Epics Record which allows to publish arrays. Important: do give a singular type not the array-kind
+            </summary>
+            <typeparam name="dataType">int/string/float/double/sbyte</typeparam>
+            <param name="recordName">name of the record</param>
+            <returns>EpicsArrayRecord published to the EpicsNetwork</returns>
+        </member>
+        <member name="M:PSIEpics.EpicsServer.GrabConnection">
+            <summary>
+            Manages outgoing TCP-Connections
+            </summary>
+        </member>
+        <member name="M:PSIEpics.EpicsServerChannel.Conn_ConnectionStateChanged(System.Boolean)">
+            <summary>
+            Event on Connection change. Will drop Channel as soon the Connection is broke.
+            </summary>
+            <param name="connected"></param>
+        </member>
+        <member name="M:PSIEpics.EpicsServerChannel.Dispose">
+            <summary>
+            Disposes Channel, removes all connected Monitors and Connections
+            </summary>
+        </member>
+    </members>
+</doc>

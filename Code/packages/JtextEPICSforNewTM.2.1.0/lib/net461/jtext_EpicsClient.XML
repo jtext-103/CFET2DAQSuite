@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>jtext_EpicsClient</name>
+    </assembly>
+    <members>
+        <member name="T:jtext_EpicsClient.JECLient">
+             <summary>
+            This is a simple class..
+            It provide simple way to access PVs..
+            Thanks to the PSIEpics lib the arrary record and normal record is the same object it really simplified the code 
+            most of the work about pv is still done by PSIEpics.channel,so get really familiar with it.
+             </summary>
+        </member>
+        <member name="F:jtext_EpicsClient.JECLient.MyClient">
+            <summary>
+            It use the PSIEpics.EpicsClient to make epics channels that associated with PV 
+            </summary>
+        </member>
+        <!-- 对于成员“F:jtext_EpicsClient.JECLient.ChannelList”忽略有格式错误的 XML 注释 -->
+        <member name="F:jtext_EpicsClient.JECLient.RecordVAL">
+            <summary>
+            know nothing about channels?OK used this ,just pass a pvName the value is back,and set is working as well.
+            <seealso cref="T:jtext_EpicsClient.RecordValue"/>
+            </summary>
+        </member>
+        <member name="M:jtext_EpicsClient.JECLient.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:jtext_EpicsClient.JECLient"/> class.
+            </summary>
+        </member>
+        <member name="M:jtext_EpicsClient.JECLient.AddChannel(System.String)">
+            <summary>
+            Adds an epics channel.
+            </summary>
+            <param name="PvName">Name of the pv.</param>
+        </member>
+        <member name="M:jtext_EpicsClient.JECLient.AddChannel``1(System.String)">
+            <summary>
+            Adds the channel.
+            </summary>
+            <typeparam name="T">Data type</typeparam>
+            <param name="PvName">Name of the pv.</param>
+        </member>
+        <member name="M:jtext_EpicsClient.JECLient.DisposeChannel(System.String)">
+            <summary>
+            Disposes the channel.
+            </summary>
+            <param name="PvName">Name of the pv.</param>
+        </member>
+        <member name="M:jtext_EpicsClient.JECLient.DisposeAll">
+            <summary>
+            Disposes all channels on this client.
+            </summary>
+        </member>
+        <member name="P:jtext_EpicsClient.JECLient.Item(System.String)">
+            <summary>
+            Gets the <see cref="T:PSIEpics.EpicsChannel"/> with the specified pv name.
+            <para>with the channel you can do much more ,like monitor or get severity</para>
+            </summary>
+        </member>
+        <member name="M:jtext_EpicsClient.JECLient.GetString(System.String)">
+            <summary>
+            Gets the string.  If the channel(PV) is a string(acturly a array)use this to get it,Very use for.
+            </summary>
+            <param name="PvName">Name of the pv.</param>
+            <returns></returns>
+        </member>
+        <member name="M:jtext_EpicsClient.JECLient.GetString(System.String,System.Int32)">
+            <summary>
+            Gets the string.  If the channel(PV) is a string(acturly a array)use this to get it,Very use for.
+            </summary>
+            <param name="PvName">Name of the pv.</param>
+            <param name="len">The lenth of the string.</param>
+            <returns></returns>
+        </member>
+        <member name="M:jtext_EpicsClient.JECLient.GetByte(System.String,System.Int32)">
+            <summary>
+            Gets the byte array.
+            </summary>
+            <param name="PvName">Name of the pv.</param>
+            <param name="len">The lenth of the byte[].</param>
+            <returns></returns>
+        </member>
+        <member name="M:jtext_EpicsClient.JECLient.GetByte(System.String)">
+            <summary>
+            Gets the byte.   With this you don't have to speciefy the lenth,but this is slower.
+            </summary>
+            <param name="PvName">Name of the pv.</param>
+            <returns></returns>
+        </member>
+        <member name="M:jtext_EpicsClient.JECLient.SetString(System.String,System.String)">
+            <summary>
+            Sets the string.
+            <para>put the string message to this channel(pv)</para>
+            </summary>
+            <param name="PvName">Name of the pv.</param>
+            <param name="Message">The message.</param>
+            <returns></returns>
+        </member>
+        <member name="M:jtext_EpicsClient.JECLient.SetByte(System.String,System.Byte[])">
+            <summary>
+            Sets the byte.
+            <para>put the byte[] message to this channel(pv)</para>
+            </summary>
+            <param name="PvName">Name of the pv.</param>
+            <param name="Message">The message.</param>
+            <returns></returns>
+        </member>
+        <member name="T:jtext_EpicsClient.RecordValue">
+            <summary>
+            with this you can access pv with out PSIEpics channel
+            </summary>
+        </member>
+        <member name="M:jtext_EpicsClient.RecordValue.#ctor(jtext_EpicsClient.JECLient)">
+            <summary>
+            Initializes a new instance of the <see cref="T:jtext_EpicsClient.RecordValue"/> class.
+            <para>automaticly done by the JECLient</para>
+            </summary>
+            <param name="Client">The EJclient.</param>
+        </member>
+        <member name="P:jtext_EpicsClient.RecordValue.Item(System.String)">
+            <summary>
+            Gets or sets the <see cref="T:System.Object"/> with the specified pv name.
+            <para>you can only set numberic values that can be convert into double</para>
+            <para>NO!!New features you can set int  double and int[] double[] and sbyte[] directely</para>
+            <para>NOTICE!! if the pv is not ready, you get a "connectin error" exception, if the pv is ready then it's gone you get a "connection time out error"
+            And you get no error after the pv is back online</para>
+            </summary>
+        </member>
+        <member name="M:jtext_EpicsClient.RecordValue.GetString(System.String)">
+            <summary>
+            Gets the string frome a pv. Make sure the pv is used as string.
+            </summary>
+            <param name="PvName">Name of the pv.</param>
+            <returns></returns>
+        </member>
+        <member name="M:jtext_EpicsClient.RecordValue.SetString(System.String,System.String)">
+            <summary>
+            Sets the string. Make sure the pv is used as string.
+            </summary>
+            <param name="PvName">Name of the pv.</param>
+            <param name="Message">The message.</param>
+            <returns></returns>
+        </member>
+        <member name="M:jtext_EpicsClient.RecordValue.tryGetVal(System.Object@,PSIEpics.EpicsChannel)">
+            <summary>
+            Tries the get val, if time out throw exception
+            </summary>
+            <param name="Val">The val.</param>
+            <param name="tChannel">The t channel.</param>
+            <returns></returns>
+        </member>
+        <member name="T:jtext_EpicsClient.ChannelSaver">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>
