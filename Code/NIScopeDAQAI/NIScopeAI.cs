@@ -23,7 +23,7 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
 
         private Status aiState;
 
-        private NIScopeAIStaticConfig staticConfig;
+        private NIScopeAIStaticConfig _staticConfig;
 
         #region public AI status
         public Status AIState
@@ -56,9 +56,11 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
         {
             get
             {
-                return staticConfig;
+                return _staticConfig;
             }
         }
+
+        public string ConfigFilePath { get; internal set; }
 
         /// <summary>
         /// 采集数据是否需要转置：不需要
@@ -71,7 +73,6 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
             }
         }
 
-        public string ConfigFilePath => throw new NotImplementedException();
         #endregion
 
         #region 事件相关
@@ -121,7 +122,7 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
         /// <param name="configFilePath"></param>
         public void InitAI(string configFilePath)
         {
-            staticConfig = LoadStaticConfig(configFilePath) as NIScopeAIStaticConfig;
+            _staticConfig = LoadStaticConfig(configFilePath) as NIScopeAIStaticConfig;
         }
 
         /// <summary>
@@ -135,7 +136,18 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
             {
                 return new NIScopeAIStaticConfig();
             }
+            ConfigFilePath = configFilePath;
             return new NIScopeAIStaticConfig(configFilePath);
+        }
+
+        public void ChangeStaticConfig(BasicAIStaticConfig basicAIStaticConfig)
+        {
+            _staticConfig = (NIScopeAIStaticConfig)basicAIStaticConfig;
+        }
+
+        public bool SaveStaticConfig()
+        {
+            return _staticConfig.Save(ConfigFilePath);
         }
 
         /// <summary>
@@ -163,22 +175,22 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
                     try
                     {
                         //新建任务
-                        scopeSession = new NIScope(staticConfig.ResourceName, false, false);
+                        scopeSession = new NIScope(_staticConfig.ResourceName, false, false);
 
                         //配置任务
-                        NIScopeAIConfigMapper.MapAndConfigAll(scopeSession, staticConfig, ref tClockSession);
+                        NIScopeAIConfigMapper.MapAndConfigAll(scopeSession, _staticConfig, ref tClockSession);
 
                         //获取并设置通道数
-                        staticConfig.ChannelCount = scopeSession.Channels.Count;
+                        _staticConfig.ChannelCount = scopeSession.Channels.Count;
 
                         AIState = Status.Ready;
 
-                        if (staticConfig.TriggerConfig.MasterOrSlave == AITriggerMasterOrSlave.NonSync)
+                        if (_staticConfig.TriggerConfig.MasterOrSlave == AITriggerMasterOrSlave.NonSync)
                         {
                             scopeSession.Measurement.Initiate();
                         }
                         // Master 连同所有 Slaves 只需要一个 tClockSession.Initiate()
-                        else if (staticConfig.TriggerConfig.MasterOrSlave == AITriggerMasterOrSlave.Master)
+                        else if (_staticConfig.TriggerConfig.MasterOrSlave == AITriggerMasterOrSlave.Master)
                         {
                             tClockSession.Initiate();
                             TClockDevice.IsMasterReady = true;
@@ -199,13 +211,13 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
                             lock (TClockDevice.Lock)
                             {
                                 //表示没有完成，主卡不能 Idle
-                                if (TClockDevice.SlaveOver.ContainsKey(staticConfig.ResourceName))
+                                if (TClockDevice.SlaveOver.ContainsKey(_staticConfig.ResourceName))
                                 {
-                                    TClockDevice.SlaveOver[staticConfig.ResourceName] = false;
+                                    TClockDevice.SlaveOver[_staticConfig.ResourceName] = false;
                                 }
                                 else
                                 {
-                                    TClockDevice.SlaveOver.Add(staticConfig.ResourceName, false);
+                                    TClockDevice.SlaveOver.Add(_staticConfig.ResourceName, false);
                                 }
                             }
                         }
@@ -226,7 +238,7 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
         //读数据
         private void readData(NIScope scopeSession)
         {
-            var channels = ((JArray)staticConfig.ChannelConfig.ChannelName).ToObject<List<int>>();
+            var channels = ((JArray)_staticConfig.ChannelConfig.ChannelName).ToObject<List<int>>();
             //开新线程等待读数据
             //await Task.Run(() =>
             //{
@@ -234,11 +246,11 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
             PrecisionTimeSpan timeout = new PrecisionTimeSpan(1000000);  //无timeOut          
             AnalogWaveformCollection<double> scopeWaveform = null;
 
-            double[,] readData = new double[staticConfig.ChannelCount, staticConfig.ClockConfig.TotalSampleLengthPerChannel];
+            double[,] readData = new double[_staticConfig.ChannelCount, _staticConfig.ClockConfig.TotalSampleLengthPerChannel];
 
             //生成 channels
             string channelScope = null;
-            var sChannels = ((JArray)staticConfig.ChannelConfig.ChannelName).ToObject<List<int>>();
+            var sChannels = ((JArray)_staticConfig.ChannelConfig.ChannelName).ToObject<List<int>>();
             foreach (var s in sChannels)
             {
                 channelScope += s + ",";
@@ -250,7 +262,7 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
             // 1、如果多次 FetchDouble，则每 2 次的数据不连续（中间断一截）
             // 2、如果设置多个 records，则每 2 个 record 之间的数据不连续（中间断一截）
             //因此暂时只允许一个 record
-            scopeWaveform = scopeSession.Channels[channelScope].Measurement.FetchDouble(timeout, staticConfig.ClockConfig.TotalSampleLengthPerChannel, scopeWaveform);
+            scopeWaveform = scopeSession.Channels[channelScope].Measurement.FetchDouble(timeout, _staticConfig.ClockConfig.TotalSampleLengthPerChannel, scopeWaveform);
 
             //一旦上面这里获取到数据，则表示采集开始
             AIState = Status.Running;
@@ -261,20 +273,20 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
             double[] temp;
             AnalogWaveform<double> waveform;
 
-            for (int i = 0; i < staticConfig.ClockConfig.TotalSampleLengthPerChannel / staticConfig.ClockConfig.ReadSamplePerTime; i++)
+            for (int i = 0; i < _staticConfig.ClockConfig.TotalSampleLengthPerChannel / _staticConfig.ClockConfig.ReadSamplePerTime; i++)
             {
                 //将一个通道的数据拷贝到 data[,] 的一行
-                for (int j = 0; j < staticConfig.ChannelCount; j++)
+                for (int j = 0; j < _staticConfig.ChannelCount; j++)
                 {
                     waveform = scopeWaveform[i, j];
                     temp = waveform.GetRawData();
-                    for (int k = 0; k < staticConfig.ClockConfig.ReadSamplePerTime; k++)
+                    for (int k = 0; k < _staticConfig.ClockConfig.ReadSamplePerTime; k++)
                     {
-                        readData[j, i * staticConfig.ClockConfig.ReadSamplePerTime + k] = temp[k];
+                        readData[j, i * _staticConfig.ClockConfig.ReadSamplePerTime + k] = temp[k];
                     }
                 }
 
-                totalReadDataLength += staticConfig.ClockConfig.ReadSamplePerTime;
+                totalReadDataLength += _staticConfig.ClockConfig.ReadSamplePerTime;
 
             }
             GC.Collect();
@@ -294,7 +306,7 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
         public bool TryStopTask()
         {
             //如果是主卡，判断是否有任何从卡没有完成，否则不能出来
-            if (staticConfig.TriggerConfig.MasterOrSlave == AITriggerMasterOrSlave.Master)
+            if (_staticConfig.TriggerConfig.MasterOrSlave == AITriggerMasterOrSlave.Master)
             {
                 bool canOut = false;
                 while (!canOut)
@@ -313,11 +325,11 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
                 }
             }
             //如果是从卡，设置让主卡可以出来
-            else if (staticConfig.TriggerConfig.MasterOrSlave == AITriggerMasterOrSlave.Slave)
+            else if (_staticConfig.TriggerConfig.MasterOrSlave == AITriggerMasterOrSlave.Slave)
             {
                 lock (TClockDevice.Lock)
                 {
-                    TClockDevice.SlaveOver[staticConfig.ResourceName] = true;
+                    TClockDevice.SlaveOver[_staticConfig.ResourceName] = true;
                 }
             }
             lock (TClockDevice.Lock)
@@ -376,15 +388,5 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
             // GC.SuppressFinalize(this);
         }
         #endregion
-
-        public void ChangeStaticConfig(BasicAIStaticConfig basicAIStaticConfig)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool SaveStaticConfig()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

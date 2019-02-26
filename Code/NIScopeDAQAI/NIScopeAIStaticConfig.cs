@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Jtext103.CFET2.Things.BasicAIModel;
+using Newtonsoft.Json;
 
 namespace Jtext103.CFET2.Things.NIScopeDAQAI
 {
@@ -53,6 +55,20 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
 
             //这里保证相等，也就是说永远只有 1 个 records
             ClockConfig.ReadSamplePerTime = config.ClockConfig.TotalSampleLengthPerChannel;
+        }
+
+        public bool Save(string filePath)
+        {
+            try
+            {
+                string jsonData = JsonConvert.SerializeObject(this, Formatting.Indented);
+                File.WriteAllText(filePath, jsonData);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

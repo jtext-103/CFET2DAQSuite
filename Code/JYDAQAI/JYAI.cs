@@ -44,6 +44,8 @@ namespace Jtext103.CFET2.Things.JyAiLib
             }
         }
 
+        public string ConfigFilePath { get; internal set; }
+
         /// <summary>
         /// JY的数据需要转置
         /// </summary>
@@ -54,8 +56,6 @@ namespace Jtext103.CFET2.Things.JyAiLib
                 return true;
             }
         }
-
-        public string ConfigFilePath => throw new NotImplementedException();
 
         /// <summary>
         /// 对应配置文件，所有AI基本属性均从该配置文件中获取
@@ -122,14 +122,27 @@ namespace Jtext103.CFET2.Things.JyAiLib
             _staticConfig = LoadStaticConfig(configFilePath) as JYAIStaticConfig;
         }
 
-        /// <summary>
-        /// 进入ERROR状态
-        /// 状态改为ERROR并停止任务
-        /// </summary>
-        private void goError()
+
+        public BasicAIStaticConfig LoadStaticConfig(string configFilePath)
         {
-            AIState = Status.Error;
+            if (configFilePath == "" || configFilePath == null)
+            {
+                return new JYAIStaticConfig();
+            }
+            ConfigFilePath = configFilePath;
+            return new JYAIStaticConfig(configFilePath);
         }
+
+        public void ChangeStaticConfig(BasicAIStaticConfig basicAIStaticConfig)
+        {
+            _staticConfig = (JYAIStaticConfig)basicAIStaticConfig;
+        }
+
+        public bool SaveStaticConfig()
+        {
+            return _staticConfig.Save(ConfigFilePath);
+        }
+
 
         /// <summary>
         /// 启动采集
@@ -229,13 +242,13 @@ namespace Jtext103.CFET2.Things.JyAiLib
             }
         }
 
-        public BasicAIStaticConfig LoadStaticConfig(string configFilePath)
+        /// <summary>
+        /// 进入ERROR状态
+        /// 状态改为ERROR并停止任务
+        /// </summary>
+        private void goError()
         {
-            if (configFilePath == "" || configFilePath == null)
-            {
-                return new JYAIStaticConfig();
-            }
-            return new JYAIStaticConfig(configFilePath);
+            AIState = Status.Error;
         }
 
         #region IDisposable Support
@@ -274,15 +287,5 @@ namespace Jtext103.CFET2.Things.JyAiLib
         }
 
         #endregion
-
-        public void ChangeStaticConfig(BasicAIStaticConfig basicAIStaticConfig)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool SaveStaticConfig()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
