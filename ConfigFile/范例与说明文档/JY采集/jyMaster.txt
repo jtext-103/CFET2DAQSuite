@@ -15,9 +15,7 @@
       "ReadSamplePerTime": 1000
     },
     "ChannelConfig": {
-      "ChannelName": [
-          0,1,2,3
-      ],
+      "ChannelName": "0,1,2,3",
       "TerminalConfigType": 0,
       "MinimumValue": 0.0,
       "MaximumValue": 10.0

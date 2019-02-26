@@ -48,6 +48,7 @@
     <Compile Include="Models\AllAIStatus.cs" />
     <Compile Include="Models\BasicAIStaticConfig.cs" />
     <Compile Include="Models\Channel\AIChannelConfiguration.cs" />
+    <Compile Include="Models\Channel\ChannelNameTranslator.cs" />
     <Compile Include="Models\Clock\AIClockConfiguration.cs" />
     <Compile Include="Models\DataAndConfigPath.cs" />
     <Compile Include="Models\DataArrivalEventArgs.cs" />

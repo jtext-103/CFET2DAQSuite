@@ -1,0 +1,6 @@
+{
+	"PvNames":[
+		//这个是EpcisThing监控的所有PV的列表，在AIManagementThing中用，详见CFETAddThingPartial.CS文件注释
+		"ST:SHOTSERVER:SHOTNO"
+	]
+}

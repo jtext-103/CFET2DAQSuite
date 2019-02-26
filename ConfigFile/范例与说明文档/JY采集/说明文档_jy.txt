@@ -30,10 +30,8 @@
     },
 
     "ChannelConfig": {
-      //通道名，用通道号的数组表示
-      "ChannelName": [
-          0,1,2,3
-      ],
+      //通道名，用通道号的数组形式字符串表示
+      "ChannelName": "0,1,2,3",
       //采样方式，0：差分
       "TerminalConfigType": 0,
       //输入最小值

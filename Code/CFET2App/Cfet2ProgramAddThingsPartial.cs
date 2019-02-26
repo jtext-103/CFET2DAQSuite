@@ -29,10 +29,10 @@ namespace Jtext103.CFET2.CFET2App
             MyHub.TryAddCommunicationModule(nancyCM);
 
             //拷贝视图文件夹
-            //var myViewsCopyer = new ViewCopyer();
-            //myViewsCopyer.StartCopy();
-            //var myContentCopyer = new ViewCopyer(null, "Content");
-            //myContentCopyer.StartCopy();
+            var myViewsCopyer = new ViewCopyer();
+            myViewsCopyer.StartCopy();
+            var myContentCopyer = new ViewCopyer(null, "Content");
+            myContentCopyer.StartCopy();
 
             //Dic
             var dic = new DicServerThing();
@@ -87,9 +87,9 @@ namespace Jtext103.CFET2.CFET2App
             //var jyNonSync = new AIThing();
             //jyNonSync.basicAI = new JYAI();
             //jyNonSync.DataFileFactory = new HDF5DataFileFactory();
-            //MyHub.TryAddThing(jyNonSync,      
-            //                    @"/",       
-            //                    "CardA",           
+            //MyHub.TryAddThing(jyNonSync,
+            //                    @"/",
+            //                    "CardA",
             //                    new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\jyNonSync.txt", DataFileParentDirectory = @"D:\Data\jy\CardA" });
 
             //var jyMaster = new AIThing();
@@ -141,9 +141,9 @@ namespace Jtext103.CFET2.CFET2App
 
             //如果第三个参数为true，则当第一个参数的值等于第二个参数的时候，可以自动arm
             //如果第三个参数为false，则当第一个餐宿的值不等于第二个参数的时候，可以自动arm
-            var aiManagement = new AIManagementThing("/epcis/trygetpv/ST:SHOTSERVER:SHOTNO", "1000", true);
+            //var aiManagement = new AIManagementThing("/epcis/trygetpv/ST:SHOTSERVER:SHOTNO", "1000", true);
             //不判断直接自动arm
-            //var aiManagement = new AIManagementThing();
+            var aiManagement = new AIManagementThing();
             MyHub.TryAddThing(aiManagement,
                                 @"/",
                                 "aimanagement",
@@ -153,8 +153,9 @@ namespace Jtext103.CFET2.CFET2App
                                     AllAIThingPaths = new string[] { "/Card0" },
                                     //AllAIThingPaths = new string[] { "/CardB", "/CardC" },
                                     //自动Arm的，如果不想手动触发的就加上，跟上面一行格式一样
-                                    AutoArmAIThingPaths = new string[] { "/Card0" }
+                                    //AutoArmAIThingPaths = new string[] { "/Card0" }
                                     //AutoArmAIThingPaths = new string[] { "/CardC" }
+                                    AutoArmAIThingPaths = new string[] { }
                                 });
 
             //------------------------------上传文件的，只有一个这个------------------------------//

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace Jtext103.CFET2.Things.JyAiLib
 {
@@ -26,7 +25,9 @@ namespace Jtext103.CFET2.Things.JyAiLib
                 throw new Exception("该简仪采集卡只能配置为差分输入！");
             }
             //简仪采集卡通道用int表示，应该是一个int的集合
-            var channels = ((JArray)channelConfiguration.ChannelName).ToObject<List<int>>();
+            //var channels = ((JArray)channelConfiguration.ChannelName).ToObject<List<int>>(); 当ChannelName还是Object的时候
+            var channels = ChannelNameTranslator.StringToListInt(channelConfiguration.ChannelName);
+
             for (int i = 0; i < channels.Count(); i++)
             {
                 jyTask.AddChannel(channels[i], channelConfiguration.MinimumValue, channelConfiguration.MaximumValue);

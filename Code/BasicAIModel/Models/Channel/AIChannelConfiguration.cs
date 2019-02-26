@@ -14,7 +14,7 @@ namespace Jtext103.CFET2.Things.BasicAIModel
         /// <summary>
         /// 采集通道
         /// </summary>
-        public object ChannelName { get; set; }
+        public string ChannelName { get; set; }
 
         /// <summary>
         /// 配置终端输入方式（差分、单端）

@@ -110,7 +110,9 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
         private static void MapAndConfigChannel(NIScope scopeSession, AIChannelConfiguration channelConfiguration)
         {
             //todo:检查是否真的是0，1，2……
-            var channels = ((JArray)channelConfiguration.ChannelName).ToObject<List<int>>();
+            //var channels = ((JArray)channelConfiguration.ChannelName).ToObject<List<int>>(); 当ChannelName还是Object的时候
+            var channels = ChannelNameTranslator.StringToListInt(channelConfiguration.ChannelName);
+
             double range = channelConfiguration.MaximumValue - channelConfiguration.MinimumValue;
             foreach (var c in channels)
             {
