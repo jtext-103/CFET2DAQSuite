@@ -70,6 +70,8 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
                 return false;
             }
         }
+
+        public string ConfigFilePath => throw new NotImplementedException();
         #endregion
 
         #region 事件相关
@@ -346,6 +348,7 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
             return true;
         }
 
+        #region IDisposable Support
         //todo:研究下面代码实际作用
         private bool disposedValue = false; // 要检测冗余调用
 
@@ -371,6 +374,17 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
             Dispose(true);
             // TODO: 如果在以上内容中替代了终结器，则取消注释以下行。
             // GC.SuppressFinalize(this);
+        }
+        #endregion
+
+        public void ChangeStaticConfig(BasicAIStaticConfig basicAIStaticConfig)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool SaveStaticConfig()
+        {
+            throw new NotImplementedException();
         }
     }
 }

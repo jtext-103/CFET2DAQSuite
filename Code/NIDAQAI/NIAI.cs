@@ -45,6 +45,8 @@ namespace Jtext103.CFET2.Things.NiAiLib
             }
         }
 
+        public string ConfigFilePath { get; internal set; }
+
         /// <summary>
         /// NI的数据不需要转置
         /// </summary>
@@ -124,6 +126,26 @@ namespace Jtext103.CFET2.Things.NiAiLib
         public void InitAI(string configFilePath)
         {
             _staticConfig = LoadStaticConfig(configFilePath) as NIAIStaticConfig;
+        }
+
+        public BasicAIStaticConfig LoadStaticConfig(string configFilePath)
+        {      
+            if (configFilePath == "" || configFilePath == null)
+            {
+                return new NIAIStaticConfig();
+            }
+            ConfigFilePath = configFilePath;
+            return new NIAIStaticConfig(configFilePath);
+        }
+
+        public void ChangeStaticConfig(BasicAIStaticConfig basicAIStaticConfig)
+        {
+            _staticConfig = (NIAIStaticConfig)basicAIStaticConfig;
+        }
+
+        public bool SaveStaticConfig()
+        {
+            return _staticConfig.Save(ConfigFilePath);
         }
 
         /// <summary>
@@ -262,15 +284,6 @@ namespace Jtext103.CFET2.Things.NiAiLib
         private void goError()
         {
             AIState = Status.Error;
-        }
-
-        public BasicAIStaticConfig LoadStaticConfig(string configFilePath)
-        {
-            if(configFilePath == "" || configFilePath == null)
-            {
-                return new NIAIStaticConfig();
-            }
-            return new NIAIStaticConfig(configFilePath);
         }
 
         #region IDisposable Support

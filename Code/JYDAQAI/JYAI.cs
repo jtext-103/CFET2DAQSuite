@@ -55,6 +55,8 @@ namespace Jtext103.CFET2.Things.JyAiLib
             }
         }
 
+        public string ConfigFilePath => throw new NotImplementedException();
+
         /// <summary>
         /// 对应配置文件，所有AI基本属性均从该配置文件中获取
         /// </summary>
@@ -273,5 +275,14 @@ namespace Jtext103.CFET2.Things.JyAiLib
 
         #endregion
 
+        public void ChangeStaticConfig(BasicAIStaticConfig basicAIStaticConfig)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool SaveStaticConfig()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

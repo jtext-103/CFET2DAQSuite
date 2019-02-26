@@ -30,6 +30,11 @@ namespace Jtext103.CFET2.Things.BasicAIModel
         BasicAIStaticConfig StaticConfig { get; }
 
         /// <summary>
+        /// 配置文件完整路径
+        /// </summary>
+        string ConfigFilePath { get; }
+
+        /// <summary>
         /// 任务停止事件
         /// </summary>
         event EventHandler RaiseAITaskStopEvent;
@@ -67,5 +72,17 @@ namespace Jtext103.CFET2.Things.BasicAIModel
         /// <param name="configFilePath"></param>
         /// <returns></returns>
         BasicAIStaticConfig LoadStaticConfig(string configFilePath);
+
+        /// <summary>
+        /// 修改配置
+        /// </summary>
+        void ChangeStaticConfig(BasicAIStaticConfig basicAIStaticConfig);
+
+        /// <summary>
+        /// 将配置作为新文件保存，返回true保存成功
+        /// </summary>
+        /// <param name="configFilePath">需要保存的路径</param>
+        /// <returns></returns>
+        bool SaveStaticConfig();
     }
 }

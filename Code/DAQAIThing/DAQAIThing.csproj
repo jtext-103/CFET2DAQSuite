@@ -63,6 +63,8 @@
   <ItemGroup>
     <Compile Include="AIManagermentThing\AIManagementThing.cs" />
     <Compile Include="AIManagermentThing\AllAndAutoArmAIThings.cs" />
+    <Compile Include="AIThing\AIThingConfig.cs" />
+    <Compile Include="Assist\Caculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AIThing\AIThingMethod.cs" />
     <Compile Include="AIThing\AIThingMain.cs" />

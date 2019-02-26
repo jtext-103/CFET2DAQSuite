@@ -186,69 +186,12 @@ namespace Jtext103.CFET2.Things.DAQAIThing
         }
 
         /// <summary>
-        /// 当前卡同步类型
-        /// </summary>
-        /// <returns></returns>
-        [Cfet2Status]
-        public AITriggerMasterOrSlave SyncType()
-        {
-            return basicAI.StaticConfig.TriggerConfig.MasterOrSlave;
-        }
-
-        /// <summary>
-        /// 触发方式
+        /// 触发边沿
         /// </summary>
         [Cfet2Status]
-        public AITriggerType TriggerType()
+        public Edge TriggerEdge()
         {
-            return basicAI.StaticConfig.TriggerConfig.TriggerType;
-        }
-
-        /// <summary>
-        /// 采样率
-        /// </summary>
-        [Cfet2Status]
-        public double SampleRate(int shotNo = -1)
-        {
-            //-1代表当前配置文件中的status配置
-            if (shotNo == -1)
-            {
-                return basicAI.StaticConfig.ClockConfig.SampleRate;
-            }
-            //其余参数是从已保存的文件中读取
-            return tryUpdateStaticConfigDic(shotNo).ClockConfig.SampleRate;
-        }
-
-        /// <summary>
-        /// 每通道采样数（仅用于有限采样）
-        /// </summary>
-        [Cfet2Status]
-        public int Length(int shotNo = -1)
-        {
-            //-1代表当前配置文件中的status配置
-            if (shotNo == -1)
-            {
-                return basicAI.StaticConfig.ClockConfig.TotalSampleLengthPerChannel;
-            }
-            //其余参数是从已保存的文件中读取
-            return tryUpdateStaticConfigDic(shotNo).ClockConfig.TotalSampleLengthPerChannel;
-        }
-
-        /// <summary>
-        /// Channel个数
-        /// </summary>
-        /// <param name="shotNo"></param>
-        /// <returns></returns>
-        [Cfet2Status]
-        public int ChannelCount(int shotNo = -1)
-        {
-            //-1代表当前配置文件中的status配置
-            if (shotNo == -1)
-            {
-                return basicAI.StaticConfig.ChannelCount;
-            }
-            //其余参数是从已保存的文件中读取
-            return tryUpdateStaticConfigDic(shotNo).ChannelCount;
+            return basicAI.StaticConfig.TriggerConfig.TriggerEdge;
         }
 
         /// <summary>
@@ -321,23 +264,7 @@ namespace Jtext103.CFET2.Things.DAQAIThing
             return basicAI.StaticConfig.ChannelConfig.MaximumValue;
         }
 
-        /// <summary>
-        /// 触发通道（仅用于外部触发）
-        /// </summary>
-        [Cfet2Status]
-        public object TriggerSource()
-        {
-            return basicAI.StaticConfig.TriggerConfig.TriggerSource;
-        }
 
-        /// <summary>
-        /// 触发边沿
-        /// </summary>
-        [Cfet2Status]
-        public Edge TriggerEdge()
-        {
-            return basicAI.StaticConfig.TriggerConfig.TriggerEdge;
-        }
 
         /// <summary>
         /// 时钟源（使用内部时钟时，为空字符串）

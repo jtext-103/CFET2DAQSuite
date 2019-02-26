@@ -36,5 +36,11 @@ namespace Jtext103.CFET2.Things.DAQAIThing
         {
             return basicAI.TryStopTask();
         }
+
+        [Cfet2Method]
+        public bool SaveConfig()
+        {
+            return basicAI.SaveStaticConfig();
+        }
     }
 }
