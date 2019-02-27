@@ -13,7 +13,7 @@ NO.4
 123综合
 1、修改ChannelName从object到string类型 		done
 2、修改BasicAI增加SaveConfig方法			done
-3、修改JY，NI与NIScope实现上述SaveConfig方法
+3、修改JY，NI与NIScope实现上述SaveConfig方法		done
 4、修改AIThing将相关属性变成Config			done
 5、网页实现
 
@@ -21,13 +21,12 @@ NO.1 done
 4、中控idle状态，采集能供监控，此时不接受外部触发（监控某个PV值）
 修改AIManagermentThing
 
-5、MDS没有数据就不上传，防止误上传覆盖原数据
-HDF5上传暂时不用改，反正可以选择不覆盖
-？？？
-
 NO.3
-6、增加触发后延时采集功能（先NI）
+5、增加触发后延时采集功能（先NI）
 BasicAIConfig增加属性
 NI代码修改及测试
 JY代码修改及测试
 NISCOPE代码修改及测试
+
+6、MDS没有数据就不上传，防止误上传覆盖原数据
+？？？

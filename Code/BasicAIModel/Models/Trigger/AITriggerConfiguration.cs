@@ -24,6 +24,11 @@ namespace Jtext103.CFET2.Things.BasicAIModel
         public Edge TriggerEdge { get; set; }
 
         /// <summary>
+        /// 触发后采集开始延时
+        /// </summary>
+        public double Delay { get; set; }
+
+        /// <summary>
         /// 触发主从卡设置
         /// </summary>
         public AITriggerMasterOrSlave MasterOrSlave { get; set; }

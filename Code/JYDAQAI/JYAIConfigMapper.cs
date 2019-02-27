@@ -120,6 +120,7 @@ namespace Jtext103.CFET2.Things.JyAiLib
                     }
                     //触发源
                     jyTask.Trigger.Digital.Source = (AIDigitalTriggerSource)Enum.ToObject(typeof(AIDigitalTriggerSource), triggerConfiguration.TriggerSource);
+                    jyTask.Trigger.Delay = triggerConfiguration.Delay * 1000000;
                     break;
                 case BasicAIModel.AITriggerType.AnalogTrigger:
                     throw new Exception("该简仪采集卡无法使用模拟触发！");

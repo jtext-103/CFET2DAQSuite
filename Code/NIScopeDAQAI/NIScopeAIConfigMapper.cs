@@ -43,11 +43,11 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
                     break;
                 case AITriggerType.DigitalTrigger:
                     scopeSession.Trigger.Type = ScopeTriggerType.DigitalEdge;
-                    scopeSession.Trigger.ConfigureTriggerDigital(triggerSource, triggerSlope, PrecisionTimeSpan.Zero, PrecisionTimeSpan.Zero);
+                    scopeSession.Trigger.ConfigureTriggerDigital(triggerSource, triggerSlope, PrecisionTimeSpan.Zero, new PrecisionTimeSpan(triggerConfiguration.Delay));
                     break;
                 case AITriggerType.AnalogTrigger:
                     scopeSession.Trigger.Type = ScopeTriggerType.Edge;
-                    scopeSession.Trigger.EdgeTrigger.Configure(triggerSource, 2.5, triggerSlope, ScopeTriggerCoupling.DC, PrecisionTimeSpan.Zero, PrecisionTimeSpan.Zero);
+                    scopeSession.Trigger.EdgeTrigger.Configure(triggerSource, 2.5, triggerSlope, ScopeTriggerCoupling.DC, PrecisionTimeSpan.Zero, new PrecisionTimeSpan(triggerConfiguration.Delay));
                     break;
                 default:
                     throw new Exception("触发模式 TriggerType 设置错误！");

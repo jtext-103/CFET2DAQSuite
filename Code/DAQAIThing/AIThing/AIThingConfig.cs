@@ -146,6 +146,27 @@ namespace Jtext103.CFET2.Things.DAQAIThing
             basicAI.ChangeStaticConfig(basicAI.StaticConfig);
         }
 
+        /// <summary>
+        /// 获取触发后延时
+        /// </summary>
+        /// <returns></returns>
+        [Cfet2Config(ConfigActions = ConfigAction.Get, Name = "Delay")]
+        public double Delay()
+        {
+            return basicAI.StaticConfig.TriggerConfig.Delay;
+        }
+
+        /// <summary>
+        /// 设置触发后延时
+        /// </summary>
+        /// <param name="delay"></param>
+        [Cfet2Config(ConfigActions = ConfigAction.Set, Name = "Delay")]
+        public void DelaySet(double delay)
+        {
+            basicAI.StaticConfig.TriggerConfig.Delay = delay;
+            basicAI.ChangeStaticConfig(basicAI.StaticConfig);
+        }
+
         #endregion
 
         #region Channel
