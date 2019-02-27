@@ -10,12 +10,12 @@ NO.4
 3、在界面可以直接勾选需要运行的卡
 配置文件增加使能字段，save永久修改配置文件
 
-123综合
+12综合
 1、修改ChannelName从object到string类型 		done
 2、修改BasicAI增加SaveConfig方法			done
 3、修改JY，NI与NIScope实现上述SaveConfig方法		done
 4、修改AIThing将相关属性变成Config			done
-5、网页实现
+6、网页实现
 
 NO.1 done
 4、中控idle状态，采集能供监控，此时不接受外部触发（监控某个PV值）

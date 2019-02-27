@@ -19,6 +19,8 @@ namespace Jtext103.CFET2.Things.DAQAIThing
         [Cfet2Method]
         public void TryArm()
         {
+            if (basicAI.StaticConfig.IsOn == false) return;
+
             System.Diagnostics.Debug.WriteLine("TryArm  Thread no: " + Thread.CurrentThread.ManagedThreadId.ToString() + " " + " " + Path);
 
             //初始化latestData

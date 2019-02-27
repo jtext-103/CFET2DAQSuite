@@ -52,6 +52,11 @@ namespace Jtext103.CFET2.Things.BasicAIModel
         public uint RemainShotsMin { get; set; }
 
         /// <summary>
+        /// 设备是否使用（不使用就一直Idle）
+        /// </summary>
+        public bool IsOn { get; set; }
+
+        /// <summary>
         /// 从配置文件中创建对应配置文件的实例
         /// </summary>
         /// <param name="configFilePath"></param>

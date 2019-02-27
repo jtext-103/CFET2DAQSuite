@@ -181,9 +181,9 @@ namespace Jtext103.CFET2.Things.DAQAIThing
                 {
                     allAIFinishFlags[aiThing] = true;
                     //判断是否所有aiTask都结束
-                    foreach (var flag in allAIFinishFlags.Values)
+                    foreach (var flag in allAIFinishFlags)
                     {
-                        if (flag == false)
+                        if (flag.Value == false && (bool)MyHub.TryGetResourceSampleWithUri(flag.Key + @"/ison").ObjectVal)
                         {
                             return;
                         }

@@ -219,5 +219,29 @@ namespace Jtext103.CFET2.Things.DAQAIThing
 
         #endregion
 
+        #region Other
+        /// <summary>
+        /// 获取设备是否在用
+        /// </summary>
+        /// <returns></returns>
+        [Cfet2Config(ConfigActions = ConfigAction.Get, Name = "IsOn")]
+        public bool IsOn()
+        {
+            return basicAI.StaticConfig.IsOn;
+        }
+
+        /// <summary>
+        /// 设置设备是否在用
+        /// </summary>
+        /// <param name="on"></param>
+        [Cfet2Config(ConfigActions = ConfigAction.Set, Name = "IsOn")]
+        public void IsOnSet(bool on)
+        {
+            basicAI.StaticConfig.IsOn = on;
+            basicAI.ChangeStaticConfig(basicAI.StaticConfig);
+        }
+
+        #endregion
+
     }
 }

@@ -77,6 +77,7 @@ namespace Jtext103.CFET2.Things.JyAiLib
             ChannelCount = config.ChannelCount;
             RemainShotsMax = config.RemainShotsMax;
             RemainShotsMin = config.RemainShotsMin;
+            IsOn = config.IsOn;
         }
 
         public bool Save(string filePath)

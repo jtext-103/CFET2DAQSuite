@@ -46,6 +46,7 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
             ChannelCount = config.ChannelCount;
             RemainShotsMax = config.RemainShotsMax;
             RemainShotsMin = config.RemainShotsMin;
+            IsOn = config.IsOn;
 
             ResourceName = config.ResourceName;
             //MoreRecordsThanMemoryAllowed = config.MoreRecordsThanMemoryAllowed;
