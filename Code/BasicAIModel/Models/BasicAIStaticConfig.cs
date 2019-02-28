@@ -64,5 +64,24 @@ namespace Jtext103.CFET2.Things.BasicAIModel
         {
             return JsonConvert.DeserializeObject(File.ReadAllText(configFilePath, Encoding.Default), this.GetType());             
         }
+
+        /// <summary>
+        /// 将配置保存到文件
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public bool Save(string filePath)
+        {
+            try
+            {
+                string jsonData = JsonConvert.SerializeObject(this, Formatting.Indented);
+                File.WriteAllText(filePath, jsonData);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

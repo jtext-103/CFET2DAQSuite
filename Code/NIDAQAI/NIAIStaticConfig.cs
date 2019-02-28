@@ -66,19 +66,5 @@ namespace Jtext103.CFET2.Things.NiAiLib
             RemainShotsMin = config.RemainShotsMin;
             IsOn = config.IsOn;
         }
-
-        public bool Save(string filePath)
-        {
-            try
-            {
-                string jsonData = JsonConvert.SerializeObject(this, Formatting.Indented);
-                File.WriteAllText(filePath, jsonData);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
     }
 }

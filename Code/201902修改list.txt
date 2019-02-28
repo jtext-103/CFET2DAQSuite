@@ -6,7 +6,7 @@ NO.5
 2、采集卡的通道设置可以运行时修改
 同1
 
-NO.4
+NO.4 done without UI
 3、在界面可以直接勾选需要运行的卡
 配置文件增加使能字段，save永久修改配置文件
 
@@ -21,7 +21,7 @@ NO.1 done
 4、中控idle状态，采集能供监控，此时不接受外部触发（监控某个PV值）
 修改AIManagermentThing
 
-NO.3
+NO.3 done
 5、增加触发后延时采集功能（先NI）
 BasicAIConfig增加属性
 NI代码修改及测试
