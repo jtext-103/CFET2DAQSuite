@@ -16,6 +16,9 @@
     },
     "/card(.*?)": {
       "ViewPath": "Channels"
+    },
+    "/details/card(.*?)": {
+      "ViewPath": "Details"
     }
   }
 }

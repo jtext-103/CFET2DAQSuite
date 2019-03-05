@@ -84,13 +84,13 @@ namespace Jtext103.CFET2.CFET2App
 
             #region JY采集卡，若使用JY请展开
             ////------------------------------JY采集卡，格式和NI一样------------------------------//
-            var jyNonSync = new AIThing();
-            jyNonSync.basicAI = new JYAI();
-            jyNonSync.DataFileFactory = new HDF5DataFileFactory();
-            MyHub.TryAddThing(jyNonSync,
-                                @"/",
-                                "CardA",
-                                new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\jyNonSync.txt", DataFileParentDirectory = @"D:\Data\jy\CardA" });
+            //var jyNonSync = new AIThing();
+            //jyNonSync.basicAI = new JYAI();
+            //jyNonSync.DataFileFactory = new HDF5DataFileFactory();
+            //MyHub.TryAddThing(jyNonSync,
+            //                    @"/",
+            //                    "CardA",
+            //                    new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\jyNonSync.txt", DataFileParentDirectory = @"D:\Data\jy\CardA" });
 
             //var jyMaster = new AIThing();
             //jyMaster.basicAI = new JYAI();
@@ -153,9 +153,9 @@ namespace Jtext103.CFET2.CFET2App
                                     AllAIThingPaths = new string[] { "/Card0", "/Card1" },
                                     //AllAIThingPaths = new string[] { "/CardB", "/CardC" },
                                     //自动Arm的，如果不想手动触发的就加上，跟上面一行格式一样
-                                    AutoArmAIThingPaths = new string[] { "/Card0" }
+                                    //AutoArmAIThingPaths = new string[] { "/Card0" }
                                     //AutoArmAIThingPaths = new string[] { "/CardC" }
-                                    //AutoArmAIThingPaths = new string[] { }
+                                    AutoArmAIThingPaths = new string[] { }
                                 });
 
             //------------------------------上传文件的，只有一个这个------------------------------//

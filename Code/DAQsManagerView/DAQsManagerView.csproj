@@ -48,6 +48,8 @@
   <ItemGroup>
     <Content Include="Content\DAQsManagerCSS\custom.css" />
     <Content Include="Content\DAQsManagerJS\function.js" />
+    <None Include="Views\_PartialDetail.cshtml" />
+    <None Include="Views\Details.cshtml" />
     <None Include="Views\_PatrialUpload.cshtml" />
   </ItemGroup>
   <ItemGroup>
