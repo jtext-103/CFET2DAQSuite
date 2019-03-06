@@ -79,6 +79,18 @@ namespace Jtext103.CFET2.Things.DAQAIThing
         public void LengthSet(int length)
         {
             basicAI.StaticConfig.ClockConfig.TotalSampleLengthPerChannel = length;
+
+            //这里需要把ReadSamplePerTime也设置一下
+            int gcd = Caculator.GCD((int)length, (int)basicAI.StaticConfig.ClockConfig.SampleRate);
+            if (gcd <= 20000)
+            {
+                basicAI.StaticConfig.ClockConfig.ReadSamplePerTime = gcd;
+            }
+            else
+            {
+                basicAI.StaticConfig.ClockConfig.ReadSamplePerTime = Caculator.GCD(length, 20000);
+            }
+
             basicAI.ChangeStaticConfig(basicAI.StaticConfig);
         }
 

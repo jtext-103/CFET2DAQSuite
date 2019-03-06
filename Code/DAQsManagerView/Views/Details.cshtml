@@ -13,21 +13,33 @@
     <div id="container">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <b style="font-size: 30px" id="cId"></b>
+                <div style="display:inline;float:left">
+                    &nbsp;
+                    <b style="font-size: 30px" id="cId"></b>
+                    &nbsp;
+                </div>
+                <div style="display:inline">
+                    <span class="glyphicon glyphicon-refresh btn btn-link btn-lg" onclick="refreshText()"></span>
+                </div>
                 <div style="display:inline;float:right">
                     <a href="/daqsmanager">
                         <span class="glyphicon glyphicon-arrow-left btn btn-link btn-lg"></span>
                     </a>
                 </div>
-
             </div>
         </div>
-        @Html.Partial("_PartialDetail", "SampleRate")
-        @Html.Partial("_PartialDetail", "Length")
-        @Html.Partial("_PartialDetail", "ChannelName")
+        @Html.Partial("_PartialDetail", new string[2] { "SampleRate", "Fuck you" })
+        @Html.Partial("_PartialDetail", new string[2] { "Length", "Fuck you" })
+        @Html.Partial("_PartialDetail", new string[2] { "ChannelName", "Fuck you" })
+        @Html.Partial("_PartialDetail", new string[2] { "ChannelCount", "Fuck you" })
+        @Html.Partial("_PartialDetail", new string[2] { "TriggerType", "Fuck you" })
+        @Html.Partial("_PartialDetail", new string[2] { "TriggerSource", "Fuck you" })
+        @Html.Partial("_PartialDetail", new string[2] { "Delay", "Fuck you" })
+        @Html.Partial("_PartialDetail", new string[2] { "SyncType", "Fuck you" })
+
         <div class="panel panel-default">
             <div class="panel-body">
-                <button type="button" class="btn btn-success btn-lg" onclick="saveConfig();">
+                <button type="button" class="btn btn-warning btn-lg" onclick="saveConfig()">
                     <b>&nbsp;Save applied Changes&nbsp;</b>
                 </button>
             </div>
@@ -45,6 +57,46 @@
         cardId = urlPath.substring(urlPath.lastIndexOf("/") + 1);
         document.getElementById("cId").innerHTML = cardId;
         document.getElementById("cId").style.color = '#338dcd';
+        refreshText();
+    }
+
+    function refreshText() {
+        setText("SampleRate");
+        setText("Length");
+        setText("ChannelName");
+        setText("ChannelCount");
+        setText("TriggerType");
+        setText("TriggerSource");
+        setText("Delay");
+        setText("SyncType");
+    }
+
+    function setText(id) {
+        $.ajax({
+            url: "/" + cardId + "/" + id,
+            type: "get",
+            async: true,
+            success: function (data) {
+                var obj = JSON.parse(data);
+                document.getElementById(id + "textId").setAttribute("value", obj.ObjectVal);
+            }
+        });
+    }
+
+    function apply(id) {
+        var value = $('#' + id.toString() + 'textId').val();
+        value = value.replace(/\//g, ".");
+        $.ajax({
+            url: "/" + cardId + "/" + id + "/" + value,
+            type: "post",
+            async: true,
+            success: function (data) {
+                alert(cardId + "'s " + id +" has applied!")
+            },
+            error: function () {
+                alert("Apply Failed!")
+            }
+        });
     }
 
     function saveConfig() {
@@ -55,7 +107,7 @@
             success: function () {
                 alert(cardId + "'s config has been saved!")
             },
-            Error: function () {
+            error: function () {
                 alert("Save Failed!")
             }
         });

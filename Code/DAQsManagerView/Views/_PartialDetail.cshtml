@@ -7,8 +7,21 @@
 </head>
 <body>
     <div class="panel panel-default">
-        <div class="panel-body">
-            <b style="font-size: 20px">&nbsp;@Model&nbsp;</b>
+        <div class="panel-body row">
+            <div class="col-md-2">
+                <b style="font-size: 20px">&nbsp;@Model[0]&nbsp;</b>
+            </div>
+            <div class="col-md-2">
+                <div class="input-group">
+                    <input id="@Model[0].ToString()textId" type="text" class="form-control" value="0">
+                </div>
+            </div>
+            <div class="col-md-1" style="float:right">
+                <button type="button" class="btn btn-success" onclick="apply('@Model[0]')">
+                    <b>&nbsp;Apply&nbsp;</b>
+                </button>
+            </div>
+            <font style="font-size: 20px" color="#338dcd">&nbsp;&nbsp;&nbsp;@Model[1]</font> 
         </div>
     </div>
 </body>
