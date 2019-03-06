@@ -1,21 +1,63 @@
 ﻿<!DOCTYPE html>
 
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/Content/DAQsManagerCSS/custom.css" />
+
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <title></title>
 </head>
 <body>
-    @Html.Partial("_PatrialDetail", "SampleRate");
-    @Html.Partial("_PatrialDetail", "Length");
-    @Html.Partial("_PatrialDetail", "ChannelName");
+    <div id="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b style="font-size: 30px" id="cId"></b>
+                <div style="display:inline;float:right">
+                    <a href="/daqsmanager">
+                        <span class="glyphicon glyphicon-arrow-left btn btn-link btn-lg"></span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        @Html.Partial("_PartialDetail", "SampleRate")
+        @Html.Partial("_PartialDetail", "Length")
+        @Html.Partial("_PartialDetail", "ChannelName")
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <button type="button" class="btn btn-success btn-lg" onclick="saveConfig();">
+                    <b>&nbsp;Save applied Changes&nbsp;</b>
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 
 <script>
+    var cardId;
+    var urlPath;
+
     window.onload = function () {
-        var path = window.location.pathname;
-        var cardId = path.substring(path.lastIndexOf("/"));
-        alert(cardId);
+        urlPath = window.location.pathname;
+        cardId = urlPath.substring(urlPath.lastIndexOf("/") + 1);
+        document.getElementById("cId").innerHTML = cardId;
+        document.getElementById("cId").style.color = '#338dcd';
+    }
+
+    function saveConfig() {
+        $.ajax({
+            url: "/" + cardId + "/saveconfig",
+            type: "put",
+            async: true,
+            success: function () {
+                alert(cardId + "'s config has been saved!")
+            },
+            Error: function () {
+                alert("Save Failed!")
+            }
+        });
     }
 </script>
