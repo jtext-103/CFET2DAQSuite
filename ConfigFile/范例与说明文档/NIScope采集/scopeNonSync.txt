@@ -1,9 +1,11 @@
 {
     "ResourceName":"PXI1Slot7",
+    "CardType": "NI-Scope",
     "TriggerConfig": {
       "TriggerType": 0,
       "TriggerSource": "0",
       "TriggerEdge": 0,
+      "Delay": 2.0,
       "MasterOrSlave": 0
     },
     "ClockConfig": {
@@ -19,5 +21,6 @@
     "StartTime":0.5,
     "AutoWriteDataToFile": true,   
     "RemainShotsMax": 30,
-    "RemainShotsMin": 20
+    "RemainShotsMin": 20,
+    "IsOn": true
 }

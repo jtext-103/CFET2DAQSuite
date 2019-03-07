@@ -1,9 +1,11 @@
 {
     "BoardNum":1,
+    "CardType": "JY-6 series",
     "TriggerConfig": {
       "TriggerType": 0,
       "TriggerSource": 3,
       "TriggerEdge": 0,
+      "Delay": 2.0,
       "MasterOrSlave": 1
     },
     "ClockConfig": {
@@ -25,4 +27,5 @@
     "ChannelCount": 4,
     "RemainShotsMax": 30,
     "RemainShotsMin": 20
+    "IsOn": true
 }

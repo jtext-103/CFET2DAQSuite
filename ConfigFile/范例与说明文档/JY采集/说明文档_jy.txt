@@ -2,6 +2,8 @@
     //JY板卡号，编号按照0，1，2……忽略空槽和NI板卡，一般从0开始连续，但是不知道机箱左边是0还是右边是0
     //一般确定之后，不动机箱它就不会变了
     "BoardNum":1,
+    //卡类型，没实际用
+    "CardType": "JY-6 series",
 
     "TriggerConfig": {
       //触发类型，0：立即触发（Ready了马上就变Running，但作为从卡不会）；1：数字触发
@@ -10,6 +12,8 @@
       "TriggerSource": 3,
       //触发边沿，0：上升沿；1：下降沿
       "TriggerEdge": 0,
+      //触发后延迟多久开始采集
+      "Delay": 2.0,
       //主从	，0：无主从；1：主卡；2：从卡
       "MasterOrSlave": 0
     },
@@ -51,7 +55,9 @@
     //本地保存的最大炮数，超过这个数就删除到RemainShotsMin
     "RemainShotsMax": 30,
     //本地保存的最小炮数
-    "RemainShotsMin": 20
+    "RemainShotsMin": 20,
+    //采集卡是否能arm
+    "IsOn": true
 }
 
 常见问题：

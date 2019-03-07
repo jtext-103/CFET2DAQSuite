@@ -1,4 +1,6 @@
 {
+    //卡类型，没啥实际用
+    "CardType": "NI-6 series",
     "TriggerConfig": {
       //触发类型，0：立即触发（Ready了马上就变Running）；1：数字触发（作为从卡）；2：模拟触发（外部，作为主卡）
       "TriggerType": 0,
@@ -6,6 +8,8 @@
       "TriggerSource": "/PXI1Slot2/APFI0",
       //触发边沿，0：上升沿；1：下降沿
       "TriggerEdge": 0,
+      //触发后延迟多久开始采集
+      "Delay": 2.0,
       //主从	，0：无主从；1：主卡；2：从卡
       "MasterOrSlave": 0
     },
@@ -47,7 +51,9 @@
     //本地保存的最大炮数，超过这个数就删除到RemainShotsMin
     "RemainShotsMax": 30,
     //本地保存的最小炮数
-    "RemainShotsMin": 20
+    "RemainShotsMin": 20,
+    //卡是否能arm
+    "IsOn": true
 }
 
 常见问题：

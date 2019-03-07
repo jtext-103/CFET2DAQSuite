@@ -1,8 +1,10 @@
 {
+    "CardType": "NI-6 series",
     "TriggerConfig": {
       "TriggerType": 0,
       "TriggerSource": "/PXI1Slot2/APFI0",
       "TriggerEdge": 0,
+      "Delay": 2.0,
       "MasterOrSlave": 1
     },
     "ClockConfig": {
@@ -23,5 +25,6 @@
     "AutoWriteDataToFile": true,
     "ChannelCount": 4,
     "RemainShotsMax": 30,
-    "RemainShotsMin": 20
+    "RemainShotsMin": 20,
+    "IsOn": true
 }
