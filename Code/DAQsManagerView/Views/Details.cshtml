@@ -2,7 +2,9 @@
 
 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="~/Content/DAQsManagerCSS/custom.css" />
+<script src="~/Content/DAQsManagerJS/detailsNote.js"></script>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -16,6 +18,8 @@
                 <div style="display:inline;float:left">
                     &nbsp;
                     <b style="font-size: 30px" id="cId"></b>
+                    &nbsp;&nbsp;&nbsp;
+                    <b style="font-size: 24px" id="ctId"></b>
                     &nbsp;
                 </div>
                 <div style="display:inline">
@@ -28,14 +32,16 @@
                 </div>
             </div>
         </div>
-        @Html.Partial("_PartialDetail", new string[2] { "SampleRate", "Fuck you" })
-        @Html.Partial("_PartialDetail", new string[2] { "Length", "Fuck you" })
-        @Html.Partial("_PartialDetail", new string[2] { "ChannelName", "Fuck you" })
-        @Html.Partial("_PartialDetail", new string[2] { "ChannelCount", "Fuck you" })
-        @Html.Partial("_PartialDetail", new string[2] { "TriggerType", "Fuck you" })
-        @Html.Partial("_PartialDetail", new string[2] { "TriggerSource", "Fuck you" })
-        @Html.Partial("_PartialDetail", new string[2] { "Delay", "Fuck you" })
-        @Html.Partial("_PartialDetail", new string[2] { "SyncType", "Fuck you" })
+        @*注意，增加一个项目要在包括这里的三个地方增加三行代码*@
+        @Html.Partial("_PartialDetail", new string[1] { "IsOn" })
+        @Html.Partial("_PartialDetail", new string[1] { "SampleRate" })
+        @Html.Partial("_PartialDetail", new string[1] { "Length" })
+        @Html.Partial("_PartialDetail", new string[1] { "ChannelName" })
+        @Html.Partial("_PartialDetail", new string[1] { "ChannelCount" })
+        @Html.Partial("_PartialDetail", new string[1] { "TriggerType" })
+        @Html.Partial("_PartialDetail", new string[1] { "TriggerSource" })
+        @Html.Partial("_PartialDetail", new string[1] { "Delay" })
+        @Html.Partial("_PartialDetail", new string[1] { "SyncType" })
 
         <div class="panel panel-default">
             <div class="panel-body">
@@ -56,11 +62,26 @@
         urlPath = window.location.pathname;
         cardId = urlPath.substring(urlPath.lastIndexOf("/") + 1);
         document.getElementById("cId").innerHTML = cardId;
-        document.getElementById("cId").style.color = '#338dcd';
+        document.getElementById("cId").style.color = '#337ab7';
         refreshText();
+        setCardType();
+        setNote();
+    }
+
+    function setCardType() {
+        $.ajax({
+            url: "/" + cardId + "/CardType",
+            type: "get",
+            async: true,
+            success: function (data) {
+                var obj = JSON.parse(data);
+                document.getElementById("ctId").innerHTML = obj.ObjectVal;
+            }
+        });
     }
 
     function refreshText() {
+        setText("IsOn");
         setText("SampleRate");
         setText("Length");
         setText("ChannelName");
@@ -91,7 +112,7 @@
             type: "post",
             async: true,
             success: function (data) {
-                alert(cardId + "'s " + id +" has applied!")
+                alert(cardId + "'s " + id + " has applied!")
             },
             error: function () {
                 alert("Apply Failed!")
@@ -112,4 +133,12 @@
             }
         });
     }
+
+    function setNote() {
+        for (var key in noteDic) {
+            var s = noteDic[key];
+            document.getElementById(key + "noteId").innerHTML = s;
+        }
+    }
+        
 </script>

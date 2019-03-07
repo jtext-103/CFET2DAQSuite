@@ -11,6 +11,11 @@ namespace Jtext103.CFET2.Things.BasicAIModel
     public abstract class BasicAIStaticConfig
     {
         /// <summary>
+        /// 采集卡类型，就是个名
+        /// </summary>
+        public string CardType { get; set; }
+
+        /// <summary>
         /// 触发配置
         /// </summary>
         public AITriggerConfiguration TriggerConfig { get; set; }

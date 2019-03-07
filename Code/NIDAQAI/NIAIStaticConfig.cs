@@ -65,6 +65,7 @@ namespace Jtext103.CFET2.Things.NiAiLib
             RemainShotsMax = config.RemainShotsMax;
             RemainShotsMin = config.RemainShotsMin;
             IsOn = config.IsOn;
+            CardType = config.CardType;
         }
     }
 }

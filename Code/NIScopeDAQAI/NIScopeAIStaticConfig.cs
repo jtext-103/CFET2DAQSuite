@@ -47,6 +47,7 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
             RemainShotsMax = config.RemainShotsMax;
             RemainShotsMin = config.RemainShotsMin;
             IsOn = config.IsOn;
+            CardType = config.CardType;
 
             ResourceName = config.ResourceName;
             //MoreRecordsThanMemoryAllowed = config.MoreRecordsThanMemoryAllowed;

@@ -186,6 +186,16 @@ namespace Jtext103.CFET2.Things.DAQAIThing
         }
 
         /// <summary>
+        /// 采集卡名称
+        /// </summary>
+        /// <returns></returns>
+        [Cfet2Status]
+        public string CardType()
+        {
+            return basicAI.StaticConfig.CardType;
+        }
+
+        /// <summary>
         /// 触发边沿
         /// </summary>
         [Cfet2Status]
