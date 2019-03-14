@@ -17,6 +17,11 @@
                 </div>
             </div>
             <div class="col-md-1">
+                <button type="button" class="btn btn-success" onclick="apply('@Model[0]')">
+                    <b>&nbsp;Apply&nbsp;</b>
+                </button>
+            </div>
+            <div style="float:right">
                 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal_@Model[0]">
                     note
                 </button>
@@ -36,11 +41,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div style="float:right">
-                <button type="button" class="btn btn-success" onclick="apply('@Model[0]')">
-                    <b>&nbsp;Apply&nbsp;</b>
-                </button>
                 &nbsp;&nbsp;&nbsp;&nbsp;
             </div>
         </div>

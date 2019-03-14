@@ -92,10 +92,11 @@ namespace Jtext103.CFET2.Things.JyAiLib
         /// <param name="triggerConfiguration">触发配置</param>
         public static void MapAndConfigTrigger(JYPXI62022AITask jyTask, AITriggerConfiguration triggerConfiguration)
         {
-            jyTask.Trigger.Mode = AITriggerMode.Start;
-            jyTask.Trigger.ReTriggerCount = 0;
-            jyTask.Trigger.PreTriggerSamples = 0;
-            jyTask.Trigger.Delay = 0;
+            //加了主卡带从卡的时候，如果从卡采样率设满，从卡有时触发不了
+            //jyTask.Trigger.Mode = AITriggerMode.Start;
+            //jyTask.Trigger.ReTriggerCount = 0;
+            //jyTask.Trigger.PreTriggerSamples = 0;
+            //jyTask.Trigger.Delay = 0;
 
             switch (triggerConfiguration.TriggerType)
             {
