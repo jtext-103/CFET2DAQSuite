@@ -48,7 +48,7 @@ namespace Jtext103.CFET2.Things.DAQAIThing
             }
             else
             {
-                basicAI.StaticConfig.ClockConfig.ReadSamplePerTime = Caculator.GCD(basicAI.StaticConfig.ClockConfig.TotalSampleLengthPerChannel, 20000);
+                basicAI.StaticConfig.ClockConfig.ReadSamplePerTime = Caculator.GCD(gcd, 20000);
             }
             
             basicAI.ChangeStaticConfig(basicAI.StaticConfig);
@@ -88,7 +88,7 @@ namespace Jtext103.CFET2.Things.DAQAIThing
             }
             else
             {
-                basicAI.StaticConfig.ClockConfig.ReadSamplePerTime = Caculator.GCD(length, 20000);
+                basicAI.StaticConfig.ClockConfig.ReadSamplePerTime = Caculator.GCD(gcd, 20000);
             }
 
             basicAI.ChangeStaticConfig(basicAI.StaticConfig);
