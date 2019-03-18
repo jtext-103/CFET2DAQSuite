@@ -138,6 +138,7 @@ namespace Jtext103.CFET2.Things.JyAiLib
                 case AITriggerMasterOrSlave.Master:
                     jyTask.Sync.Topology = SyncTopology.Master;
                     //主卡需要触发路由
+                    jyTask.Trigger.Digital.Source = AIDigitalTriggerSource.Trig_IO;
                     //SSI的意思就是背板某条触发总线，驱动底层自动map
                     jyTask.Sync.TriggerRouting = SyncTriggerRouting.SSI;
                     jyTask.Sync.TimeBaseRouting = SyncTimeBaseRouting.SSI;
