@@ -112,9 +112,9 @@ namespace Jtext103.CFET2.Things.DAQAIThing
         /// </summary>
         /// <param name="type"></param>
         [Cfet2Config(ConfigActions = ConfigAction.Set, Name = "SyncType")]
-        public void SyncTypeSet(AITriggerMasterOrSlave type)
+        public void SyncTypeSet(int type)
         {
-            basicAI.StaticConfig.TriggerConfig.MasterOrSlave = type;
+            basicAI.StaticConfig.TriggerConfig.MasterOrSlave = (AITriggerMasterOrSlave)type;
             basicAI.ChangeStaticConfig(basicAI.StaticConfig);
         }
 
@@ -133,9 +133,9 @@ namespace Jtext103.CFET2.Things.DAQAIThing
         /// </summary>
         /// <returns></returns>
         [Cfet2Config(ConfigActions = ConfigAction.Set, Name = "TriggerType")]
-        public void TriggerTypeSet(AITriggerType type)
+        public void TriggerTypeSet(int type)
         {
-            basicAI.StaticConfig.TriggerConfig.TriggerType = type;
+            basicAI.StaticConfig.TriggerConfig.TriggerType = (AITriggerType)type;
             basicAI.ChangeStaticConfig(basicAI.StaticConfig);
         }
 
