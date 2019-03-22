@@ -3,7 +3,7 @@
     "CardType": "JY-6 series",
     "TriggerConfig": {
       "TriggerType": 0,
-      "TriggerSource": 3,
+      "TriggerSource": "3",
       "TriggerEdge": 0,
       "Delay": 2.0,
       "MasterOrSlave": 0

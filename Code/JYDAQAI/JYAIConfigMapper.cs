@@ -120,7 +120,7 @@ namespace Jtext103.CFET2.Things.JyAiLib
                             throw new Exception("触发边沿配置错误！");
                     }
                     //触发源
-                    jyTask.Trigger.Digital.Source = (AIDigitalTriggerSource)Enum.ToObject(typeof(AIDigitalTriggerSource), triggerConfiguration.TriggerSource);
+                    jyTask.Trigger.Digital.Source = (AIDigitalTriggerSource)Enum.ToObject(typeof(AIDigitalTriggerSource), int.Parse((string)triggerConfiguration.TriggerSource));
                     jyTask.Trigger.Delay = triggerConfiguration.Delay * 1000000;
                     break;
                 case BasicAIModel.AITriggerType.AnalogTrigger:

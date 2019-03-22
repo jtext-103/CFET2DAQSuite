@@ -8,8 +8,8 @@
     "TriggerConfig": {
       //触发类型，0：立即触发（Ready了马上就变Running，但作为从卡不会）；1：数字触发
       "TriggerType": 0,
-      //触发源，3：背板触发；9：外部数字触发
-      "TriggerSource": 3,
+      //触发源，"3"：背板触发；"9"：外部数字触发
+      "TriggerSource": "3",
       //触发边沿，0：上升沿；1：下降沿
       "TriggerEdge": 0,
       //触发后延迟多久开始采集
