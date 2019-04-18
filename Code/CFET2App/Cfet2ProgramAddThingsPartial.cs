@@ -65,13 +65,13 @@ namespace Jtext103.CFET2.CFET2App
                                             //下面引号中的要改，前面的是配置文件路径，后面的是采集数据保存到本地的路径
                                 new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\niNonSync.txt", DataFileParentDirectory = @"D:\Data\ni\Card0" });
 
-            var niMaster = new AIThing();
-            niMaster.basicAI = new NIAI();
-            niMaster.DataFileFactory = new HDF5DataFileFactory();
-            MyHub.TryAddThing(niMaster,
-                                @"/",
-                                "Card1",
-                                new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\niMaster.txt", DataFileParentDirectory = @"D:\Data\ni\Card1" });
+            //var niMaster = new AIThing();
+            //niMaster.basicAI = new NIAI();
+            //niMaster.DataFileFactory = new HDF5DataFileFactory();
+            //MyHub.TryAddThing(niMaster,
+            //                    @"/",
+            //                    "Card1",
+            //                    new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\niMaster.txt", DataFileParentDirectory = @"D:\Data\ni\Card1" });
 
             //var niSlave = new AIThing();
             //niSlave.basicAI = new NIAI();
@@ -150,7 +150,7 @@ namespace Jtext103.CFET2.CFET2App
                                 new
                                 {
                                     //要判断多少个卡的状态就加几个（比如独立工作的卡就不用加），注意前面是 / 后面是卡名，比如{ "/Card0", "/Card1" },
-                                    AllAIThingPaths = new string[] { "/Card0", "/Card1" },
+                                    AllAIThingPaths = new string[] { "/Card0" },
                                     //AllAIThingPaths = new string[] { "/CardB", "/CardC" },
                                     //自动Arm的，如果不想手动触发的就加上，跟上面一行格式一样
                                     //AutoArmAIThingPaths = new string[] { "/Card0" }

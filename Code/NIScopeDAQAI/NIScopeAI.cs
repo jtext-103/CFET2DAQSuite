@@ -238,7 +238,8 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
         //读数据
         private void readData(NIScope scopeSession)
         {
-            var channels = ((JArray)_staticConfig.ChannelConfig.ChannelName).ToObject<List<int>>();
+            //var channels = ((JArray)_staticConfig.ChannelConfig.ChannelName).ToObject<List<int>>();
+            var channels = ChannelNameTranslator.StringToListInt(_staticConfig.ChannelConfig.ChannelName);
             //开新线程等待读数据
             //await Task.Run(() =>
             //{
@@ -250,7 +251,8 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
 
             //生成 channels
             string channelScope = null;
-            var sChannels = ((JArray)_staticConfig.ChannelConfig.ChannelName).ToObject<List<int>>();
+            //var sChannels = ((JArray)_staticConfig.ChannelConfig.ChannelName).ToObject<List<int>>();
+            var sChannels = ChannelNameTranslator.StringToListInt(_staticConfig.ChannelConfig.ChannelName);
             foreach (var s in sChannels)
             {
                 channelScope += s + ",";
@@ -334,7 +336,7 @@ namespace Jtext103.CFET2.Things.NIScopeDAQAI
             }
             lock (TClockDevice.Lock)
             {
-                if (TClockDevice.SyncDevices.Contains(scopeSession))
+                if (TClockDevice.SyncDevices != null && TClockDevice.SyncDevices.Contains(scopeSession))
                 {
                     TClockDevice.SyncDevices.Remove(scopeSession);
                 }
