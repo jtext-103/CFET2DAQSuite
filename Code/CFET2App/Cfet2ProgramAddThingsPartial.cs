@@ -141,9 +141,9 @@ namespace Jtext103.CFET2.CFET2App
 
             //如果第三个参数为true，则当第一个参数的值等于第二个参数的时候，可以自动arm
             //如果第三个参数为false，则当第一个餐宿的值不等于第二个参数的时候，可以自动arm
-            //var aiManagement = new AIManagementThing("/epcis/trygetpv/ST:SHOTSERVER:SHOTNO", "1000", true);
+            //var aiManagement = new AIManagementThing("/epcis/trygetpv/ST:SHOTSERVER:SHOTNO", "1000", true, 10000);
             //不判断直接自动arm
-            var aiManagement = new AIManagementThing();
+            var aiManagement = new AIManagementThing(10000);
             MyHub.TryAddThing(aiManagement,
                                 @"/",
                                 "aimanagement",

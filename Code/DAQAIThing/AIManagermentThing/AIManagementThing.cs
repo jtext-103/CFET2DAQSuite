@@ -55,7 +55,12 @@ namespace Jtext103.CFET2.Things.DAQAIThing
             }
         }
 
-        public AIManagementThing() { }
+        private int autoArmDelayTime;
+
+        public AIManagementThing(int t)
+        {
+            autoArmDelayTime = t;
+        }
 
         private string monitorSource = null;
         private object monitorValue = null;
@@ -67,11 +72,13 @@ namespace Jtext103.CFET2.Things.DAQAIThing
         /// <param name="monitorSource">需要监控的Status路径</param>
         /// <param name="monitorValue">监控的值</param>
         /// <param name="isArmWhenEqual">为true时，等于monitorValue时可以触发；否则当不等于monitorValue时可以触发</param>
-        public AIManagementThing(string monitorSource, object monitorValue, bool isArmWhenEqual)
+        /// <param name="t">自动arm的延时，单位ms</param>
+        public AIManagementThing(string monitorSource, object monitorValue, bool isArmWhenEqual, int t)
         {
             this.monitorSource = monitorSource;
             this.monitorValue = monitorValue;
             this.isArmWhenEqual = isArmWhenEqual;
+            autoArmDelayTime = t;
         }
 
         /// <summary>
@@ -165,6 +172,7 @@ namespace Jtext103.CFET2.Things.DAQAIThing
             //当所有卡状态都变为Idle时，arm所有需要自动arm的AIThing
             if (AllAIStateNow == AllAIStatus.AllIdle)
             {
+                Thread.Sleep(autoArmDelayTime);
                 ArmAllNeed();
             }
         }

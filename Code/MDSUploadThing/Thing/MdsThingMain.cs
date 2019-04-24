@@ -10,6 +10,7 @@ using MDSplusVBC;
 using Jtext103.CFET2.Core.Event;
 using Jtext103.CFET2.Core.Log;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Jtext103.CFET2.Things.MDSUpload
 {
@@ -74,6 +75,9 @@ namespace Jtext103.CFET2.Things.MDSUpload
                 System.Diagnostics.Debug.WriteLine("Starting uploading all...", DateTime.Now.ToLocalTime().ToString("HH:mm:ss.fff"));
                 //启动 Slave 程序
                 Process.Start(myConfig.SlavePath);
+                State = Status.Running;
+                Thread.Sleep(5000);
+                State = Status.Idle;
             }
         }
     }
