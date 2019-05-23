@@ -6,7 +6,7 @@
     "/daqsmanager": {
       "ViewPath": "DAQsManager",
       "Params": {
-        "uploadthing": "uploader",
+        "uploadthing": "mds",
         "childpaths": [
           "card0",
           "card1",

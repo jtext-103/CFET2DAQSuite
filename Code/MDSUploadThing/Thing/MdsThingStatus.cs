@@ -75,7 +75,7 @@ namespace Jtext103.CFET2.Things.MDSUpload
         }
 
         /// <summary>
-        /// 显示配置文件中所有通道和状态
+        /// 显示配置文件中所有通道
         /// </summary>
         [Cfet2Status]
         public string ShowSources
@@ -86,6 +86,23 @@ namespace Jtext103.CFET2.Things.MDSUpload
                 foreach (var s in myConfig.RealChannelsDic)
                 {
                     result += s.Key.ToString() + "\n";
+                }
+                return result.Substring(0, result.Length - 1);
+            }
+        }
+
+        /// <summary>
+        /// 显示配置文件中所有上传Tag
+        /// </summary>
+        [Cfet2Status]
+        public string ShowTags
+        {
+            get
+            {
+                string result = null;
+                foreach (var s in myConfig.RealChannelsDic)
+                {
+                    result += s.Value.Tag.ToString() + "\n";
                 }
                 return result.Substring(0, result.Length - 1);
             }

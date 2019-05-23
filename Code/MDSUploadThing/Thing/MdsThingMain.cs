@@ -26,7 +26,7 @@ namespace Jtext103.CFET2.Things.MDSUpload
 
         public override void TryInit(object configFilePath)
         {
-            myConfig = new MdsUploadConfig((string)configFilePath);
+            myConfig = new MdsUploadConfig((string[])configFilePath);
             if (myConfig != null)
             {
                 State = Status.Idle;

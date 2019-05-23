@@ -49,10 +49,12 @@ namespace Jtext103.CFET2.Things.MDSUpload
 
         public MdsUploadConfig() { }
 
-        public MdsUploadConfig(string path)
+        public MdsUploadConfig(string[] path)
         {
             //全部 public 参数反序列化
-            JsonConvert.PopulateObject(File.ReadAllText(path, Encoding.Default), this);
+            JsonConvert.PopulateObject(File.ReadAllText(path[0], Encoding.Default), this);
+
+            ChannelConfigs = CSVReader.SetChannel(path[1]);
 
             //将带 {,,,} 的 Channels 自动生成为完整格式 
             ChannelConfigs = MdsConfigRebuild.ChannelRebuild(ChannelConfigs);

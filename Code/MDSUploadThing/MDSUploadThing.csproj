@@ -39,6 +39,9 @@
     <Reference Include="Jtext103.CFET2Core, Version=2.0.6919.28896, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\Jtext103.CFET2Core.2.0.6919.28896\lib\net451\Jtext103.CFET2Core.dll</HintPath>
     </Reference>
+    <Reference Include="Jtext103.CSV, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jtext103.CSV.1.0.0\lib\net461\Jtext103.CSV.dll</HintPath>
+    </Reference>
     <Reference Include="MDSplusVBC, Version=1.0.5984.24687, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MDSvbc\MDSplusVBC.dll</HintPath>
@@ -68,11 +71,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assist\CSVReader.cs" />
     <Compile Include="Assist\StringOperation.cs" />
     <Compile Include="Model\ChannelConfig.cs" />
     <Compile Include="Assist\MdsConfigRebuid.cs" />
     <Compile Include="Model\ServerConfig.cs" />
-    <Compile Include="Assist\Status.cs" />
+    <Compile Include="Model\Status.cs" />
     <Compile Include="Thing\MdsThingMain.cs" />
     <Compile Include="Thing\MdsThingMethod.cs" />
     <Compile Include="Thing\MdsThingStatus.cs" />
