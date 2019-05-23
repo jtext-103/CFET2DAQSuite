@@ -1,0 +1,15 @@
+{
+	"MasterOrSlave":1,
+	"SlavePath":"C:\\Users\\wyx\\Desktop\\Debug\\Jtext103.CFET2.CFET2App.exe",
+	"ServerConfig":{
+		"Host":"127.0.0.1",
+		"Tree":"testTree"
+	},
+	"EventPaths":[
+		"/aimanagement"
+	],
+	"EventKinds":[
+		"AllAITaskFinished"
+	]
+}
+

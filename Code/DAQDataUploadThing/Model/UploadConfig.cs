@@ -50,15 +50,21 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
         /// </summary>
         public Behavior UploadBehavior { get; set; }
 
+        public UploadConfig() { }
+
         /// <summary>
         /// 配置上述参数
         /// </summary>
         /// <param name="path">配置文件(.txt)路径</param>
-        public UploadConfig(string path)
+        public UploadConfig(string[] path)
         {
             //全部 public 参数反序列化
-            JsonConvert.PopulateObject(File.ReadAllText(path, Encoding.Default), this);
+            JsonConvert.PopulateObject(File.ReadAllText(path[0], Encoding.Default), this);
 
+            var config = CSVReader.SetThingsAndDirs(path[1]);
+
+            AIThings = config.AIThings;
+            ServerDataDirectories = config.ServerDataDirectories;
             PathCount = AIThings.Length;
             if (ServerDataDirectories.Length != PathCount)
             {

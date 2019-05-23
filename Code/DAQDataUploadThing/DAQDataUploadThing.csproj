@@ -34,6 +34,9 @@
     <Reference Include="Jtext103.CFET2Core, Version=2.0.6901.19386, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\Jtext103.CFET2Core.2.0.6901.19386\lib\net451\Jtext103.CFET2Core.dll</HintPath>
     </Reference>
+    <Reference Include="Jtext103.CSV, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jtext103.CSV.1.0.0\lib\net461\Jtext103.CSV.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -53,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assist\CSVReader.cs" />
     <Compile Include="Assist\FileOperator.cs" />
     <Compile Include="Model\Status.cs" />
     <Compile Include="Model\Behavior.cs" />

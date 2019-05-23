@@ -27,7 +27,7 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
 
         public override void TryInit(object configFilePath)
         {
-            myConfig = new UploadConfig((string)configFilePath);
+            myConfig = new UploadConfig((string[])configFilePath);
             if (myConfig != null)
             {
                 State = Status.Idle;

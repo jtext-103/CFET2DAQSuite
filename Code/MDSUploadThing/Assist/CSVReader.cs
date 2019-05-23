@@ -8,6 +8,7 @@ using Jtext103.CSV;
 
 namespace Jtext103.CFET2.Things.MDSUpload
 {
+    //这个玩意儿依赖了AIThing
     public class CSVReader
     {
         public static Channel[] SetChannel(string filepath)
