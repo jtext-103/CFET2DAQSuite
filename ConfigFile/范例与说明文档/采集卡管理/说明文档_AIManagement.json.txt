@@ -1,0 +1,39 @@
+{
+	//采集卡相关
+	"AIThings":{
+		//所有监控的采集卡
+		"AllAIThingPaths":[
+			"/Card0",
+			"/Card1",
+			"/Card2"
+		],
+		//所有自动Arm的采集卡
+		"AutoArmAIThingPaths":[
+			"/Card0",
+			"/Card1"
+		]
+	},
+	//监控的CFET资源，注意最后一个其实就是EPCIS PV名，改时只要改那个；如果不用监控这行直接删
+	"MonitorSource":"/epcis/trygetpv/ST:SHOTSERVER:SHOTNO",
+
+	//监控的上面那个参数的值，其实就是EPCIS PV的值；如果不用监控这行直接删
+	"MonitorValue":1000,
+
+	//ture时，当 Source值 == Value时自动Arm；false时，当 Source值 != Value时自动Arm；如果不用监控这行直接删
+	"IsEqualToArm":true,
+
+	//所有采集完成之后，延迟多久再自动Arm
+	"DelaySecondAfterFinish":10
+}
+
+重要说明：
+1、采集卡区分大小写
+2、DelaySecondAfterFinish最好设大一点，不然如果上传没有完成，Arm到下一炮后，上传很可能失败
+并且，可能MonitorSource的值此时仍然等于（或不等于）MonitorValue，可能会误触发
+
+
+
+
+
+
+	

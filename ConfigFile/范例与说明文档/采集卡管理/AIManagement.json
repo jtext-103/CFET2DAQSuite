@@ -1,0 +1,15 @@
+{
+	"AIThings":{
+		"AllAIThingPaths":[
+			"/Card0"
+		],
+		"AutoArmAIThingPaths":[
+			"/Card0"
+		]
+	},
+	"MonitorSource":"/epcis/trygetpv/ST:SHOTSERVER:SHOTNO",
+	"MonitorValue":1000,
+	"IsEqualToArm":true,
+	"DelaySecondAfterFinish":1
+}
+	

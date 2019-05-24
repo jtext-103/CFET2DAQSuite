@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AIManagermentThing\AIManagementConfig.cs" />
     <Compile Include="AIManagermentThing\AIManagementThing.cs" />
     <Compile Include="AIManagermentThing\AllAndAutoArmAIThings.cs" />
     <Compile Include="AIThing\AIThingConfig.cs" />

@@ -19,13 +19,13 @@ namespace Jtext103.CFET2.Things.DAQAIThing
     /// </summary>
     public class AIManagementThing : Thing, IDisposable
     {
-        private AllAndAutoArmAIThings allAndAutoArmAIThings;
-
         private ICfet2Logger logger;
 
         private Dictionary<string, Status> allAIThingStates;
 
         private Dictionary<string, bool> allAIFinishFlags;
+
+        private AIManagementConfig config;
 
         /// <summary>
         /// 上一个状态
@@ -33,6 +33,7 @@ namespace Jtext103.CFET2.Things.DAQAIThing
         public AllAIStatus AllAIStatePrevious { get; private set; }
 
         private AllAIStatus _allAIStateNow;
+
         /// <summary>
         /// 当前状态
         /// </summary>
@@ -55,45 +56,16 @@ namespace Jtext103.CFET2.Things.DAQAIThing
             }
         }
 
-        private int autoArmDelayTime;
-
-        public AIManagementThing(int t)
-        {
-            autoArmDelayTime = t;
-        }
-
-        private string monitorSource = null;
-        private object monitorValue = null;
-        private bool isArmWhenEqual;
-
-        /// <summary>
-        /// 提供监控，当Source（一个Thing的Status）等于或不等于（取决于isArmWhenEqual）时，才能够自动Arm
-        /// </summary>
-        /// <param name="monitorSource">需要监控的Status路径</param>
-        /// <param name="monitorValue">监控的值</param>
-        /// <param name="isArmWhenEqual">为true时，等于monitorValue时可以触发；否则当不等于monitorValue时可以触发</param>
-        /// <param name="t">自动arm的延时，单位ms</param>
-        public AIManagementThing(string monitorSource, object monitorValue, bool isArmWhenEqual, int t)
-        {
-            this.monitorSource = monitorSource;
-            this.monitorValue = monitorValue;
-            this.isArmWhenEqual = isArmWhenEqual;
-            autoArmDelayTime = t;
-        }
-
         /// <summary>
         /// initObj是一个AllAndAutoArmAIThings
         /// </summary>
-        /// <param name="initObj"></param>
-        public override void TryInit(object initObj)
+        /// <param name="path"></param>
+        public override void TryInit(object path)
         {
-            allAndAutoArmAIThings = (AllAndAutoArmAIThings)initObj.TryConvertTo(typeof(AllAndAutoArmAIThings));
-
-            var allAIThingPaths = allAndAutoArmAIThings.AllAIThingPaths;
-            var autoArmAIThingPaths = allAndAutoArmAIThings.AutoArmAIThingPaths;
+            config = new AIManagementConfig((string)path);
 
             //判断autoArmAIThings是否是allAIThings的子集
-            if (!autoArmAIThingPaths.All(autoArm => allAIThingPaths.Any(every => every == autoArm)))
+            if (!config.AIThings.AutoArmAIThingPaths.All(autoArm => config.AIThings.AllAIThingPaths.Any(every => every == autoArm)))
             {
                 throw new Exception("需要自动arm的所有AIThing必须包含在所有AIThing中");
             }
@@ -102,8 +74,8 @@ namespace Jtext103.CFET2.Things.DAQAIThing
 
         public override void Start()
         {
-            var allAIThingPaths = allAndAutoArmAIThings.AllAIThingPaths;
-            var autoArmAIThingPaths = allAndAutoArmAIThings.AutoArmAIThingPaths;
+            var allAIThingPaths = config.AIThings.AllAIThingPaths;
+            var autoArmAIThingPaths = config.AIThings.AutoArmAIThingPaths;
 
             allAIThingStates = new Dictionary<string, Status>();
             allAIFinishFlags = new Dictionary<string, bool>();
@@ -172,7 +144,7 @@ namespace Jtext103.CFET2.Things.DAQAIThing
             //当所有卡状态都变为Idle时，arm所有需要自动arm的AIThing
             if (AllAIStateNow == AllAIStatus.AllIdle)
             {
-                Thread.Sleep(autoArmDelayTime);
+                Thread.Sleep(config.DelaySecondAfterFinish * 1000);
                 ArmAllNeed();
             }
         }
@@ -219,21 +191,21 @@ namespace Jtext103.CFET2.Things.DAQAIThing
         //如果使用了带参构造函数，则增加判断
         private void TrueArm()
         {
-            if(monitorSource != null)
+            if(config.MonitorSource != null)
             {
                 while(true)
                 {
-                    object val = MyHub.TryGetResourceSampleWithUri(monitorSource).ObjectVal;
-                    if (isArmWhenEqual)
+                    object val = MyHub.TryGetResourceSampleWithUri(config.MonitorSource).ObjectVal;
+                    if (config.IsEqualToArm)
                     {
-                        if(val.ToString() == monitorValue.ToString())
+                        if(val.ToString() == config.MonitorValue.ToString())
                         {
                             break;
                         }
                     }
                     else
                     {
-                        if (val.ToString() != monitorValue.ToString())
+                        if (val.ToString() != config.MonitorValue.ToString())
                         {
                             break;
                         }
@@ -242,14 +214,77 @@ namespace Jtext103.CFET2.Things.DAQAIThing
                 }
             }
 
-            for (int i = allAndAutoArmAIThings.AutoArmAIThingPaths.Count() - 1; i >= 0; i--)
+            for (int i = config.AIThings.AutoArmAIThingPaths.Count() - 1; i >= 0; i--)
             {
-                System.Diagnostics.Debug.WriteLine("Auto arm " + allAndAutoArmAIThings.AutoArmAIThingPaths[i]);
-                MyHub.TryInvokeSampleResourceWithUri(allAndAutoArmAIThings.AutoArmAIThingPaths[i] + @"/tryarm");
+                System.Diagnostics.Debug.WriteLine("Auto arm " + config.AIThings.AutoArmAIThingPaths[i]);
+                MyHub.TryInvokeSampleResourceWithUri(config.AIThings.AutoArmAIThingPaths[i] + @"/tryarm");
             }
         }
 
-        
+        #region Status
+        [Cfet2Status]
+        public string ShowAll
+        {
+            get
+            {
+                string result = null;
+                foreach (var s in config.AIThings.AllAIThingPaths)
+                {
+                    result += s + "\n";
+                }
+                return result.Substring(0, result.Length - 1);
+            }
+        }
+
+        [Cfet2Status]
+        public string ShowAuto
+        {
+            get
+            {
+                string result = null;
+                foreach (var s in config.AIThings.AutoArmAIThingPaths)
+                {
+                    result += s.ToString() + "\n";
+                }
+                return result.Substring(0, result.Length - 1);
+            }
+        }
+
+        [Cfet2Status]
+        public string MonitorSource()
+        {
+            return config.MonitorSource;
+        }
+
+        [Cfet2Status]
+        public object MonitorValue()
+        {
+            return config.MonitorValue;
+        }
+
+        [Cfet2Status]
+        public bool IsEqualToArm()
+        {
+            return config.IsEqualToArm;
+        }
+
+        [Cfet2Status]
+        public int DelaySecondAfterFinish()
+        {
+            return config.DelaySecondAfterFinish;
+        }
+
+        [Cfet2Status]
+        public object TrueMonitorValue()
+        {
+            if(config.MonitorSource != null)
+            {
+                return MyHub.TryGetResourceSampleWithUri(config.MonitorSource).ObjectVal;
+            }
+            return null;
+        }
+
+        #endregion
 
         #region IDisposable Support
         private bool disposedValue = false; // 要检测冗余调用
@@ -261,10 +296,10 @@ namespace Jtext103.CFET2.Things.DAQAIThing
                 if (disposing)
                 {
                     // TODO: 释放托管状态(托管对象)。
-                    for (int i = allAndAutoArmAIThings.AutoArmAIThingPaths.Count() - 1; i >= 0; i--)
+                    for (int i = config.AIThings.AutoArmAIThingPaths.Count() - 1; i >= 0; i--)
                     {
-                        System.Diagnostics.Debug.WriteLine("Disposing " + allAndAutoArmAIThings.AutoArmAIThingPaths[i]);
-                        MyHub.TryInvokeSampleResourceWithUri(allAndAutoArmAIThings.AutoArmAIThingPaths[i] + @"/trystop");
+                        System.Diagnostics.Debug.WriteLine("Disposing " + config.AIThings.AutoArmAIThingPaths[i]);
+                        MyHub.TryInvokeSampleResourceWithUri(config.AIThings.AutoArmAIThingPaths[i] + @"/trystop");
                     }
                 }
 

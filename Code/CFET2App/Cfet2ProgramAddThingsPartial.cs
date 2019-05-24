@@ -137,34 +137,19 @@ namespace Jtext103.CFET2.CFET2App
             #endregion
 
             //------------------------------自动 Arm 采集卡与发布上传事件的，只有一个这个------------------------------//
-            //它的逻辑是当所有 AllAIThingPaths 中的卡都 Idle 之后自动 Arm 所有 AutoArmAIThingPaths 中的卡，以及发布上传事件
-
-            //如果第三个参数为true，则当第一个参数的值等于第二个参数的时候，可以自动arm
-            //如果第三个参数为false，则当第一个餐宿的值不等于第二个参数的时候，可以自动arm
-            //var aiManagement = new AIManagementThing("/epcis/trygetpv/ST:SHOTSERVER:SHOTNO", "1000", true, 10000);
-            //不判断直接自动arm
-            var aiManagement = new AIManagementThing(10000);
-            MyHub.TryAddThing(aiManagement,
-                                @"/",
-                                "aimanagement",
-                                new
-                                {
-                                    //要判断多少个卡的状态就加几个（比如独立工作的卡就不用加），注意前面是 / 后面是卡名，比如{ "/Card0", "/Card1" },
-                                    AllAIThingPaths = new string[] { "/Card0" },
-                                    //AllAIThingPaths = new string[] { "/CardB", "/CardC" },
-                                    //自动Arm的，如果不想手动触发的就加上，跟上面一行格式一样
-                                    //AutoArmAIThingPaths = new string[] { "/Card0" }
-                                    //AutoArmAIThingPaths = new string[] { "/CardC" }
-                                    AutoArmAIThingPaths = new string[] { }
-                                });
+            var aiManagement = new AIManagementThing();
+            //监控EPCIS
+            MyHub.TryAddThing(aiManagement, @"/", "aimanagement", @"D:\Run\ConfigFile\DAQFamilyBucket\AIManagement.json");
+            //不监控EPCIS
+            //MyHub.TryAddThing(aiManagement, @"/", "aimanagement", @"D:\Run\ConfigFile\DAQFamilyBucket\AIManagementNoEPCIS.json");
 
             //------------------------------上传文件的，只有一个这个------------------------------//
             var uploader = new DataUpLoadThing();
             //前面的别改，后面的.txt路径是配置文件的完整路径
             MyHub.TryAddThing(uploader, @"/", "uploader", new string[] {                                          
                                 @"D:\Run\ConfigFile\DAQFamilyBucket\DataUploadConfig.json",
-                                @"D:\Run\ConfigFile\DAQFamilyBucket\DataUpload.csv"                                                            }
-                        );
+                                @"D:\Run\ConfigFile\DAQFamilyBucket\DataUpload.csv"
+                        });
 
             //------------------------------上传MDS的，只有一个这个------------------------------//
             //var mdsthing = new MdsThing();
