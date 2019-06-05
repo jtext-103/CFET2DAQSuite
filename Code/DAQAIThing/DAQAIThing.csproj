@@ -62,7 +62,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AIManagermentThing\AIManagementConfig.cs" />
-    <Compile Include="AIManagermentThing\AIManagementThing.cs" />
+    <Compile Include="AIManagermentThing\AIManagementThingMain.cs" />
+    <Compile Include="AIManagermentThing\AIManagementThingResource.cs" />
     <Compile Include="AIManagermentThing\AllAndAutoArmAIThings.cs" />
     <Compile Include="AIThing\AIThingConfig.cs" />
     <Compile Include="Assist\Caculator.cs" />
@@ -84,20 +85,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <Content Include="Views\Channels.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Views\_PartialChannel.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Views\Channels.cshtml" />
+    <Content Include="Views\_PartialChannel.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\ChannelsCSS\custom.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\ChannelsJS\function.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Content\ChannelsCSS\custom.css" />
+    <Content Include="Content\ChannelsJS\function.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

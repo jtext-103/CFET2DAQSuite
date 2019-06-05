@@ -7,6 +7,8 @@ var apiTimes = new Array();
 var apiShot = new String();
 var apiUpload = new String();
 
+var apiManager = new String();
+
 function arm(index) {
     var s = "" + index;
     $.ajax({
@@ -92,6 +94,46 @@ function refreshStates(manual) {
         error: function () {
             document.getElementById("uploadId").innerHTML = "Offline";
             document.getElementById("uploadId").style.color = '#999999';
+        }
+    });
+
+    //刷新AIManager状态
+    $.ajax({
+        url: apiManager,
+        type: "get",
+        contentType: 'application/json',
+        async: false,
+        success: function (data) {
+            var obj = JSON.parse(data);
+            if (obj.ObjectVal == 0) {
+                document.getElementById("managerId").innerHTML = "Idle";
+                document.getElementById("managerId").style.color = '#FFA500';
+            }
+            else if (obj.ObjectVal == 1) {
+                document.getElementById("managerId").innerHTML = "Ready";
+                document.getElementById("managerId").style.color = '#FF6347';
+            }
+            else if (obj.ObjectVal == 2) {
+                document.getElementById("managerId").innerHTML = "Running";
+                document.getElementById("managerId").style.color = '#32CD32';
+            }
+            else if (obj.ObjectVal == 255) {
+                document.getElementById("managerId").innerHTML = "Error";
+                document.getElementById("managerId").style.color = '#FF0000';
+            }
+            else if (obj.ObjectVal == 3) {
+                document.getElementById("managerId").innerHTML = "Chaos";
+                document.getElementById("managerId").style.color = '#AB82FF';
+            }
+            else {
+                document.getElementById("managerId").innerHTML = "Unknow";
+                document.getElementById("managerId").style.color = '#999999';
+            }
+
+        },
+        error: function () {
+            document.getElementById("managerId").innerHTML = "Offline";
+            document.getElementById("managerId").style.color = '#999999';
         }
     });
 

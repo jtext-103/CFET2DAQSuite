@@ -34,6 +34,9 @@
             </div>
         </div>
         @{
+            @Html.Partial("_PartialAIThingsManager", (string)Model.Context["managerthing"]);
+        }
+        @{
             @Html.Partial("_PatrialUpload", (string)Model.Context["uploadthing"]);
         }
         @{

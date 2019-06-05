@@ -116,7 +116,16 @@ namespace Jtext103.CFET2.Things.DAQDataUploadThing
         {
             //int shotNo = 233333333;
             string shotNoS = (string)MyHub.TryGetResourceSampleWithUri(myConfig.ShotNoSource).ObjectVal;
-            int shotNo = int.Parse(shotNoS);
+            int shotNo;
+            try
+            {
+                shotNo = int.Parse(shotNoS);
+            }
+            catch
+            {
+                shotNo = 0;
+            }
+            
 
             string nowDirectory = serverParentDirectory;
             string newDir;

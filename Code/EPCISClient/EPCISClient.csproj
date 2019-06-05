@@ -31,20 +31,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="epicsLibrary, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\JtextEPICSforNewTM.2.1.0\lib\net461\epicsLibrary.dll</HintPath>
+    <Reference Include="epicsLibrary">
+      <HintPath>..\packages\EPCIS\epicsLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Jtext103.CFET2Core, Version=2.0.6901.19386, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\Jtext103.CFET2Core.2.0.6901.19386\lib\net451\Jtext103.CFET2Core.dll</HintPath>
     </Reference>
-    <Reference Include="JtextEPICSforNewTM, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\JtextEPICSforNewTM.2.1.0\lib\net461\JtextEPICSforNewTM.dll</HintPath>
+    <Reference Include="JtextEpcisPvClient, Version=1.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPCIS\JtextEpcisPvClient.dll</HintPath>
     </Reference>
-    <Reference Include="jtext_EpicsClient, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\JtextEPICSforNewTM.2.1.0\lib\net461\jtext_EpicsClient.dll</HintPath>
+    <Reference Include="jtext_EpicsClient">
+      <HintPath>..\packages\EPCIS\jtext_EpicsClient.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="string_short">
+      <HintPath>..\packages\EPCIS\string_short.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

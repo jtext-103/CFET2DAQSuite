@@ -17,7 +17,7 @@ namespace Jtext103.CFET2.Things.DAQAIThing
     /// 当所有AIThing都是idle时，自动ARM所有需要自动ARM的AIThing
     /// 当所有AIThing任务都结束时，产生采集完成的事件（可以用来触发上传）
     /// </summary>
-    public class AIManagementThing : Thing, IDisposable
+    public partial class AIManagementThing : Thing, IDisposable
     {
         private ICfet2Logger logger;
 
@@ -98,7 +98,7 @@ namespace Jtext103.CFET2.Things.DAQAIThing
 
             //第一次无需判断（默认认为程序启动时所有AIThing都是idle状态）
             //直接arm所有需要自动arm的AIThing
-            ArmAllNeed();
+            StartArmTask();
         }
 
         object stateChangedLockObject = new object();
@@ -145,7 +145,7 @@ namespace Jtext103.CFET2.Things.DAQAIThing
             if (AllAIStateNow == AllAIStatus.AllIdle)
             {
                 Thread.Sleep(config.DelaySecondAfterFinish * 1000);
-                ArmAllNeed();
+                StartArmTask();
             }
         }
 
@@ -182,14 +182,14 @@ namespace Jtext103.CFET2.Things.DAQAIThing
             }
         }
 
-        private void ArmAllNeed()
+        private void StartArmTask()
         {
-            Task.Run(() => TrueArm());
+            Task.Run(() => MonitorAndArm());
         }
 
         //按倒序arm所有需要自动arm的AIThing
         //如果使用了带参构造函数，则增加判断
-        private void TrueArm()
+        private void MonitorAndArm()
         {
             if(config.MonitorSource != null)
             {
@@ -221,70 +221,6 @@ namespace Jtext103.CFET2.Things.DAQAIThing
             }
         }
 
-        #region Status
-        [Cfet2Status]
-        public string ShowAll
-        {
-            get
-            {
-                string result = null;
-                foreach (var s in config.AIThings.AllAIThingPaths)
-                {
-                    result += s + "\n";
-                }
-                return result.Substring(0, result.Length - 1);
-            }
-        }
-
-        [Cfet2Status]
-        public string ShowAuto
-        {
-            get
-            {
-                string result = null;
-                foreach (var s in config.AIThings.AutoArmAIThingPaths)
-                {
-                    result += s.ToString() + "\n";
-                }
-                return result.Substring(0, result.Length - 1);
-            }
-        }
-
-        [Cfet2Status]
-        public string MonitorSource()
-        {
-            return config.MonitorSource;
-        }
-
-        [Cfet2Status]
-        public object MonitorValue()
-        {
-            return config.MonitorValue;
-        }
-
-        [Cfet2Status]
-        public bool IsEqualToArm()
-        {
-            return config.IsEqualToArm;
-        }
-
-        [Cfet2Status]
-        public int DelaySecondAfterFinish()
-        {
-            return config.DelaySecondAfterFinish;
-        }
-
-        [Cfet2Status]
-        public object TrueMonitorValue()
-        {
-            if(config.MonitorSource != null)
-            {
-                return MyHub.TryGetResourceSampleWithUri(config.MonitorSource).ObjectVal;
-            }
-            return null;
-        }
-
-        #endregion
 
         #region IDisposable Support
         private bool disposedValue = false; // 要检测冗余调用

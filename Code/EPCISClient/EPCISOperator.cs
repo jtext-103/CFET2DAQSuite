@@ -1,4 +1,4 @@
-﻿using JtextEPICSforNewTM;
+﻿using JtextEpcisPvClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,7 +79,6 @@ namespace Jtext103.CFET2.Things.EPCISClient
                 try
                 {
                     configEpcisClient[pvName] = value;
-                    configEpcisClient.UpdatePV();
                     return 0;
                 }
                 catch (Exception e)
@@ -93,7 +92,6 @@ namespace Jtext103.CFET2.Things.EPCISClient
                 {
                     configEpcisClient = new JtextEpicsClient(Config.PvNames, null);
                     configEpcisClient[pvName] = value;
-                    configEpcisClient.UpdatePV();
                     isConfigOnline = true;
                     return 0;
                 }
@@ -109,7 +107,6 @@ namespace Jtext103.CFET2.Things.EPCISClient
                 {
                     epcisClient = new JtextEpicsClient(name);
                     epcisClient[pvName] = value;
-                    epcisClient.UpdatePV();
                     return 0;
                 }
                 catch

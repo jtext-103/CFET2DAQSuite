@@ -28,7 +28,7 @@ namespace Jtext103.CFET2.CFET2App
             var nancyCM = new NancyCommunicationModule(new Uri("http://localhost:8001"));
             MyHub.TryAddCommunicationModule(nancyCM);
 
-            //拷贝视图文件夹
+            //拷贝视图文件夹，开发用
             var myViewsCopyer = new ViewCopyer();
             myViewsCopyer.StartCopy();
             var myContentCopyer = new ViewCopyer(null, "Content");
@@ -64,6 +64,20 @@ namespace Jtext103.CFET2.CFET2App
                                 "Card0",    //卡名，也就是在网页上看到的卡名称
                                             //下面引号中的要改，前面的是配置文件路径，后面的是采集数据保存到本地的路径
                                 new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\niNonSync.txt", DataFileParentDirectory = @"D:\Data\ni\Card0" });
+
+            //这个niNonSync每张卡要不一样
+            var niNonSync1 = new AIThing();
+
+            //这个除了niNonSync不一样其余都一样
+            niNonSync1.basicAI = new NIAI();
+            niNonSync1.DataFileFactory = new HDF5DataFileFactory();
+
+            //这个括号里面的不一样
+            MyHub.TryAddThing(niNonSync1,      //上面的niNonSync
+                                @"/",       //Thing挂载路径，都一样，不要改！！！
+                                "Card1",    //卡名，也就是在网页上看到的卡名称
+                                            //下面引号中的要改，前面的是配置文件路径，后面的是采集数据保存到本地的路径
+                                new { ConfigFilePath = @"D:\Run\ConfigFile\DAQFamilyBucket\niNonSync1.txt", DataFileParentDirectory = @"D:\Data\ni\Card1" });
 
             //var niMaster = new AIThing();
             //niMaster.basicAI = new NIAI();

@@ -7,10 +7,10 @@
       "ViewPath": "DAQsManager",
       "Params": {
         "uploadthing": "uploader",
+        "managerthing": "aiManagement",
         "childpaths": [
           "card0",
-          "card1",
-          "cards0"
+          "card1"
         ]
       }
     },
