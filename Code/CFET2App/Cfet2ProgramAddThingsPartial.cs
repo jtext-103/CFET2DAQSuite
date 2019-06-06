@@ -139,9 +139,9 @@ namespace Jtext103.CFET2.CFET2App
             //------------------------------自动 Arm 采集卡与发布上传事件的，只有一个这个------------------------------//
             var aiManagement = new AIManagementThing();
             //监控EPCIS
-            MyHub.TryAddThing(aiManagement, @"/", "aimanagement", @"D:\Run\ConfigFile\DAQFamilyBucket\AIManagement.json");
+            //MyHub.TryAddThing(aiManagement, @"/", "aimanagement", @"D:\Run\ConfigFile\DAQFamilyBucket\AIManagement.json");
             //不监控EPCIS
-            //MyHub.TryAddThing(aiManagement, @"/", "aimanagement", @"D:\Run\ConfigFile\DAQFamilyBucket\AIManagementNoEPCIS.json");
+            MyHub.TryAddThing(aiManagement, @"/", "aimanagement", @"D:\Run\ConfigFile\DAQFamilyBucket\AIManagementNoEPCIS.json");
 
             //------------------------------上传文件的，只有一个这个------------------------------//
             var uploader = new DataUpLoadThing();
