@@ -109,8 +109,12 @@ namespace Jtext103.CFET2.Things.NiAiLib
                             throw new Exception("触发边沿配置错误！");
                     }
                     niTask.Triggers.StartTrigger.ConfigureDigitalEdgeTrigger((string)triggerConfiguration.TriggerSource, digitalTriggerEdge);
-                    niTask.Triggers.StartTrigger.DelayUnits = StartTriggerDelayUnits.Seconds;
-                    niTask.Triggers.StartTrigger.Delay = triggerConfiguration.Delay;
+                    //设置为0 NI报错
+                    if(triggerConfiguration.Delay != 0)
+                    {
+                        niTask.Triggers.StartTrigger.DelayUnits = StartTriggerDelayUnits.Seconds;
+                        niTask.Triggers.StartTrigger.Delay = triggerConfiguration.Delay;
+                    }  
                     break;
                 case AITriggerType.AnalogTrigger:
                     AnalogEdgeStartTriggerSlope analogTriggerEdge;
@@ -127,8 +131,11 @@ namespace Jtext103.CFET2.Things.NiAiLib
                     }                 
                     //默认触发电平2.5v
                     niTask.Triggers.StartTrigger.ConfigureAnalogEdgeTrigger((string)triggerConfiguration.TriggerSource, analogTriggerEdge, 2.5);
-                    niTask.Triggers.StartTrigger.DelayUnits = StartTriggerDelayUnits.Seconds;
-                    niTask.Triggers.StartTrigger.Delay = triggerConfiguration.Delay;
+                    if (triggerConfiguration.Delay != 0)
+                    {
+                        niTask.Triggers.StartTrigger.DelayUnits = StartTriggerDelayUnits.Seconds;
+                        niTask.Triggers.StartTrigger.Delay = triggerConfiguration.Delay;
+                    }
                     break;
                 default:
                     throw new Exception("触发方式配置错误！");
