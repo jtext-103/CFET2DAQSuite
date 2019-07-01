@@ -10,7 +10,7 @@ using Jtext103.CFET2.Things.NiAiLib;
 using Jtext103.CFET2.Things.NIScopeDAQAI;
 using Jtext103.CFET2.Things.JyAiLib;
 using Jtext103.CFET2.Things.DAQDataUploadThing;
-using Jtext103.CFET2.Things.MDSUpload;
+//using Jtext103.CFET2.Things.MDSUpload;
 using JTextDAQDataFileOperator.HDF5;
 using Jtext103.CFET2.NancyHttpCommunicationModule;
 using Jtext103.CFET2.Things.DicServer;
@@ -144,25 +144,25 @@ namespace Jtext103.CFET2.CFET2App
             MyHub.TryAddThing(aiManagement, @"/", "aimanagement", @"D:\Run\ConfigFile\DAQFamilyBucket\AIManagementNoEPCIS.json");
 
             //------------------------------上传文件的，只有一个这个------------------------------//
-            var uploader = new DataUpLoadThing();
-            //前面的别改，后面的.txt路径是配置文件的完整路径
-            MyHub.TryAddThing(uploader, @"/", "uploader", new string[] {                                          
-                                @"D:\Run\ConfigFile\DAQFamilyBucket\DataUploadConfig.json",
-                                @"D:\Run\ConfigFile\DAQFamilyBucket\DataUpload.csv"
-                        });
+            //var uploader = new DataUpLoadThing();
+            ////前面的别改，后面的.txt路径是配置文件的完整路径
+            //MyHub.TryAddThing(uploader, @"/", "uploader", new string[] {                                          
+            //                    @"D:\Run\ConfigFile\DAQFamilyBucket\DataUploadConfig.json",
+            //                    @"D:\Run\ConfigFile\DAQFamilyBucket\DataUpload.csv"
+            //            });
 
             //------------------------------上传MDS的，只有一个这个------------------------------//
-            //var mdsthing = new MdsThing();
-            ////如果是 Master 用这行，注释掉下面 Slave，注意都不带后缀（因为有两个，一个.json一个.csv）
-            //MyHub.TryAddThing(mdsthing, @"/", "mds", new string[]{
-            //                            @"D:\Run\ConfigFile\DAQFamilyBucket\MdsUploadMaster.json",
-            //                            @"D:\Run\ConfigFile\DAQFamilyBucket\MdsUpload.csv" }
-            //                    );
+            var mdsthing = new Jtext103.CFET2.Things.MDSUpload.MdsThing();
+            //如果是 Master 用这行，注释掉下面 Slave，注意都不带后缀（因为有两个，一个.json一个.csv）
+            MyHub.TryAddThing(mdsthing, @"/", "mds", new string[]{
+                                        @"D:\Run\ConfigFile\DAQFamilyBucket\MdsUploadMaster.json",
+                                        @"D:\Run\ConfigFile\DAQFamilyBucket\MdsUpload.csv" }
+                                );
             //如果是 Slave 用这行，同时一定要将 AIManagementThing 注释掉！！！
-            //MyHub.TryAddThing(mdsthing, @"/", "mds", new string[]{
-            //                            @"D:\Run\ConfigFile\DAQFamilyBucket\MdsUploadSlave.json",
-            //                            @"D:\Run\ConfigFile\DAQFamilyBucket\MdsUpload.csv" }
-            //        );
+            MyHub.TryAddThing(mdsthing, @"/", "mds", new string[]{
+                                        @"D:\Run\ConfigFile\DAQFamilyBucket\MdsUploadSlave.json",
+                                        @"D:\Run\ConfigFile\DAQFamilyBucket\MdsUpload.csv" }
+                    );
 
             //说明：
             //一键注释：选中代码并按 Ctrl+K Ctrl+C

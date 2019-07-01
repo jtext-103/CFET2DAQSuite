@@ -37,7 +37,7 @@
     <Reference Include="Jtext103.CFET2Core, Version=2.0.6901.19386, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\Jtext103.CFET2Core.2.0.6901.19386\lib\net451\Jtext103.CFET2Core.dll</HintPath>
     </Reference>
-    <Reference Include="JtextEpcisPvClient, Version=1.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="JtextEpcisPvClient, Version=1.1.6.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EPCIS\JtextEpcisPvClient.dll</HintPath>
     </Reference>
