@@ -31,14 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Jtext103.CFET2Core, Version=2.0.6901.19386, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\Jtext103.CFET2Core.2.0.6901.19386\lib\net451\Jtext103.CFET2Core.dll</HintPath>
+    <Reference Include="Jtext103.CFET2Core, Version=2.0.7186.16101, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\Jtext103.CFET2Core.2.0.7186.16101\lib\net451\Jtext103.CFET2Core.dll</HintPath>
     </Reference>
     <Reference Include="Jtext103.CSV, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Jtext103.CSV.1.0.0\lib\net461\Jtext103.CSV.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
